@@ -25,12 +25,12 @@ class Commit(object):
     self.diff = patch_json['patch']
 
   @staticmethod
-  def from_json(self, json):
+  def split_from_json(self, json):
     """TODO"""
     return [Commit(json, patch_json) for patch_json in json['files']]
 
 
-class Reository(object):
+class Repository(object):
   """TODO"""
 
   def __init__(self, repository_json):

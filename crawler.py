@@ -1,9 +1,11 @@
 #!/bin/python2
 
-import commit
+import itertools
 import re
 import requests
 import time
+
+import model
 
 # GitHub auth.
 CLIENT_ID = '6e91d029d2eeca74bf24'
@@ -58,7 +60,7 @@ class GitHub(object):
     # Sleep and retry on rate limit.
     response_headers = result.headers
     requests_allowed = int(response_headers['X-RateLimit-Remaining'])
-    assert requests_allowed >= 0
+    assert requests_allowed >= 0, response_headers
     if requests_allowed == 0:
       reset_time = int(response_headers['X-RateLimit-Reset'])
       delay_time = int(time.time() - reset_time) + 1
@@ -69,27 +71,35 @@ class GitHub(object):
     # All's well that ends well.
     return result
 
-  def List(self, url, pages, **params):
+  def List(self, url, pages=None, **params):
     """TODO"""
-    results = []
-    for page in range(pages):
+    if pages is None:
+      page_range = itertools.repeat(1)
+    else:
+      page_range = range(pages)
+    for page in page_range:
       # Fetch current page.
       response = self.Fetch(url, per_page=PAGE_SIZE, **params)
-      results += response.json()
+      for commit_json in response.json():
+        yield commit_json
 
       # Get next page.
       next_page_links = NEXT_PAGE_REGEX.findall(response.headers['Link'])
-      assert len(next_page_links) == 1
+      assert len(next_page_links) == 1, response.headers
       url = next_page_links[0]
-
-    return results
 
   def GetCommitsList(self, repo):
     """TODO"""
-    results = self.List('repos/%s/commits' % repo, COMMIT_PAGES)
-    return [i['sha'] for i in results]
+    for commit_json in self.List('repos/%s/commits' % repo, COMMIT_PAGES):
+      yield commit_json['sha']
 
   def GetCommits(self, repo, sha):
     """TODO"""
-    return commit.Commit.from_json(
-        self.Fetch('repos/%s/commits/%s' % (repo, sha)).json())
+    commit_json = self.Fetch('repos/%s/commits/%s' % (repo, sha)).json()
+    for commit in model.Commit.split_from_json(commit_json):
+      yield commit
+
+  def GetRespositories(self, since=None):
+    """TODO"""
+    for repository_json in self.List('repositories'):
+      yield model.Repository(repository_json)
