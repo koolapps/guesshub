@@ -1,7 +1,7 @@
 import re
 
 # A regex to pull the repository name from a commit URL.
-RE_REPOSITORY = re.compile(
+REPOSITORY_REGEX = re.compile(
     '$https://api.github.com/repos/\w+/\w+/commits/[a-fA-F0-9]+$')
 
 
@@ -14,7 +14,7 @@ class Commit(object):
     self.author = commit_json['author']['login']
     self.author_avatar_url = commit_json['author']['avatar_url']
 
-    repository_matches = RE_REPOSITORY.findall(commit_json['url'])
+    repository_matches = REPOSITORY_REGEX.findall(commit_json['url'])
     assert len(repository_matches) == 1, commit_json
     self.repository = repository_matches[1]
 
