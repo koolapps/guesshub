@@ -101,3 +101,13 @@ class GitHub(object):
     """TODO"""
     for repository_json in self.List('repositories'):
       yield model.Repository(repository_json)
+
+  def GetUserRespositories(self, username):
+    """TODO"""
+    for repository_json in self.List('users/%s/repos' % username):
+      yield model.Repository(repository_json)
+
+  def GetUsers(self, since=None):
+    """TODO"""
+    for user_json in self.List('users'):
+      yield user_json['login']
