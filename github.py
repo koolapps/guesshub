@@ -1,24 +1,16 @@
-#!/bin/python2
-
 import itertools
 import re
 import requests
 import time
 
+import config
 import model
 
-# GitHub auth.
-CLIENT_ID = '6e91d029d2eeca74bf24'
-CLIENT_SECRET = '70129cd2a9d2b993a19b17a4c38696b96c50d725'
+# The user agent to use for GitHub requests.
 CLIENT_USER_AGENT = 'max99x/game-off-2013'
 
-# DB auth.
-DB_USER = ''
-DB_PASSWORD = ''
-
-# Crawling settings.
-PAGE_SIZE = 100  # Maximum: 100.
-COMMIT_PAGES = 2
+# The number of entries to request per pag; up to 100.
+PAGE_SIZE = 100
 
 # Implementation constants.
 NEXT_PAGE_REGEX = re.compile(r'<([^<>]+)>; rel="next"')
@@ -39,8 +31,8 @@ class GitHub(object):
       A requests.Response object.
     """
     full_params = params.copy()
-    full_params['client_id'] = CLIENT_ID
-    full_params['client_secret'] = CLIENT_SECRET
+    full_params['client_id'] = config.GITHUB_CLIENT_ID
+    full_params['client_secret'] = config.GITHUB_CLIENT_SECRET
     request_headers = {'User-Agent': CLIENT_USER_AGENT}
     if not url.startswith('https://api.github.com/'):
       url = 'https://api.github.com/' + url
@@ -86,9 +78,9 @@ class GitHub(object):
       assert next_page_links and len(next_page_links) == 1, response.headers
       url = next_page_links[0]
 
-  def GetCommitsList(self, repo):
+  def GetCommitsList(self, repo, pages_count):
     """TODO"""
-    for commit_json in self.List('repos/%s/commits' % repo, COMMIT_PAGES):
+    for commit_json in self.List('repos/%s/commits' % repo, pages_count):
       yield commit_json['sha']
 
   def GetCommits(self, repo, sha):
