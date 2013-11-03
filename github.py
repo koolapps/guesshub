@@ -115,8 +115,15 @@ class GitHub(object):
       yield model.Repository(repository_json,
                              self.GetStarCount(repository_json['full_name']))
 
-  def GetUsers(self):
+  def GetTopUsers(self):
     """TODO"""
     search_url = 'search/users?q=followers%3A%3E%3D0&sort=followers'
     for user_json in self.List(search_url):
       yield user_json['login']
+
+  def GetTopRepositories(self):
+    """TODO"""
+    search_url = 'search/repositories?q=stars%3A>%3D0&sort=stars'
+    for repository_json in self.List(search_url):
+      yield model.Repository(repository_json,
+                             self.GetStarCount(repository_json['full_name']))
