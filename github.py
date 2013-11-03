@@ -14,6 +14,7 @@ PAGE_SIZE = 100
 
 # Implementation constants.
 NEXT_PAGE_REGEX = re.compile(r'<([^<>]+)>; rel="next"')
+TOTAL_PAGES_REGEX = re.compile(r'<[^<>]+=(\d+)>; rel="last"')
 
 
 class GitHub(object):
@@ -43,7 +44,7 @@ class GitHub(object):
     if status >= 500:
       return self.Fetch(url, **params)
     elif status >= 400 and status < 500:
-      raise RuntimeError('Client error, HTTP %s.\n' +
+      raise RuntimeError('Client error, HTTP %s.\n'
                          'Path: %s\nParams: %s\nResponse: %s' %
                          (status, url, params, result.json()))
 
@@ -91,7 +92,18 @@ class GitHub(object):
 
   def GetStarCount(self, repo):
     """TODO"""
-    return len(self.Fetch('repos/%s/stargazers' % repo).json())
+    response = self.Fetch('repos/%s/stargazers' % repo)
+    first_page_count = len(response.json())
+
+    if 'Link' in response.headers:
+      # Multiple pages. Estimate.
+      matches = TOTAL_PAGES_REGEX.findall(response.headers['Link'])
+      assert matches and len(matches) == 1, response.headers
+      total_pages = int(matches[0])
+      return (total_pages - 1) * first_page_count + first_page_count / 2
+    else:
+      # One page. Exact number.
+      return first_page_count
 
   def GetUserRespositories(self, username):
     """TODO"""
