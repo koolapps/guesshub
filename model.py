@@ -81,5 +81,5 @@ class Repository(object):
     self.description = repository_json['description']
     self.is_private = repository_json['private']
     self.is_fork = repository_json['fork']
-    self.watcher_count = repository_json['watchers_count']
+    self.watcher_count = repository_json['watchers']
     self.star_count = star_count
