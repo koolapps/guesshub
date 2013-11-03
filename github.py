@@ -71,8 +71,12 @@ class GitHub(object):
     for page in page_range:
       # Fetch current page.
       response = self.Fetch(url, per_page=PAGE_SIZE, **params)
-      for commit_json in response.json():
-        yield commit_json
+      json = response.json()
+      if isinstance(json, dict):
+        assert 'items' in json, json
+        json = json['items']
+      for item_json in json:
+        yield item_json
 
       # Get next page.
       next_page_links = NEXT_PAGE_REGEX.findall(response.headers['Link'])
@@ -111,7 +115,8 @@ class GitHub(object):
       yield model.Repository(repository_json,
                              self.GetStarCount(repository_json['full_name']))
 
-  def GetUsers(self, since=None):
+  def GetUsers(self):
     """TODO"""
-    for user_json in self.List('users'):
+    search_url = 'search/users?q=followers%3A%3E%3D0&sort=followers'
+    for user_json in self.List(search_url):
       yield user_json['login']
