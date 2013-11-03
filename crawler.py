@@ -83,7 +83,7 @@ class GitHub(object):
 
       # Get next page.
       next_page_links = NEXT_PAGE_REGEX.findall(response.headers['Link'])
-      assert len(next_page_links) == 1, response.headers
+      assert next_page_links and len(next_page_links) == 1, response.headers
       url = next_page_links[0]
 
   def GetCommitsList(self, repo):
@@ -97,15 +97,15 @@ class GitHub(object):
     for commit in model.Commit.split_from_json(commit_json):
       yield commit
 
-  def GetRespositories(self, since=None):
+  def GetStarCount(self, repo):
     """TODO"""
-    for repository_json in self.List('repositories'):
-      yield model.Repository(repository_json)
+    return len(self.Fetch('repos/%s/stargazers' % repo).json())
 
   def GetUserRespositories(self, username):
     """TODO"""
     for repository_json in self.List('users/%s/repos' % username):
-      yield model.Repository(repository_json)
+      yield model.Repository(repository_json,
+                             self.GetStarCount(repository_json['full_name']))
 
   def GetUsers(self, since=None):
     """TODO"""

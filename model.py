@@ -25,7 +25,7 @@ class Commit(object):
     self.diff = patch_json['patch']
 
   @staticmethod
-  def split_from_json(self, json):
+  def split_patch(patch):
     """TODO"""
     return [Commit(json, patch_json) for patch_json in json['files']]
 
@@ -33,7 +33,7 @@ class Commit(object):
 class Repository(object):
   """TODO"""
 
-  def __init__(self, repository_json):
+  def __init__(self, repository_json, star_count):
     self.id = repository_json['id']
     self.name = repository_json['full_name']
     self.author = repository_json['owner']['login']
@@ -41,3 +41,5 @@ class Repository(object):
     self.description = repository_json['description']
     self.is_private = repository_json['private']
     self.is_fork = repository_json['fork']
+    self.watcher_count = repository_json['watchers_count']
+    self.star_count = star_count
