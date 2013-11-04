@@ -27,7 +27,7 @@ class Commit(object):
     self.repository = repository_matches[0]
 
     # TODO(max99x): Maybe fetch this eagerly?
-    self.contents_url = contents_url  # After the patch application.
+    self.file_contents_url = contents_url  # After the patch application.
     self.filename = patch_filename
     self.additions = len([i for i in patch_lines if i.startswith('+')])
     self.deletions = len([i for i in patch_lines if i.startswith('-')])
