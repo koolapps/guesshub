@@ -11,9 +11,11 @@
   ],
   "remotes": [],
   "local": [
-    "timer"
+    "timer",
+    "level-meter"
   ],
   "dependencies": {
-    "component/jquery": "*"
+    "component/jquery": "*",
+    "component/model": "*"
   }
 }

@@ -1,0 +1,17 @@
+.level-meter-outer-meter {
+  border: 2px solid black;
+  height: 30px;
+}
+
+.level-meter-inner-meter {
+  background: grey;
+  height: 100%;
+}
+
+.level-meter-missed {
+  float: right;
+}
+
+.level-meter-guessed {
+  float: left;
+}
