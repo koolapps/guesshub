@@ -2,7 +2,7 @@ CREATE SCHEMA IF NOT EXISTS `commit_game`;
 USE `commit_game`;
 
 CREATE TABLE `commit`(
-  `sha` VARCHAR(255) NOT NULL,
+  `sha` CHAR(40) NOT NULL,
   `patch_number` INT NOT NULL,
   `message` TEXT NOT NULL,
   `author_login` VARCHAR(255),
