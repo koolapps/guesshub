@@ -13,7 +13,7 @@ def insert_repository(db, repo):
          repo.name,
          repo.author,
          repo.author_avatar_url,
-         repo.description,
+         repo.description.encode('utf8'),
          repo.is_private,
          repo.is_fork,
          repo.watcher_count,
@@ -22,12 +22,15 @@ def insert_repository(db, repo):
 
 
 def insert_commit(db, commits):
-  sql = 'REPLACE INTO commit VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
+  sql = ('REPLACE INTO commit VALUES'
+         '(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)')
   rows = []
   for commit in commits:
     rows.append((commit.sha,
-                 commit.message,
-                 commit.author,
+                 commit.patch_number,
+                 commit.message.encode('utf8'),
+                 commit.author_login,
+                 commit.author_name and commit.author_name.encode('utf8'),
                  commit.author_avatar_url,
                  commit.repository,
                  commit.file_contents_url,
@@ -37,12 +40,15 @@ def insert_commit(db, commits):
                  commit.deletions,
                  commit.old_start_line,
                  commit.new_start_line,
-                 commit.block_name,
-                 '\n'.join(commit.diff_lines)))
-  db.executemany(sql, rows)
+                 commit.block_name and commit.block_name.encode('utf8'),
+                 u'\n'.join(commit.diff_lines).encode('utf8')))
+  try:
+    db.executemany(sql, rows)
+  except Exception as e:
+    print commit.repository, [commit.sha for commit in commits]
+    raise e
 
-
-def main():
+def crawl():
   db = mysql.connect(
       host=config.DB_HOST,
       user=config.DB_USER,
@@ -54,12 +60,21 @@ def main():
       config.CLIENT_USER_AGENT)
 
   for repo in gh.GetTopRepositories():
-    print 'INSERTING', repo.name
+    print 'Starting repo ', repo.name
     insert_repository(db, repo)
     for commit_sha in gh.GetCommitsList(repo.name, PAGES):
+      print '  Getting SHA ' + commit_sha,
       commits = list(gh.GetCommits(repo.name, commit_sha))
-      print '  INSERTING %d commits' % len(commits)
+      print '-> %d commits' % len(commits)
       insert_commit(db, commits)
+      yield
+
+
+def main():
+  crawler = crawl()
+  while True:
+    crawler.next()
+
 
 if __name__ == '__main__':
   main()
