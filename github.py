@@ -71,6 +71,7 @@ class GitHub(object):
       page_range = itertools.repeat(1)
     else:
       page_range = range(pages)
+
     for page in page_range:
       # Fetch current page.
       response = self.Fetch(url, per_page=MAX_PAGE_SIZE, **params)
@@ -82,9 +83,11 @@ class GitHub(object):
         yield item_json
 
       # Get next page.
-      next_page_links = NEXT_PAGE_REGEX.findall(response.headers['Link'])
-      assert next_page_links and len(next_page_links) == 1, response.headers
-      url = next_page_links[0]
+      if 'Link' in response.headers:
+        next_page_links = NEXT_PAGE_REGEX.findall(response.headers['Link'])
+        if next_page_links:
+          assert len(next_page_links) == 1, response.headers
+          url = next_page_links[0]
 
   def GetCommitsList(self, repo, pages_count):
     """TODO"""
