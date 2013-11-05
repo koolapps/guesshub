@@ -1,1 +1,3 @@
+component install
+component convert client/*/*.html
 ./script/watch/watch component build --dev
