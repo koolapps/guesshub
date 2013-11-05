@@ -6,6 +6,9 @@ import MySQLdb as mysql
 # How many pages of commits to look at (100 per page).
 PAGES = 1
 
+# The maximum number of rows to insert at a time.
+BATCH_SIZE = 10
+
 
 def insert_repository(db, repo):
   sql = 'REPLACE INTO repository VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)'
@@ -42,11 +45,13 @@ def insert_commit(db, commits):
                  commit.new_start_line,
                  commit.block_name and commit.block_name.encode('utf8'),
                  u'\n'.join(commit.diff_lines).encode('utf8')))
-  try:
-    db.executemany(sql, rows)
-  except Exception as e:
-    print commit.repository, [commit.sha for commit in commits]
-    raise e
+    if len(rows) >= BATCH_SIZE:
+      try:
+        db.executemany(sql, rows)
+      except Exception as e:
+        print commit.repository, [commit.sha for commit in commits]
+        raise e
+      rows = []
 
 def crawl():
   db = mysql.connect(
