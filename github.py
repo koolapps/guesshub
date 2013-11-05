@@ -58,6 +58,7 @@ class GitHub(object):
       reset_time = int(response_headers['X-RateLimit-Reset'])
       delay_time = int(time.time() - reset_time) + 1
       if delay_time > 0:  # Time sync issues may result in negative delay.
+        print 'Sleeping for', delay_time, 'seconds...'
         time.sleep(delay_time)
         return self.Fetch(url, **params)
 
