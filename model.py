@@ -2,7 +2,7 @@ import re
 
 # A regex to pull the repository name from a commit URL.
 REPOSITORY_REGEX = re.compile(
-    r'^https://api.github.com/repos/\w+/\w+/commits/[a-fA-F0-9]+$')
+    r'^https://api.github.com/repos/([^/]+/[^/]+)/commits/[a-fA-F0-9]+$')
 
 # A regex to pull the repository name from a commit URL.
 PATCH_HEADER_REGEX = re.compile(

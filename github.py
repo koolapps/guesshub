@@ -6,11 +6,8 @@ import time
 import config
 import model
 
-# The user agent to use for GitHub requests.
-CLIENT_USER_AGENT = 'max99x/game-off-2013'
-
-# The number of entries to request per pag; up to 100.
-PAGE_SIZE = 100
+# The maximum number of entries that can be requested per page.
+MAX_PAGE_SIZE = 100
 
 # Implementation constants.
 NEXT_PAGE_REGEX = re.compile(r'<([^<>]+)>; rel="next"')
@@ -18,6 +15,11 @@ TOTAL_PAGES_REGEX = re.compile(r'<[^<>]+=(\d+)>; rel="last"')
 
 
 class GitHub(object):
+  def __init__(self, client_id, client_secret, user_agent):
+    self.client_id = client_id
+    self.client_secret = client_secret
+    self.user_agent = user_agent
+
   def Fetch(self, url, **params):
     """
     Performs an authenticated GitHub request, retrying on server errors and
@@ -32,9 +34,9 @@ class GitHub(object):
       A requests.Response object.
     """
     full_params = params.copy()
-    full_params['client_id'] = config.GITHUB_CLIENT_ID
-    full_params['client_secret'] = config.GITHUB_CLIENT_SECRET
-    request_headers = {'User-Agent': CLIENT_USER_AGENT}
+    full_params['client_id'] = self.client_id
+    full_params['client_secret'] = self.client_secret
+    request_headers = {'User-Agent': self.user_agent}
     if not url.startswith('https://api.github.com/'):
       url = 'https://api.github.com/' + url
     result = requests.get(url, params=full_params, headers=request_headers)
@@ -70,7 +72,7 @@ class GitHub(object):
       page_range = range(pages)
     for page in page_range:
       # Fetch current page.
-      response = self.Fetch(url, per_page=PAGE_SIZE, **params)
+      response = self.Fetch(url, per_page=MAX_PAGE_SIZE, **params)
       json = response.json()
       if isinstance(json, dict):
         assert 'items' in json, json
