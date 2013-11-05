@@ -40,9 +40,10 @@ class Commit(object):
   def split_from_json(json):
     """TODO"""
     for patch_json in json['files']:
-      for patch_block in Commit.split_patch(patch_json['patch']):
-        yield Commit(json, patch_json['raw_url'], patch_json['filename'],
-                     *patch_block)
+      if 'patch' in patch_json:
+        for patch_block in Commit.split_patch(patch_json['patch']):
+          yield Commit(json, patch_json['raw_url'], patch_json['filename'],
+                       *patch_block)
 
   @staticmethod
   def split_patch(patch):
