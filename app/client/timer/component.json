@@ -1,0 +1,17 @@
+{
+  "name": "timer",
+  "description": "countdown with svg graphics",
+  "dependencies": {
+    "mbostock/d3": "*"
+  },
+  "development": {},
+  "main": "index.js",
+  "scripts": [
+    "index.js",
+    "template.js"
+  ],
+  "styles": [
+    "timer.css"
+  ],
+  "remotes": []
+}

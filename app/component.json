@@ -2,6 +2,15 @@
   "name": "what the change",
   "description": "guess the commit",
   "version": "0.0.1",
-  "local": ["boot"],
-  "paths": ["client"]
+  "local": [
+    "boot"
+  ],
+  "paths": [
+    "client"
+  ],
+  "remotes": [],
+  "dependencies": {
+    "enricomarino/css-reset": "*",
+    "jofan/foundation-grid": "*"
+  }
 }

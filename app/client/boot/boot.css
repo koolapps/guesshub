@@ -1,0 +1,13 @@
+.content {
+  margin: 0 auto;
+  width: 800px;
+  padding-top: 75px;
+}
+
+.timer {
+  height: 100px;
+}
+
+.timer text {
+  font-size: 30px;
+}
