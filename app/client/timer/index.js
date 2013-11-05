@@ -38,7 +38,6 @@ Timer.prototype._initialDraw = function () {
     .attr('text-anchor', 'middle')
     // TODO(amasad): I don't think this is right?
     .attr('y', parseInt(text.style('font-size'), 10) / 2)
-
 };
 
 var SEC = 1000;
