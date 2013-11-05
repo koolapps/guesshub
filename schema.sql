@@ -3,9 +3,11 @@ USE `commit_game`;
 
 CREATE TABLE `commit`(
   `sha` VARCHAR(255) NOT NULL,
+  `patch_number` INT NOT NULL,
   `message` TEXT NOT NULL,
-  `author` VARCHAR(255) NOT NULL,
-  `author_avatar_url` VARCHAR(255) NOT NULL,
+  `author_login` VARCHAR(255),
+  `author_name` VARCHAR(255),
+  `author_avatar_url` VARCHAR(255),
   `repository` VARCHAR(255) NOT NULL,
   `file_contents_url` VARCHAR(255) NOT NULL,
   `file_contents` TEXT,
@@ -16,8 +18,9 @@ CREATE TABLE `commit`(
   `new_start_line` INT UNSIGNED NOT NULL,
   `block_name` VARCHAR(255),
   `diff_lines` TEXT NOT NULL,
-  PRIMARY KEY(`sha`)
+  PRIMARY KEY(`sha`, `patch_number`)
 ) ENGINE = MyISAM;
+
 
 CREATE TABLE `repository`(
   `id` BIGINT NOT NULL,
