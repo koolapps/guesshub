@@ -8,13 +8,13 @@ CREATE TABLE `commit`(
   `author_avatar_url` VARCHAR(255) NOT NULL,
   `repository` VARCHAR(255) NOT NULL,
   `file_contents_url` VARCHAR(255) NOT NULL,
-  `file_contents` TEXT NOT NULL,
+  `file_contents` TEXT,
   `filename` VARCHAR(255) NOT NULL,
   `additions` INT UNSIGNED NOT NULL,
   `deletions` INT UNSIGNED NOT NULL,
   `old_start_line` INT UNSIGNED NOT NULL,
   `new_start_line` INT UNSIGNED NOT NULL,
-  `block_name` VARCHAR(255) NOT NULL,
+  `block_name` VARCHAR(255),
   `diff_lines` TEXT NOT NULL,
   PRIMARY KEY(`sha`)
 ) ENGINE = MyISAM;
