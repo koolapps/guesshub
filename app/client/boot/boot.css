@@ -8,6 +8,10 @@
   height: 100px;
 }
 
+.timer svg {
+  display: block;
+  margin: 0 auto;
+}
 .timer text {
   font-size: 30px;
 }

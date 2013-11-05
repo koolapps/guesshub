@@ -12,7 +12,7 @@ function Timer ($container, options) {
   this.outerRadius = $container.height() / 2;
   this.innerRadius = this.outerRadius - this.progressWidth;
   this.d3Container = d3.select($container[0]);
-  this.svg = this.d3Container.append('svg');
+  this.svg = this.d3Container.append('svg').style('width', $container.height())
   this._completeCallback = options.onComplete || function () {};
 
   this._initialDraw();
