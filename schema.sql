@@ -17,7 +17,7 @@ CREATE TABLE `commit`(
   `old_start_line` INT UNSIGNED NOT NULL,
   `new_start_line` INT UNSIGNED NOT NULL,
   `block_name` VARCHAR(255),
-  `diff_lines` TEXT NOT NULL,
+  `diff_lines` LONGTEXT NOT NULL,
   PRIMARY KEY(`sha`, `patch_number`)
 ) ENGINE = MyISAM;
 
