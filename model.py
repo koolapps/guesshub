@@ -47,13 +47,14 @@ class Commit(object):
     """TODO"""
     assert json
     patch_number = 0
-    for patch_json in json['files']:
-      if 'patch' in patch_json:
-        for patch_block in Commit.split_patch(patch_json['patch']):
-          yield Commit(json, patch_number,
-                       patch_json['raw_url'], patch_json['filename'],
-                       *patch_block)
-          patch_number += 1
+    if 'files' in json:
+      for patch_json in json['files']:
+        if 'patch' in patch_json:
+          for patch_block in Commit.split_patch(patch_json['patch']):
+            yield Commit(json, patch_number,
+                         patch_json['raw_url'], patch_json['filename'],
+                         *patch_block)
+            patch_number += 1
 
   @staticmethod
   def split_patch(patch):
