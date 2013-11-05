@@ -6,11 +6,8 @@ import time
 import config
 import model
 
-# The user agent to use for GitHub requests.
-CLIENT_USER_AGENT = 'max99x/game-off-2013'
-
-# The number of entries to request per pag; up to 100.
-PAGE_SIZE = 100
+# The maximum number of entries that can be requested per page.
+MAX_PAGE_SIZE = 100
 
 # Implementation constants.
 NEXT_PAGE_REGEX = re.compile(r'<([^<>]+)>; rel="next"')
@@ -18,6 +15,11 @@ TOTAL_PAGES_REGEX = re.compile(r'<[^<>]+=(\d+)>; rel="last"')
 
 
 class GitHub(object):
+  def __init__(self, client_id, client_secret, user_agent):
+    self.client_id = client_id
+    self.client_secret = client_secret
+    self.user_agent = user_agent
+
   def Fetch(self, url, **params):
     """
     Performs an authenticated GitHub request, retrying on server errors and
@@ -32,9 +34,9 @@ class GitHub(object):
       A requests.Response object.
     """
     full_params = params.copy()
-    full_params['client_id'] = config.GITHUB_CLIENT_ID
-    full_params['client_secret'] = config.GITHUB_CLIENT_SECRET
-    request_headers = {'User-Agent': CLIENT_USER_AGENT}
+    full_params['client_id'] = self.client_id
+    full_params['client_secret'] = self.client_secret
+    request_headers = {'User-Agent': self.user_agent}
     if not url.startswith('https://api.github.com/'):
       url = 'https://api.github.com/' + url
     result = requests.get(url, params=full_params, headers=request_headers)
@@ -56,6 +58,7 @@ class GitHub(object):
       reset_time = int(response_headers['X-RateLimit-Reset'])
       delay_time = int(time.time() - reset_time) + 1
       if delay_time > 0:  # Time sync issues may result in negative delay.
+        print 'Sleeping for', delay_time, 'seconds...'
         time.sleep(delay_time)
         return self.Fetch(url, **params)
 
@@ -68,9 +71,10 @@ class GitHub(object):
       page_range = itertools.repeat(1)
     else:
       page_range = range(pages)
+
     for page in page_range:
       # Fetch current page.
-      response = self.Fetch(url, per_page=PAGE_SIZE, **params)
+      response = self.Fetch(url, per_page=MAX_PAGE_SIZE, **params)
       json = response.json()
       if isinstance(json, dict):
         assert 'items' in json, json
@@ -79,9 +83,11 @@ class GitHub(object):
         yield item_json
 
       # Get next page.
-      next_page_links = NEXT_PAGE_REGEX.findall(response.headers['Link'])
-      assert next_page_links and len(next_page_links) == 1, response.headers
-      url = next_page_links[0]
+      if 'Link' in response.headers:
+        next_page_links = NEXT_PAGE_REGEX.findall(response.headers['Link'])
+        if next_page_links:
+          assert len(next_page_links) == 1, response.headers
+          url = next_page_links[0]
 
   def GetCommitsList(self, repo, pages_count):
     """TODO"""

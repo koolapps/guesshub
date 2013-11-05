@@ -2,32 +2,38 @@ import re
 
 # A regex to pull the repository name from a commit URL.
 REPOSITORY_REGEX = re.compile(
-    r'^https://api.github.com/repos/\w+/\w+/commits/[a-fA-F0-9]+$')
+    r'^https://api.github.com/repos/([^/]+/[^/]+)/commits/[a-fA-F0-9]+$')
 
 # A regex to pull the repository name from a commit URL.
 PATCH_HEADER_REGEX = re.compile(
-    r'^@@ -(\d+)(?:,\d+)? \+(\d+)(?:,\d+)? @@(?: (\S.+))?$')
+    r'^@@ -(\d+)(?:,\d+)? \+(\d+)(?:,\d+)? @@(?: (\S.*))?$')
 
 
 class Commit(object):
   """TODO"""
 
-  def __init__(self, commit_json,
+  def __init__(self, commit_json, patch_number,
                contents_url, patch_filename,
                patch_start_old, patch_start_new,
                patch_header, patch_lines):
     """TODO"""
     self.sha = commit_json['sha']
+    self.patch_number = patch_number
     self.message = commit_json['commit']['message']
-    self.author = commit_json['author']['login']
-    self.author_avatar_url = commit_json['author']['avatar_url']
-
+    if commit_json['author'] is not None:
+      self.author_login = commit_json['author']['login']
+      self.author_avatar_url = commit_json['author']['avatar_url']
+    else:
+      self.author_login = None
+      self.author_avatar_url = None
+    self.author_name = commit_json['commit']['author']['name']
+  
     repository_matches = REPOSITORY_REGEX.findall(commit_json['url'])
     assert repository_matches and len(repository_matches) == 1, commit_json
     self.repository = repository_matches[0]
 
-    # TODO(max99x): Maybe fetch this eagerly?
     self.file_contents_url = contents_url  # After the patch application.
+    self.file_contents = None  # TODO(max99x): Maybe fetch this eagerly?
     self.filename = patch_filename
     self.additions = len([i for i in patch_lines if i.startswith('+')])
     self.deletions = len([i for i in patch_lines if i.startswith('-')])
@@ -39,10 +45,15 @@ class Commit(object):
   @staticmethod
   def split_from_json(json):
     """TODO"""
+    assert json
+    patch_number = 0
     for patch_json in json['files']:
-      for patch_block in Commit.split_patch(patch_json['patch']):
-        yield Commit(json, patch_json['raw_url'], patch_json['filename'],
-                     *patch_block)
+      if 'patch' in patch_json:
+        for patch_block in Commit.split_patch(patch_json['patch']):
+          yield Commit(json, patch_number,
+                       patch_json['raw_url'], patch_json['filename'],
+                       *patch_block)
+          patch_number += 1
 
   @staticmethod
   def split_patch(patch):
