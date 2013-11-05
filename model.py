@@ -6,7 +6,7 @@ REPOSITORY_REGEX = re.compile(
 
 # A regex to pull the repository name from a commit URL.
 PATCH_HEADER_REGEX = re.compile(
-    r'^@@ -(\d+)(?:,\d+)? \+(\d+)(?:,\d+)? @@(?: (\S.+))?$')
+    r'^@@ -(\d+)(?:,\d+)? \+(\d+)(?:,\d+)? @@(?: (\S.*))?$')
 
 
 class Commit(object):
