@@ -45,22 +45,20 @@ class GitHub(object):
     status = result.status_code 
     if status >= 500:
       return self.Fetch(url, **params)
-    elif status >= 400 and status < 500:
-      raise RuntimeError('Client error, HTTP %s.\n'
-                         'Path: %s\nParams: %s\nResponse: %s' %
-                         (status, url, params, result.json()))
-
-    # Sleep and retry on rate limit.
-    response_headers = result.headers
-    requests_allowed = int(response_headers['X-RateLimit-Remaining'])
-    assert requests_allowed >= 0, response_headers
-    if requests_allowed == 0:
+    elif status == 403:
+      # Sleep and retry when we hit the rate limit.
+      print 'Hit rate limit.'
+      response_headers = result.headers
       reset_time = int(response_headers['X-RateLimit-Reset'])
       delay_time = int(time.time() - reset_time) + 1
       if delay_time > 0:  # Time sync issues may result in negative delay.
         print 'Sleeping for', delay_time, 'seconds...'
         time.sleep(delay_time)
         return self.Fetch(url, **params)
+    elif status >= 400 and status < 500:
+      raise RuntimeError('Client error, HTTP %s.\n'
+                         'Path: %s\nParams: %s\nResponse: %s' %
+                         (status, url, params, result.json()))
 
     # All's well that ends well.
     return result
