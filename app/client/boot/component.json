@@ -14,7 +14,8 @@
     "timer",
     "level-meter",
     "models",
-    "repo-list"
+    "repo-list",
+    "commit-display"
   ],
   "dependencies": {
     "component/jquery": "*"

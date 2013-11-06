@@ -1,8 +1,10 @@
 var $ = require('jquery');
 var Repo = require('models').Repo;
 var Timer = require('timer');
+var Commit = require('models').Commit
 var repoList = require('repo-list');
 var levelMeter = require('level-meter');
+var commitDisplay = require('commit-display');
 var UserLevelProgress = require('models').UserLevelProgress;
 
 var progress = new UserLevelProgress()
@@ -26,3 +28,5 @@ var timer = new Timer($('.timer'), {
   interval: 10
 });
 timer.start();
+
+$('.commit-display').append(commitDisplay());

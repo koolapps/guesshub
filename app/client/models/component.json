@@ -9,6 +9,7 @@
   "scripts": [
     "index.js",
     "user_level_progress.js",
-    "repo.js"
+    "repo.js",
+    "commit.js"
   ]
 }
