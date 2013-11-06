@@ -72,5 +72,4 @@ Timer.prototype._updatePath = function (ratioLeft) {
   );
 };
 
-
 module.exports = Timer;
