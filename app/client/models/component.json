@@ -2,7 +2,8 @@
   "name": "models",
   "description": "Game models",
   "dependencies": {
-    "component/model": "*"
+    "component/model": "*",
+    "segmentio/model-defaults": "*"
   },
   "development": {},
   "main": "index.js",
