@@ -1,18 +1,20 @@
+var $ = require('jquery');
 var d3 = require('d3');
+var template = require('./template');
 
-function Timer ($container, options) {
+function Timer (options) {
   if (!options.interval) {
     throw new Error('Please set an interval');
   }
 
-  this.$container = $container;
+  this.$el = $(template);
   this.interval = options.interval;
   this.timeLeft = options.interval;
   this.progressWidth = options.progressWidth || 5;
-  this.outerRadius = $container.height() / 2;
+  this.outerRadius = options.outerRadius || this.$el.height() / 2;
   this.innerRadius = this.outerRadius - this.progressWidth;
-  this.d3Container = d3.select($container[0]);
-  this.svg = this.d3Container.append('svg').style('width', $container.height())
+  this.d3Container = d3.select(this.$el[0]);
+  this.svg = this.d3Container.append('svg').style('width', this.outerRadius * 2);
   this._completeCallback = options.onComplete || function () {};
 
   this._initialDraw();
@@ -33,11 +35,9 @@ Timer.prototype._initialDraw = function () {
     .attr('stroke', 'grey');
 
 
-  var text = this.group.append('text').text(this.timeLeft);
-  text
-    .attr('text-anchor', 'middle')
-    // TODO(amasad): I don't think this is right?
-    .attr('y', parseInt(text.style('font-size'), 10) / 2)
+  this.group.append('text')
+    .text(this.timeLeft)
+    .attr('text-anchor', 'middle');
 };
 
 var SEC = 1000;

@@ -16,11 +16,13 @@ function startGame (data) {
 
   console.log('psst', commit.repository());
 
-  var timer = new Timer($('.timer').empty(), {
+  var timer = new Timer({
     interval: 15
+  , outerRadius: $('.timer').height() / 2
   , onComplete: finishGame.bind(null, false)
   });
   timer.start();
+  $('.timer').empty().append(timer.$el);
 
   $('.repo-selector').empty().append(
     repoList(repos, function (repo) {

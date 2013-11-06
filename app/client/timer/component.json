@@ -2,7 +2,8 @@
   "name": "timer",
   "description": "countdown with svg graphics",
   "dependencies": {
-    "mbostock/d3": "*"
+    "mbostock/d3": "*",
+    "component/jquery": "*"
   },
   "development": {},
   "main": "index.js",
