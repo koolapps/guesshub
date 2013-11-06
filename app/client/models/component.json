@@ -1,0 +1,13 @@
+{
+  "name": "models",
+  "description": "Game models",
+  "dependencies": {
+    "component/model": "*"
+  },
+  "development": {},
+  "main": "index.js",
+  "scripts": [
+    "index.js",
+    "user_level_progress.js"
+  ]
+}
