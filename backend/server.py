@@ -24,7 +24,6 @@ DB = mysql.connect(
 
 @APP.route("/")
 def hello():
-  # TODO(max99x): Serve the client app here.
   return open('../app/index.html', 'r').read();
 
 
