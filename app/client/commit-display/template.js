@@ -1,0 +1,1 @@
+module.exports = '<div class="row">\n  <div class="columns large-2">author</div>\n  <div class="columns large-4">file</div>\n  <div class="columns large-3">language</div>\n</div>\n<div class="row commit-display-diff" data-text-diff></div>';

@@ -1,0 +1,17 @@
+{
+  "name": "commit-display",
+  "description": "Displays commit info",
+  "dependencies": {
+    "component/jquery": "*",
+    "jofan/foundation-grid": "*"
+  },
+  "development": {},
+  "main": "index.js",
+  "scripts": [
+    "index.js",
+    "template.js"
+  ],
+  "styles": [
+    "commit-display.css"
+  ]
+}
