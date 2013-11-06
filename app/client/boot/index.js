@@ -31,7 +31,7 @@ function startGame (data) {
     })
   )
 
-  commitDisplay($('.commit-display').empty(), commit);
+  $('.commit-display').empty().append(commitDisplay(commit));
 }
 
 function finishGame (won) {
