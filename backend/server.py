@@ -14,7 +14,7 @@ ORDER BY %(table)s.order_id ASC
 LIMIT %(limit)d'''
 
 
-APP = flask.Flask(__name__)
+APP = flask.Flask(__name__, static_folder='../app', static_url_path='')
 DB = mysql.connect(
     host=config.DB_HOST,
     user=config.DB_USER,
@@ -25,7 +25,7 @@ DB = mysql.connect(
 @APP.route("/")
 def hello():
   # TODO(max99x): Serve the client app here.
-  return "TODO(max99x): Serve the client app here."
+  return open('../app/index.html', 'r').read();
 
 
 @APP.route("/commit")
