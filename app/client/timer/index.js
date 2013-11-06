@@ -43,10 +43,14 @@ Timer.prototype._initialDraw = function () {
 var SEC = 1000;
 
 Timer.prototype.start = function() {
-  setTimeout(function () {
+  this.timeout = setTimeout(function () {
     this._decrementTime();
     this._updatePath(this.timeLeft / this.interval);
   }.bind(this), SEC);
+};
+
+Timer.prototype.stop = function () {
+  if (this.timeout) clearTimeout(this.timeout);
 };
 
 Timer.prototype._decrementTime = function() {

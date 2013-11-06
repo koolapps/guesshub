@@ -1,1 +1,1 @@
-module.exports = '<div class="row">\n  <div class="columns large-2" data-text="author_login">author</div>\n  <div class="columns large-4" data-text="filename">file</div>\n  <div class="columns large-3">TODO(language)</div>\n</div>\n<pre class="row commit-display-diff" data-text="diff_lines"></pre>';
+module.exports = '<div class="row">\n  <div class="columns large-2">{author_login}</div>\n  <div class="columns large-4">{filename}</div>\n  <div class="columns large-3">TODO(language)</div>\n</div>\n<pre class="row commit-display-diff">{diff_lines}</pre>';
