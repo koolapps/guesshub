@@ -96,9 +96,9 @@ def crawl():
           print '  Skipping SHA ' + commit_sha
         else:
           # TODO(max99x): Log and skip errors.
-          print '  Getting SHA ' + commit_sha,
+          print '  Getting SHA ' + commit_sha, '->',
           commits = list(gh.GetCommits(repo.name, commit_sha))
-          print '-> %d commit(s)' % len(commits)
+          print '%d commit(s)' % len(commits)
           insert_commit(cursor, commits)
           yield
   finally:
