@@ -2,6 +2,7 @@ CREATE SCHEMA IF NOT EXISTS `commit_game`;
 USE `commit_game`;
 
 CREATE TABLE `commit`(
+  `order_id` INT(11) NOT NULL AUTO_INCREMENT,
   `sha` CHAR(40) NOT NULL,
   `patch_number` INT NOT NULL,
   `message` TEXT NOT NULL,
@@ -18,11 +19,12 @@ CREATE TABLE `commit`(
   `new_start_line` INT UNSIGNED NOT NULL,
   `block_name` VARCHAR(255),
   `diff_lines` LONGTEXT NOT NULL,
-  PRIMARY KEY(`sha`, `patch_number`)
+  PRIMARY KEY(`sha`, `patch_number`),
+  UNIQUE INDEX `order_id_UNIQUE` (`order_id` ASC)
 ) ENGINE = MyISAM;
 
-
 CREATE TABLE `repository`(
+  `order_id` INT(11) NOT NULL AUTO_INCREMENT,
   `id` BIGINT NOT NULL,
   `name` VARCHAR(255) NOT NULL,
   `author` VARCHAR(255) NOT NULL,
@@ -32,6 +34,7 @@ CREATE TABLE `repository`(
   `is_fork` BIT(1) NOT NULL,
   `watcher_count` INT NOT NULL,
   `star_count` INT NOT NULL,
+  PRIMARY KEY(`name`),
   UNIQUE INDEX `name_UNIQUE`(`name` ASC),
-  PRIMARY KEY(`name`)
+  UNIQUE INDEX `order_id_UNIQUE` (`order_id` ASC)
 ) ENGINE = MyISAM;

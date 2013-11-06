@@ -34,7 +34,8 @@ def insert_repository(cursor, repo):
 def insert_commit(cursor, commits):
   """Inserts a Commit object into the database using a given cursor."""
   sql = ('REPLACE INTO commit VALUES'
-         '(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)')
+         '(DEFAULT, %s, %s, %s, %s, %s, %s, %s, %s,' +
+         ' %s, %s, %s, %s, %s, %s, %s, %s)')
   rows = []
 
   def flush():
