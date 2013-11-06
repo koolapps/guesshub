@@ -2,7 +2,7 @@ var model = require('model');
 
 module.exports = model('Repo')
     .attr('id')
-    .attr('full_name')
+    .attr('name')
     .attr('author')
     .attr('author_avatar_url')
     .attr('description')

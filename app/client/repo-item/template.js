@@ -1,0 +1,1 @@
+module.exports = '<li data-text="name" class="repo-item"></li>';

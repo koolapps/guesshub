@@ -12,6 +12,11 @@
   display: block;
   margin: 0 auto;
 }
+
 .timer text {
   font-size: 30px;
+}
+
+.repo-selector {
+  margin-top: 10px;
 }

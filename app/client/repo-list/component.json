@@ -1,0 +1,20 @@
+{
+  "name": "repo-list",
+  "description": "List of repos to guess from",
+  "dependencies": {
+    "component/jquery": "*",
+    "jofan/foundation-block-grid": "*"
+  },
+  "development": {},
+  "main": "index.js",
+  "scripts": [
+    "index.js",
+    "template.js"
+  ],
+  "local": [
+    "repo-item"
+  ],
+  "styles": [
+    "repo-list.css"
+  ]
+}
