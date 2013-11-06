@@ -1,13 +1,20 @@
 
 ## Setup
 
-To bootstrap dependencies etc.
+Install [component](https://github.com/component)
 
-    ./script/bootstrap
+    npm install component -g
 
-To start dev env:
+Run
 
-    ./script/build-dev
+    make
+
+open `index.html` in your browser.
+
+
+Install [watch](https://github.com/visionmedia/watch) for a nicer workflow and run
+
+    watch make
 
 
 ## How does this work?
