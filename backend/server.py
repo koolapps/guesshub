@@ -2,6 +2,7 @@ import config
 import flask
 import json
 import MySQLdb as mysql
+import MySQLdb.cursors
 
 
 RANDOM_SQL = '''
@@ -19,7 +20,8 @@ DB = mysql.connect(
     host=config.DB_HOST,
     user=config.DB_USER,
     passwd=config.DB_PASSWORD,
-    db=config.DB_NAME)
+    db=config.DB_NAME,
+    cursorclass=MySQLdb.cursors.DictCursor)
 
 
 @APP.route("/")
@@ -29,24 +31,19 @@ def hello():
 
 @APP.route("/commit")
 def commit():
-  try:
-    # TODO(max99x): Switch to dictionaries.
-    cursor = DB.cursor()
-    cursor.execute(RANDOM_SQL % {'table': 'commit', 'limit': 1})
-    commit = cursor.fetchone()
-    cursor.execute(RANDOM_SQL % {'table': 'repository', 'limit': 4})
-    repos = cursor.fetchall()
-    repos = [i for i in repos if i[2] != commit[7]][:3]
-    cursor.execute('SELECT * FROM repository WHERE name = %s', commit[7])
-    repos.append(cursor.fetchone())
-    return flask.Response(json.dumps({
-      'commit': commit,
-      'repos': repos
-    }), mimetype='text/json')
-  except Exception as e:
-    print e
-    raise e
+  cursor = DB.cursor()
+  cursor.execute(RANDOM_SQL % {'table': 'commit', 'limit': 1})
+  commit = cursor.fetchone()
+  cursor.execute(RANDOM_SQL % {'table': 'repository', 'limit': 4})
+  repos = cursor.fetchall()
+  repos = [repo for repo in repos if repo['name'] != commit['repository']][:3]
+  cursor.execute('SELECT * FROM repository WHERE name = %s', commit['repository'])
+  repos.append(cursor.fetchone())
+  return flask.Response(json.dumps({
+    'commit': commit,
+    'repos': repos
+  }), mimetype='text/json')
 
 
 if __name__ == "__main__":
-  APP.run()
+  APP.run(debug=True)
