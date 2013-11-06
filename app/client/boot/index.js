@@ -9,24 +9,25 @@ var UserLevelProgress = require('models').UserLevelProgress;
 
 var progress = new UserLevelProgress()
   .rounds(10)
-  .completed_round(2)
-  .guessed(1)
-  .missed(1)
-  .points(30);
+  .completed_round(0)
+  .guessed(0)
+  .missed(0)
+  .points(0);
 
-var repos = [
-  new Repo().name('amasad/hello'),
-  new Repo().name('amasad/we_trippy_mane'),
-  new Repo().name('max/thangs'),
-  new Repo().name('amasad/purp_drank')
-];
 
-$('.repo-selector').append(repoList(repos));
-levelMeter($('.level-meter'), progress);
 
-var timer = new Timer($('.timer'), {
-  interval: 10
-});
-timer.start();
+function startGame (data) {
+  var repos = data.repos.map(Repo);
+  var commit = new Commit(data.commit);
+  var progress = new UserLevelProgress();
 
-$('.commit-display').append(commitDisplay());
+  $('.repo-selector').append(repoList(repos));
+  levelMeter($('.level-meter'), progress);
+  commitDisplay($('.commit-display'), commit);
+  var timer = new Timer($('.timer'), {
+    interval: 10
+  });
+  timer.start();
+}
+
+$.getJSON('/commit', startGame);
