@@ -1,7 +1,0 @@
-if ! type "component" > /dev/null; then
-  npm install component -g
-fi
-
-git clone https://github.com/visionmedia/watch.git script/watch
-cd script/watch
-make install
