@@ -59,12 +59,14 @@ Timer.prototype._decrementTime = function() {
   }
 };
 
+var TWOPI = 2 * Math.PI;
+
 Timer.prototype._updatePath = function (ratioLeft) {
   this.group.select('path').attr(
     'd',
     d3.svg.arc()
-      .startAngle(0)
-      .endAngle(2 * Math.PI * ratioLeft)
+      .startAngle(TWOPI)
+      .endAngle(TWOPI - (ratioLeft * TWOPI))
       .innerRadius(this.innerRadius)
       .outerRadius(this.outerRadius)
   );
