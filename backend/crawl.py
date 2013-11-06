@@ -18,7 +18,8 @@ def encode(row):
 
 def insert_repository(cursor, repo):
   """Inserts a Repository object into the database using a given cursor."""
-  sql = 'REPLACE INTO repository VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)'
+  sql = ('REPLACE INTO repository VALUES ' +
+         '(DEFAULT, %s, %s, %s, %s, %s, %s, %s, %s, %s)')
   row = (repo.id,
          repo.name,
          repo.author,
@@ -34,7 +35,7 @@ def insert_repository(cursor, repo):
 def insert_commit(cursor, commits):
   """Inserts a Commit object into the database using a given cursor."""
   sql = ('REPLACE INTO commit VALUES'
-         '(DEFAULT, %s, %s, %s, %s, %s, %s, %s, %s,' +
+         '(DEFAULT, %s, %s, %s, %s, %s, %s, %s, %s,'
          ' %s, %s, %s, %s, %s, %s, %s, %s)')
   rows = []
 
