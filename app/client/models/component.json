@@ -8,6 +8,7 @@
   "main": "index.js",
   "scripts": [
     "index.js",
-    "user_level_progress.js"
+    "user_level_progress.js",
+    "repo.js"
   ]
 }
