@@ -8,13 +8,13 @@ var commitDisplay = require('commit-display');
 var UserLevelProgress = require('models').UserLevelProgress;
 
 var progress = new UserLevelProgress()
-levelMeter($('.level-meter'), progress);
+$('.level-meter').append(levelMeter(progress));
 
 function startGame (data) {
   var repos = data.repos.map(Repo);
   var commit = new Commit(data.commit);
 
-  console.log('pssst', commit.repository());
+  console.log('psst', commit.repository());
 
   var timer = new Timer($('.timer').empty(), {
     interval: 15
@@ -40,7 +40,7 @@ function finishGame (won) {
   }
   progress.completed_round(progress.completed_round() + 1);
   if (progress.completed_round() === progress.rounds()) {
-    alert('round finished');
+    alert('level complete! refresh page to start a new round');
   } else {
     $.getJSON('/commit', startGame);
   }

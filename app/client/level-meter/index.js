@@ -10,8 +10,8 @@ reactive.set(function (obj, prop, val) {
   return obj.set(prop, val);
 });
 
-module.exports = function ($el, model) {
-  $el.append($(template));
+module.exports = function (model) {
+  var $el = $(template);
   var view = reactive($el[0], model);
 
   view.bind('percent-complete', function (el) {
@@ -22,4 +22,6 @@ module.exports = function ($el, model) {
     model.on('change completed_round', update);
     update(model.completed_round());
   });
+
+  return $el[0];
 };
