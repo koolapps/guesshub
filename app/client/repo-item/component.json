@@ -1,0 +1,17 @@
+{
+  "name": "repo-item",
+  "description": "A repo item to guess if commit belongs to",
+  "dependencies": {
+    "component/jquery": "*",
+    "component/reactive": "*"
+  },
+  "development": {},
+  "main": "index.js",
+  "scripts": [
+    "index.js",
+    "template.js"
+  ],
+  "styles": [
+    "repo-item.css"
+  ]
+}

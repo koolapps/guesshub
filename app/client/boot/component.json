@@ -13,7 +13,8 @@
   "local": [
     "timer",
     "level-meter",
-    "models"
+    "models",
+    "repo-list"
   ],
   "dependencies": {
     "component/jquery": "*"
