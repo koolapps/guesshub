@@ -5,13 +5,14 @@ var model = require('model');
 
 var UserLevelProgress = model('UserLevelProgress')
   .attr('rounds')
-  .attr('current_round')
+  .attr('completed_round')
   .attr('guessed')
   .attr('missed')
   .attr('points');
 
 var progress = new UserLevelProgress();
-progress.rounds(10).current_round(2).guessed(1).missed(1).points(30);
+window.progress = progress;
+progress.rounds(10).completed_round(2).guessed(1).missed(1).points(30);
 
 LevelMeter($('.level-meter'), progress);
 

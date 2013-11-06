@@ -19,7 +19,7 @@ module.exports = function ($el, model) {
       var percentComplete = rounds / model.rounds() * 100;
       $(el).css('width',  percentComplete + '%');
     }
-    model.on('change current_round', update);
-    update(model.current_round());
+    model.on('change completed_round', update);
+    update(model.completed_round());
   });
 };
