@@ -1,0 +1,49 @@
+desc('Build components');
+task('build', { async: true }, function () {
+  jake.exec('component build -v --dev', { printStdout: true }, function () {
+    console.log('build success!');
+    complete();
+  });
+});
+
+task('Install components');
+task('install', { async: true }, function () {
+  jake.exec('component install', { printStdout: true }, function () {
+    console.log('install success!');
+    complete();
+  });
+});
+
+var templatesGlobStr = 'client/*/*.html';
+
+task('Convert templates');
+task('convert', { async: true }, function () {
+  var glob = require('glob');
+  var cmd = 'component convert ';
+  var cmds = glob.sync(templatesGlobStr).map(function (file) {
+    return cmd + file;
+  });
+  jake.exec(cmds, { printStdout: true }, function () {
+    console.log('convert success!');
+    complete();
+  });
+});
+
+task('Clean generated stuff');
+task('clean', { async: true }, function () {
+  var glob = require('glob');
+  var cmd = 'rm -rf ';
+  var cmds = [cmd + 'components'];
+  cmds = cmds.concat(glob.sync(templatesGlobStr).map(function (file) {
+    return cmd + file.replace('.html', '.js');
+  }));
+  jake.exec(cmds, { printStdout: true }, function () {
+    console.log('clean success!');
+    complete();
+  })
+});
+
+watchTask(['install build convert'], function () {
+  this.watchFiles.exclude('build/');
+});
+
