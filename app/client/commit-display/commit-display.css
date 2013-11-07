@@ -4,4 +4,19 @@ pre {
   overflow: auto;
   width: 100%;
   max-height: 350px;
+  font-family: Consolas, 'Liberation Mono', Courier, monospace;
+  color: #333;
 }
+
+pre div {
+  display: block;
+}
+
+pre .del {
+  background-color: #DFD;
+}
+
+pre .ins {
+  background-color: #FDD;
+}
+
