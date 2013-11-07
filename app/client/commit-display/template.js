@@ -1,1 +1,0 @@
-module.exports = '<div class="commit-display-container">\n  <div class="row">\n    <div class="columns large-2">{author_login}</div>\n    <div class="columns large-4">{filename}</div>\n    <div class="columns large-3">TODO(language)</div>\n  </div>\n  <pre class="row commit-display-diff">{diff_lines}</pre>\n</div>';

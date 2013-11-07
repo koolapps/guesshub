@@ -1,1 +1,0 @@
-module.exports = '<div class="level-meter-container">\n  <div class="level-meter-outer-meter">\n    <div class="level-meter-inner-meter" percent-complete></div>\n  </div>\n  <div class="level-meter-guessed" data-text="Guessed: {guessed}"></div>\n  <div class="level-meter-missed" data-text="Missed: {missed}"></div>\n</div>';

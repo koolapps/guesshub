@@ -1,1 +1,0 @@
-module.exports = '<ul class=""></ul>';

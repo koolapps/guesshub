@@ -1,1 +1,0 @@
-module.exports = '<li class="repo-item">\n  <button data-text="name"></button>\n</li>';
