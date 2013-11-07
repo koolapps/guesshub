@@ -1,11 +1,3 @@
-desc('Build components');
-task('build', { async: true }, function () {
-  jake.exec('component build -v --dev', { printStdout: true }, function () {
-    console.log('build success!');
-    complete();
-  });
-});
-
 task('Install components');
 task('install', { async: true }, function () {
   jake.exec('component install', { printStdout: true }, function () {
@@ -29,6 +21,14 @@ task('convert', { async: true }, function () {
   });
 });
 
+desc('Build components');
+task('build', ['install', 'convert'], { async: true }, function () {
+  jake.exec('component build -v --dev', { printStdout: true }, function () {
+    console.log('build success!');
+    complete();
+  });
+});
+
 task('Clean generated stuff');
 task('clean', { async: true }, function () {
   var glob = require('glob');
@@ -43,7 +43,7 @@ task('clean', { async: true }, function () {
   })
 });
 
-watchTask(['install build convert'], function () {
+watchTask(['build'], function () {
   this.watchFiles.exclude('build/');
 });
 
