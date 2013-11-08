@@ -22,12 +22,12 @@
   padding-bottom: 5px;
 }
 
-.commit-display .line.del {
-  background-color: #DFD;
+.commit-display .del {
+  background-color: #FDD;
 }
 
-.commit-display .line.ins {
-  background-color: #FDD;
+.commit-display .ins {
+  background-color: #DFD;
 }
 
 .commit-display .line * {
@@ -35,10 +35,22 @@
 }
 
 .commit-display .old-num, .commit-display .new-num {
-  border-right: 1px solid #ccc;
-  color: #ccc;
+  border-right: 1px solid #ddd;
+  color: #bbb;
   text-align: center;
   width: 45px;
+}
+
+.commit-display .del .old-num, .commit-display .del .new-num {
+  border-color: #E4B9B9;
+}
+
+.commit-display .ins .old-num, .commit-display .ins .new-num {
+  border-color: #B4E2B4;
+}
+
+.commit-display .new-num {
+  background-image: linear-gradient(to left, rgba(0,0,0,.1), rgba(0,0,0,0) 11%);
 }
 
 .commit-display .op {
