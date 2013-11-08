@@ -1,22 +1,52 @@
-pre {
-  border: 1px solid grey;
-  padding: 20px;
-  overflow: auto;
-  width: 100%;
-  max-height: 350px;
+.commit-display .diff {
+  border: 1px solid #ccc;
   font-family: Consolas, 'Liberation Mono', Courier, monospace;
   color: #333;
 }
 
-pre div {
-  display: block;
+.commit-display .diff:before, .commit-display .diff:after {
+  /* Fuck you, foundation grid! */
+  content: none;
 }
 
-pre .del {
+.commit-display .line {
+  display: block;
+  white-space: nowrap;
+}
+
+.commit-display .line:first-child * {
+  padding-top: 5px;
+}
+
+.commit-display .line:last-child * {
+  padding-bottom: 5px;
+}
+
+.commit-display .line.del {
   background-color: #DFD;
 }
 
-pre .ins {
+.commit-display .line.ins {
   background-color: #FDD;
 }
 
+.commit-display .line * {
+  display: inline-block;
+}
+
+.commit-display .old-num, .commit-display .new-num {
+  border-right: 1px solid #ccc;
+  color: #ccc;
+  text-align: center;
+  width: 45px;
+}
+
+.commit-display .op {
+  color: #888;
+  text-align: center;
+  width: 20px;
+}
+
+.commit-display .content {
+  padding-left: 10px;
+}

@@ -3,8 +3,7 @@
   "description": "Displays commit info",
   "dependencies": {
     "component/jquery": "*",
-    "jofan/foundation-grid": "*",
-    "component/reactive": "*"
+    "jofan/foundation-grid": "*"
   },
   "development": {},
   "main": "commit-display.js",
