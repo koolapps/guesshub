@@ -21,25 +21,27 @@ module.exports = function (model) {
 
     var op = line[0];
     var content = line.slice(1);
-    var cls;
-    if (op == ' ') {
-      $oldNum.text(++oldNum);
-      $newNum.text(++newNum);
-      op = '&nbsp';
-      cls = 'context';
-    } else if (op == '+') {
+    var cls = 'context';
+    if (op == '+') {
       $newNum.text(++newNum);
       cls = 'ins';
     } else if (op == '-') {
       $oldNum.text(++oldNum);
       cls = 'del';
-    } else if (op == '\\') {
-      // A diff comment, such as "no new line at end of file".
+    } else {
+      if (op == '\\') {
+        // A diff comment, such as "no new line at end of file".
+        content = '';
+      } else if (op == ' ') {
+        // No change.
+        $oldNum.text(++oldNum);
+        $newNum.text(++newNum);
+      } else {
+        // Should never happen in theory, but shows up in rare cases.
+        content = line;
+      }
       op = '&nbsp';
       cls = 'context';
-      content = '';
-    } else {
-      throw new Error('Unknown diff operator: ' + line);
     }
 
     var $op = $('<span>').addClass('op').html(op);
