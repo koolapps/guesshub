@@ -19,6 +19,7 @@ CREATE TABLE `commit`(
   `new_start_line` INT UNSIGNED NOT NULL,
   `block_name` VARCHAR(255),
   `diff_lines` LONGTEXT NOT NULL,
+  `grade` INT NOT NULL DEFAULT 0;
   PRIMARY KEY(`sha`, `patch_number`),
   UNIQUE INDEX `order_id_UNIQUE` (`order_id` ASC)
 ) ENGINE = MyISAM;
