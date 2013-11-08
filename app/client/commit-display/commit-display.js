@@ -11,6 +11,7 @@ module.exports = function (model) {
   // TODO: Add author avatar.
   // TODO: Derive language from filename.
   // TODO: Add language icon.
+  // TODO: Add syntax highlighting.
 
   var oldNum = model.old_start_line();
   var newNum = model.new_start_line();
