@@ -43,7 +43,7 @@ task('clean', { async: true }, function () {
   })
 });
 
+/* TODO: Make watch work on Windows. */
 watchTask(['build'], function () {
   this.watchFiles.exclude('build/');
 });
-

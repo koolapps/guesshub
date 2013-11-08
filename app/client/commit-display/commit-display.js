@@ -6,7 +6,11 @@ module.exports = function (model) {
 
   $('.author', $el).text(model.author_login());
   $('.filename', $el).text(model.filename());
-  // TODO(max99x): Derive language from filename.
+  // TODO: Hide metadata by default.
+  // TODO: Add hooks to reveal parts of the metadata from within other modules.
+  // TODO: Add author avatar.
+  // TODO: Derive language from filename.
+  // TODO: Add language icon.
 
   var oldNum = model.old_start_line();
   var newNum = model.new_start_line();

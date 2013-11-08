@@ -2,6 +2,11 @@ var $ = require('jquery');
 var d3 = require('d3');
 var template = require('./template');
 
+// TODO: Add comments to this code.
+// TODO: Center the timer label.
+// TODO: Color timer red when time remaining <25%.
+// TODO: Pulsate the timer label when time remaining <25%.
+// TODO: Add timer tick sounds, louder when time remaining <25%.
 function Timer (options) {
   if (!options.interval) {
     throw new Error('Please set an interval');

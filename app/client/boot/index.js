@@ -35,6 +35,7 @@ function startGame (data) {
 }
 
 function finishGame (won) {
+  // TODO: Add sound effects on win/loss.
   if (won) {
     progress.guessed(progress.guessed() + 1);
   } else {
@@ -49,3 +50,5 @@ function finishGame (won) {
 }
 
 $.getJSON('/commit', startGame);
+
+// TODO: Add support for switchable background music.

@@ -2,6 +2,7 @@
   border: 1px solid #ccc;
   font-family: Consolas, 'Liberation Mono', Courier, monospace;
   color: #333;
+  /* TODO: Show horizontal scroll, but only when needed. */
 }
 
 .commit-display .diff:before, .commit-display .diff:after {
@@ -11,6 +12,7 @@
 
 .commit-display .line {
   display: block;
+  /* TODO: Never break lines, but still keep indentation. */
 }
 
 .commit-display .line:first-child * {
@@ -61,3 +63,5 @@
 .commit-display .content {
   padding-left: 10px;
 }
+
+/* TODO: Enclose the author/filename/language metadata in a frame, similar to GH. */
