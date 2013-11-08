@@ -6,9 +6,9 @@
     "component/jquery": "*"
   },
   "development": {},
-  "main": "index.js",
+  "main": "timer.js",
   "scripts": [
-    "index.js",
+    "timer.js",
     "template.js"
   ],
   "styles": [

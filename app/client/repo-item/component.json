@@ -6,9 +6,9 @@
     "component/reactive": "*"
   },
   "development": {},
-  "main": "index.js",
+  "main": "repo-item.js",
   "scripts": [
-    "index.js",
+    "repo-item.js",
     "template.js"
   ],
   "styles": [

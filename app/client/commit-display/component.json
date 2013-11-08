@@ -7,9 +7,9 @@
     "component/reactive": "*"
   },
   "development": {},
-  "main": "index.js",
+  "main": "commit-display.js",
   "scripts": [
-    "index.js",
+    "commit-display.js",
     "template.js"
   ],
   "styles": [

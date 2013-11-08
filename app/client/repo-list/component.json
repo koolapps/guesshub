@@ -6,9 +6,9 @@
     "jofan/foundation-block-grid": "*"
   },
   "development": {},
-  "main": "index.js",
+  "main": "repo-list.js",
   "scripts": [
-    "index.js",
+    "repo-list.js",
     "template.js"
   ],
   "local": [

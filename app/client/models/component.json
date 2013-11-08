@@ -6,9 +6,9 @@
     "segmentio/model-defaults": "*"
   },
   "development": {},
-  "main": "index.js",
+  "main": "models.js",
   "scripts": [
-    "index.js",
+    "models.js",
     "user_level_progress.js",
     "repo.js",
     "commit.js"

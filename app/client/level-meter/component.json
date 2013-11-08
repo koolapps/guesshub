@@ -6,9 +6,9 @@
     "component/reactive": "*"
   },
   "development": {},
-  "main": "index.js",
+  "main": "level-meter.js",
   "scripts": [
-    "index.js",
+    "level-meter.js",
     "template.js"
   ],
   "styles": [
