@@ -20,7 +20,7 @@ class Commit(object):
     self.sha = commit_json['sha']
     self.patch_number = patch_number
     self.message = commit_json['commit']['message']
-    if commit_json['author'] is not None:
+    if commit_json['author'] is not None and 'login' in commit_json['author']:
       self.author_login = commit_json['author']['login']
       self.author_avatar_url = commit_json['author']['avatar_url']
     else:
