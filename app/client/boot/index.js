@@ -38,12 +38,12 @@ function startGame (data) {
 
 function finishGame (won) {
   // TODO: Add sound effects on win/loss.
+  progress.completed_round(progress.completed_round() + 1);
   if (won) {
     progress.guessed(progress.guessed() + 1);
   } else {
     progress.missed(progress.missed() + 1);
   }
-  progress.completed_round(progress.completed_round() + 1);
   if (progress.completed_round() === progress.rounds()) {
     alert('level complete! refresh page to start a new round');
   } else {

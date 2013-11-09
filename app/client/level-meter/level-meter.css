@@ -4,14 +4,26 @@
 }
 
 .level-meter-container .inner-meter {
-  background: grey;
+  background: #F2F2F2;
   height: 100%;
-}
-
-.level-meter-container .missed {
-  float: right;
-}
-
-.level-meter-container .guessed {
   float: left;
+  text-align: center;
+}
+
+.level-meter-container .inner-meter.guessed {
+  color: #00BB00;
+}
+
+.level-meter-container .inner-meter.missed {
+  color: #B90000;
+}
+
+.level-meter-container .inner-meter span {
+  font-size: 42px;
+  line-height: 17px;
+  font-weight: bold;
+}
+
+.level-meter-container .inner-meter.missed span {
+  font-size: 45px;
 }
