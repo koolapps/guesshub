@@ -2,16 +2,42 @@ var $ = require('jquery');
 var Hogan = require('hogan.js');
 var template = Hogan.compile(require('./template'));
 
-// TODO: Add hooks to reveal parts of the metadata from within other modules.
 // TODO: Add author avatar.
-// TODO: Derive language from filename.
-// TODO: Add language icon.
 // TODO: Add syntax highlighting.
 // TODO: Add block name.
-module.exports = function (model) {
-  var oldNum = model.old_start_line();
-  var newNum = model.new_start_line();
-  var lines = model.diff_lines().split('\n').map(function (line) {
+
+function CommitDisplay (model) {
+  this.model = model;
+  this.render();
+}
+
+// @param options { filename: true/false, author: true/false, metadata: true/false }
+CommitDisplay.prototype.setVisibility = function (options) {
+  if (options.filename != null) {
+    this._setElementVisibility(this.$el.find('.filename'), options.filename);
+  }
+
+  if (options.author != null) {
+    this._setElementVisibility(this.$el.find('.author'), options.author);
+  }
+
+  if (options.metadata != null) {
+    this._setElementVisibility(this.$el.find('.metadata'), options.metadata);
+  }
+
+};
+
+CommitDisplay.prototype._setElementVisibility = function ($el, show) {
+  method = show ? 'removeClass' : 'addClass';
+  $el[method]('hide');
+};
+
+CommitDisplay.prototype.render = function() {
+  var oldNum = this.model.old_start_line();
+  var newNum = this.model.new_start_line();
+  var model = this.model.toJSON();
+
+  model.diff_lines = this.model.diff_lines().split('\n').map(function (line) {
     var ret = {};
     ret.op = line[0];
     ret.content = line.slice(1);
@@ -43,7 +69,9 @@ module.exports = function (model) {
     }
     return ret;
   });
-  model = model.toJSON();
-  model.diff_lines = lines;
-  return $(template.render(model));
+
+  this.$el = $(template.render(model));
 };
+
+
+module.exports = CommitDisplay;

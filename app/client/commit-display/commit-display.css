@@ -4,7 +4,7 @@
   padding-top:15px;
 }
 
-.metadata.hidden {
+.metadata.blurred {
   color: transparent;
   text-shadow: 0 0 9px rgba(0, 0, 0, 0.35);
   position: relative;
@@ -14,6 +14,7 @@
 }
 
 .metadata .cover {
+  display: none;
   position: absolute;
   left: 0;
   right: 0;
@@ -28,7 +29,11 @@
     to(rgba(255, 255, 255, 1)));
 }
 
-.metadata.hidden .author img {
+.metadata.blurred .cover {
+  display: block;
+}
+
+.metadata.blurred .author img {
   opacity: 0.1;
 }
 
@@ -52,6 +57,10 @@
   text-overflow:ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+
+.metadata.blurred .filename label {
+  color: inherit;
 }
 
 .metadata .filename label {

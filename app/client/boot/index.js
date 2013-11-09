@@ -4,7 +4,7 @@ var Timer = require('timer');
 var Commit = require('models').Commit
 var repoList = require('repo-list');
 var levelMeter = require('level-meter');
-var commitDisplay = require('commit-display');
+var CommitDisplay = require('commit-display');
 var UserLevelProgress = require('models').UserLevelProgress;
 
 var progress = new UserLevelProgress()
@@ -21,7 +21,7 @@ function startGame (data) {
   , outerRadius: $('.timer').height() / 2
   , onComplete: finishGame.bind(null, false)
   });
-  timer.start();
+  // timer.start();
   $('.timer').empty().append(timer.$el);
 
   $('.repo-selector').empty().append(
@@ -31,7 +31,9 @@ function startGame (data) {
     })
   )
 
-  $('.commit-display').empty().append(commitDisplay(commit));
+  var commitDisplay = new CommitDisplay(commit);
+  $('.commit-display').empty().append(commitDisplay.$el);
+  commitDisplay.setVisibility({ metadata: false });
 }
 
 function finishGame (won) {
