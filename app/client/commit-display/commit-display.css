@@ -7,9 +7,9 @@
   line-height: inherit;
   margin-bottom: inherit;
   font-family: inherit;
-  color: inherit;
-  background: inherit;
   border-radius: inherit;
+  overflow: inherit;
+  margin: 0;
 }
 
 /* more stupidity */
