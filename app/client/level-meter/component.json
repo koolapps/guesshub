@@ -3,7 +3,7 @@
   "description": "Shows progress in a level",
   "dependencies": {
     "component/jquery": "*",
-    "component/reactive": "*"
+    "twitter/hogan.js": "*"
   },
   "development": {},
   "main": "level-meter.js",
