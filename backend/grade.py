@@ -56,11 +56,11 @@ def compute_grade(commit):
   line_count_grade = abs(len(lines) - IDEAL_LINE_COUNT)
 
   # How close are we to the ideal diffed line count?
-  diff_count = len([i for i in lines if i[:0] in ('+', '-')])
+  diff_count = len([i for i in lines if i[:1] in ('+', '-')])
   diff_count_grade = abs(diff_count - IDEAL_DIFF_COUNT)
 
   # How close are we to the ideal context line count?
-  context_count = len([i for i in lines if i[:0] not in ('+', '-', '\\')])
+  context_count = len([i for i in lines if i[:1] not in ('+', '-', '\\')])
   if context_count < MIN_CONTEXT_LINE_COUNT:
     return -1
   context_count_grade = abs(context_count - IDEAL_CONTEXT_COUNT)
