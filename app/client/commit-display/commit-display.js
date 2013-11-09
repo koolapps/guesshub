@@ -33,7 +33,6 @@ CommitDisplay.prototype.render = function() {
   var oldNum = this.model.old_start_line();
   var newNum = this.model.new_start_line();
   var model = this.model.toJSON();
-  var language = this._getCommitLanguage();
   var code = [];
 
   model.diff_lines = this.model.diff_lines().split('\n').map(function (line) {
@@ -43,8 +42,8 @@ CommitDisplay.prototype.render = function() {
     ret.cls = 'context';
     switch (ret.op) {
       case '+':
-        ret.new_num = ++newNum;
         ret.old_num = '&nbsp;';
+        ret.new_num = ++newNum;
         ret.cls = 'ins';
         break;
       case '-':
@@ -53,11 +52,11 @@ CommitDisplay.prototype.render = function() {
         ret.cls = 'del';
         break;
       case '\\':
-        content = '';
+        ret.content = '';
         break;
       case ' ':
-        ret.new_num = ++newNum;
         ret.old_num = ++oldNum;
+        ret.new_num = ++newNum;
         break;
       default:
         ret.content = line;
@@ -71,6 +70,9 @@ CommitDisplay.prototype.render = function() {
     return ret;
   });
 
+  // Syntax-highlight the code. Can't do that on the final DOM because it
+  // includes line numbers and diff operators.
+  var language = this._getCommitLanguage();
   var codeEl = $('<pre/>')
     .append('<code/>')
     .find('code')
@@ -84,8 +86,6 @@ CommitDisplay.prototype.render = function() {
   });
 
   this.$el = $(template.render(model));
-
-
 };
 
 CommitDisplay.prototype._getCommitLanguage = function() {
