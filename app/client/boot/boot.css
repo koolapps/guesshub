@@ -3,6 +3,15 @@ body {
   color: #fff;
 }
 
+#logo {
+  margin: auto;
+  display: block;
+  text-align: center;
+  font-family: Consolas, monospace;
+  font-size: 30px;
+  padding-top: 25px;
+}
+
 #content {
   margin: 0 auto;
   width: 900px;
