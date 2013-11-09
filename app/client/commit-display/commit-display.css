@@ -103,7 +103,6 @@
 
 .commit-display .line {
   display: block;
-  /* TODO: Never break lines, but still keep indentation. */
 }
 
 .commit-display .line > * {
