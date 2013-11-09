@@ -3,7 +3,8 @@
   "description": "List of repos to guess from",
   "dependencies": {
     "component/jquery": "*",
-    "jofan/foundation-block-grid": "*"
+    "jofan/foundation-block-grid": "*",
+    "twitter/hogan.js": "*"
   },
   "development": {},
   "main": "repo-list.js",
@@ -12,7 +13,6 @@
     "template.js"
   ],
   "local": [
-    "repo-item"
   ],
   "styles": [
     "repo-list.css"

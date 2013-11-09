@@ -1,14 +1,18 @@
 var $ = require('jquery')
-var repoItem = require('repo-item');
-var template = require('./template');
+var Hogan = require('hogan.js')
+var template = Hogan.compile(require('./template'));
 
 // TODO: Find a neat way to align repo buttons of very different length.
-module.exports = function (models, callback) {
-  var repoItems = models.map(repoItem);
-  return $(template)
-    .addClass('large-block-grid-' + models.length)
-    .append(repoItems)
+module.exports = function (repos, callback) {
+  var model = {
+    repos: repos.map(function (repo) {
+      return repo.toJSON();
+    })
+  };
+
+  return $(template.render(model))
+    .addClass('large-block-grid-' + repos.length)
     .on('click', 'li', function () {
-      callback(models[$(this).index()]);
+      callback(repos[$(this).index()]);
     });
 };
