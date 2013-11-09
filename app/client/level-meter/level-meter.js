@@ -2,7 +2,6 @@ var $ = require('jquery');
 var Hogan = require('hogan.js')
 var template = Hogan.compile(require('./template'));
 
-// TODO: Switch away from reactive.
 // TODO: Merge guessed, missed and progress: /docs/progress-bar-mock.png.
 // TODO: Add light gray plusses for each round still in queue.
 // TODO: Use a flashy animation on each change.
