@@ -1,8 +1,12 @@
 <div class="commit-display">
   <div class="row">
-    <div class="columns large-2 author">{{author_login}}</div>
-    <div class="columns large-4 filename">{{filename}}</div>
-    <div class="columns large-3 language"></div>
+    <div class="metadata">
+      <div class="columns large-3 author">
+        <img src="{{author_avatar_url}}" />
+        <span class="name">{{author_login}}</span>
+      </div>
+      <div class="columns large-9 filename"><label>filename:&nbsp;</label>{{filename}}</div>
+    </div>
   </div>
   <div class="row">
     <div class="diff">

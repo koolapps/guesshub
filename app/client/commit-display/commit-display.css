@@ -1,3 +1,35 @@
+.metadata {
+  border: 1px solid #ccc;
+  height: 50px;
+  padding-top:15px;
+}
+
+.metadata .author img {
+  height: 24px;
+  width: 24px;
+  border-radius: 3px;
+  vertical-align: middle;
+  margin-top: -4px;
+}
+
+.metadata .author .name {
+  text-overflow:ellipsis;
+  width: calc(100% - 25px - 0.9375em);
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.metadata .filename {
+  text-overflow:ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.metadata .filename label {
+  color: #999;
+}
+
 .commit-display .diff {
   border: 1px solid #ccc;
   font-family: Consolas, 'Liberation Mono', Courier, monospace;
@@ -67,4 +99,3 @@
   padding-left: 10px;
 }
 
-/* TODO: Enclose the author/filename/language metadata in a frame, similar to GH. */
