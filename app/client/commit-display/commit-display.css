@@ -37,17 +37,19 @@
 
 .commit-display .old-num, .commit-display .new-num {
   border-right: 1px solid #ddd;
-  color: #bbb;
+  color: #999;
   text-align: center;
   width: 45px;
 }
 
 .commit-display .del .old-num, .commit-display .del .new-num {
   border-color: #E4B9B9;
+  background-color: #FCC;
 }
 
 .commit-display .ins .old-num, .commit-display .ins .new-num {
   border-color: #B4E2B4;
+  background-color: #CFC;
 }
 
 .commit-display .new-num {
