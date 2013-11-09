@@ -1,9 +1,10 @@
 SRC = $(wildcard client/*/*.js)
+CSS = $(wildcard client/*/*.css)
 HTML = $(wildcard client/*/*.html)
 COMPONENTJSON = $(wildcard client/*/component.json)
 TEMPLATES = $(HTML:.html=.js)
 
-build: components $(SRC) $(TEMPLATES)
+build: components $(SRC) $(CSS) $(TEMPLATES)
 	@echo building
 	@component build --dev
 
