@@ -4,7 +4,8 @@
   "dependencies": {
     "component/jquery": "*",
     "jofan/foundation-grid": "*",
-    "twitter/hogan.js": "*"
+    "twitter/hogan.js": "*",
+    "amasad/prism": "*"
   },
   "development": {},
   "main": "commit-display.js",

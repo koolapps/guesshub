@@ -1,3 +1,24 @@
+/*Reset any stupidity from highlight lib */
+.commit-display .diff pre,
+.commit-display .diff code {
+  border: none;
+  word-wrap: break-word;
+  padding: none;
+  line-height: inherit;
+  margin-bottom: inherit;
+  font-family: inherit;
+  color: inherit;
+  background: inherit;
+  border-radius: inherit;
+}
+
+/* more stupidity */
+.token.operator, .token.entity, .token.url, .language-css .token.string, .style .token.string, 
+.token.variable {
+  color: #a67f59;
+  background: none;
+}
+
 .metadata {
   border: 1px solid #ccc;
   height: 50px;
@@ -85,11 +106,9 @@
   /* TODO: Never break lines, but still keep indentation. */
 }
 
-.commit-display .line * {
+.commit-display .line > * {
   padding-top: 5px;
-}
-
-.commit-display .line * {
+  display: inline-block;
   padding-bottom: 5px;
 }
 
@@ -99,10 +118,6 @@
 
 .commit-display .ins {
   background-color: #DFD;
-}
-
-.commit-display .line * {
-  display: inline-block;
 }
 
 .commit-display .old-num, .commit-display .new-num {
@@ -135,4 +150,3 @@
 .commit-display .content {
   padding-left: 10px;
 }
-
