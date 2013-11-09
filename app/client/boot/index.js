@@ -34,7 +34,6 @@ function startGame (data) {
 
   var commitDisplay = new CommitDisplay(commit);
   $('.commit-display').empty().append(commitDisplay.$el);
-  commitDisplay.setVisibility({ metadata: false });
 }
 
 function finishGame (won) {

@@ -25,8 +25,7 @@ CommitDisplay.prototype.setVisibility = function (options) {
 };
 
 CommitDisplay.prototype._setElementVisibility = function ($el, show) {
-  method = show ? 'removeClass' : 'addClass';
-  $el[method]('hide');
+  $el.toggleClass('hide', !show);
 };
 
 CommitDisplay.prototype.render = function() {
@@ -86,6 +85,9 @@ CommitDisplay.prototype.render = function() {
   });
 
   this.$el = $(template.render(model));
+
+  // By default, hide metadata.
+  this.setVisibility({ metadata: false });
 };
 
 CommitDisplay.prototype._getCommitLanguage = function() {
