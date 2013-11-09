@@ -1,6 +1,7 @@
 var model = require('model');
+var plugins = require('./plugins');
 
-module.exports = model('Commit')
+module.exports = plugins(model('Commit'))
   .attr('sha')
   .attr('patch_number')
   .attr('message')

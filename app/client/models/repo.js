@@ -1,6 +1,7 @@
 var model = require('model');
+var plugins = require('./plugins');
 
-module.exports = model('Repo')
+module.exports = plugins(model('Repo'))
     .attr('id')
     .attr('name')
     .attr('author')

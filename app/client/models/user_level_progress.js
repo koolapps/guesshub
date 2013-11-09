@@ -1,8 +1,7 @@
 var model = require('model');
-var defaults = require('model-defaults');
+var plugins = require('./plugins');
 
-module.exports = model('UserLevelProgress')
-  .use(defaults)
+module.exports = plugins(model('UserLevelProgress'))
   .attr('rounds',             { default: 10 })
   .attr('completed_round',    { default: 0 })
   .attr('guessed',            { default: 0 })

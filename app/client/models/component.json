@@ -3,7 +3,8 @@
   "description": "Game models",
   "dependencies": {
     "component/model": "*",
-    "segmentio/model-defaults": "*"
+    "segmentio/model-defaults": "*",
+    "component/clone": "*"
   },
   "development": {},
   "main": "models.js",
@@ -11,6 +12,7 @@
     "models.js",
     "user_level_progress.js",
     "repo.js",
-    "commit.js"
+    "commit.js",
+    "plugins.js"
   ]
 }
