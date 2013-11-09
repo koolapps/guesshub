@@ -7,7 +7,7 @@ module.exports = function (repos, callback) {
   var model = {
     repos: repos.map(function (repo) {
       var result = repo.toJSON();
-      result.name = result.name.replace('/', '\n');
+      result.display_name = result.name.replace('/', '\n');
       return result;
     })
   };
