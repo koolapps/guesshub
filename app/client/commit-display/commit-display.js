@@ -36,12 +36,12 @@ module.exports = function (model) {
         break;
       default:
         ret.content = line;
-      }
-      if (ret.op !== '-' && ret.op !== '+') {
-        ret.op = '&nbsp;';
-        ret.cls = 'context';
-      }
-      return ret;
+    }
+    if (ret.op !== '-' && ret.op !== '+') {
+      ret.op = '&nbsp;';
+      ret.cls = 'context';
+    }
+    return ret;
   });
   model = model.toJSON();
   model.diff_lines = lines;
