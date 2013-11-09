@@ -1,7 +1,6 @@
 var $ = require('jquery');
-var template = require('./template');
 var Hogan = require('hogan.js');
-
+var template = Hogan.compile(require('./template'));
 
 // TODO: Hide all metadata by default.
 // TODO: Add hooks to reveal parts of the metadata from within other modules.
@@ -10,10 +9,7 @@ var Hogan = require('hogan.js');
 // TODO: Add language icon.
 // TODO: Add syntax highlighting.
 // TODO: Add block name.
-
 module.exports = function (model) {
-  template = Hogan.compile(template);
-
   var oldNum = model.old_start_line();
   var newNum = model.new_start_line();
   var lines = model.diff_lines().split('\n').map(function (line) {
@@ -50,6 +46,5 @@ module.exports = function (model) {
   });
   model = model.toJSON();
   model.diff_lines = lines;
-  console.log(model)
   return $(template.render(model));
 };
