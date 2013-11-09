@@ -1,6 +1,5 @@
-/*Reset any stupidity from highlight lib */
-.commit-display .diff pre,
-.commit-display .diff code {
+/* Reset any stupidity from highlight lib. */
+.commit-display code {
   border: none;
   word-wrap: break-word;
   padding: none;
@@ -10,22 +9,21 @@
   border-radius: inherit;
   overflow: inherit;
   margin: 0;
+  white-space: pre;
+  background: none !important;
 }
 
-/* more stupidity */
-.token.operator, .token.entity, .token.url, .language-css .token.string, .style .token.string, 
-.token.variable {
-  color: #a67f59;
-  background: none;
+.commit-display code * {
+  background: none !important;
 }
 
-.metadata {
+.commit-display .metadata {
   border: 1px solid #ccc;
   height: 50px;
   padding-top:15px;
 }
 
-.metadata.blurred {
+.commit-display .metadata.blurred {
   color: transparent;
   text-shadow: 0 0 9px rgba(0, 0, 0, 0.35);
   position: relative;
@@ -34,7 +32,7 @@
   border-radius: 3px;
 }
 
-.metadata .cover {
+.commit-display .metadata .cover {
   display: none;
   position: absolute;
   left: 0;
@@ -50,11 +48,11 @@
     to(rgba(255, 255, 255, 1)));
 }
 
-.metadata.blurred .cover {
+.commit-display .metadata.blurred .cover {
   display: block;
 }
 
-.metadata.blurred .author img {
+.commit-display .metadata.blurred .author img {
   opacity: 0.1;
 }
 
@@ -66,33 +64,31 @@
   margin-top: -4px;
 }
 
-.metadata .author .name {
-  text-overflow:ellipsis;
+.commit-display .metadata .author .name {
+  text-overflow: ellipsis;
   width: calc(100% - 25px - 0.9375em);
   white-space: nowrap;
   overflow: hidden;
   display: inline-block;
 }
 
-.metadata .filename {
+.commit-display .metadata .filename {
   text-overflow:ellipsis;
   white-space: nowrap;
   overflow: hidden;
   height: 100%;
 }
 
-.metadata.blurred .filename label {
+.commit-display .metadata.blurred .filename label {
   color: inherit;
 }
 
-.metadata .filename label {
+.commit-display .metadata .filename label {
   color: #999;
 }
 
 .commit-display .diff {
-  border: 1px solid #ccc;
   font-family: Consolas, 'Liberation Mono', Courier, monospace;
-  color: #333;
   font-size: 13px;
 }
 
@@ -103,6 +99,8 @@
 
 .commit-display .line {
   display: block;
+  position: relative;
+  height: 24px;
 }
 
 .commit-display .line > * {
@@ -112,33 +110,70 @@
 }
 
 .commit-display .block-name {
-  color: #999;
-  background-color: #EAF2F5;
+  color: #969696 !important;
+  border-bottom: 1px #28283D solid;
 }
 
 .commit-display .del {
-  background-color: #FDD;
+  background-color: #550000;
 }
 
 .commit-display .ins {
-  background-color: #DFD;
+  background-color: #005500;
+}
+
+.line.del:before {
+  content: "";
+  border-right: 24px solid #5F0000;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  position: absolute;
+  left: -24px;
+}
+
+.line.del:after {
+  content: "";
+  border-left: 24px solid #550000;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  position: absolute;
+  right: -24px;
+}
+
+.line.ins:before {
+  content: "";
+  border-right: 24px solid #005F00;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  position: absolute;
+  left: -24px;
+}
+
+.line.ins:after {
+  content: "";
+  border-left: 24px solid #005500;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  position: absolute;
+  right: -24px;
 }
 
 .commit-display .old-num, .commit-display .new-num {
-  border-right: 1px solid #ddd;
-  color: #999;
+  border-right: 1px solid #333;
+  color: #aaa;
   text-align: center;
   width: 45px;
+  height: 24px;
 }
 
 .commit-display .del .old-num, .commit-display .del .new-num {
-  border-color: #E4B9B9;
-  background-color: #FCC;
+  border-color: #4B3C3C;
+  background-color: #5F0000;
 }
 
 .commit-display .ins .old-num, .commit-display .ins .new-num {
-  border-color: #B4E2B4;
-  background-color: #CFC;
+  border-color: #225F22;
+  background-color: #005F00;
 }
 
 .commit-display .new-num {
@@ -146,11 +181,20 @@
 }
 
 .commit-display .op {
-  color: #888;
+  color: #ccc;
   text-align: center;
   width: 20px;
 }
 
 .commit-display .content {
   padding-left: 10px;
+}
+
+/* Adjust the yellowgreen color from the Prism funky theme. */
+.prism-theme-funky .token.operator,
+.prism-theme-funky .token.entity,
+.prism-theme-funky .token.url,
+.prism-theme-funky .language-css .token.string,
+.prism-theme-funky .toke.variable {
+  color: yellowgreen;
 }
