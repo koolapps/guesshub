@@ -176,10 +176,6 @@
   background-color: #005F00;
 }
 
-.commit-display .new-num {
-  background-image: linear-gradient(to left, rgba(0,0,0,.1), rgba(0,0,0,0) 11%);
-}
-
 .commit-display .op {
   color: #ccc;
   text-align: center;
