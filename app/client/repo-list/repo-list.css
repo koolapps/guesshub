@@ -11,7 +11,7 @@
   color: black;
   font-weight: bold;
   text-align: center;
-  line-height: 22px;
+  line-height: 21px;
   white-space: pre;
   border: 5px rgba(255,255,255,0.6) solid;
   border-top-width: 4px;
@@ -54,17 +54,33 @@
 .repo-list .repo-item:nth-child(1) .button {
   background: deeppink;
 }
+.repo-list .repo-item:nth-child(1) .button:hover,
+.repo-list .repo-item:nth-child(1) .button:focus {
+  background: rgb(255, 76, 173);
+}
 
 .repo-list .repo-item:nth-child(2) .button {
-  background: yellow;
+  background: rgb(221, 221, 21);
+}
+.repo-list .repo-item:nth-child(2) .button:hover,
+.repo-list .repo-item:nth-child(2) .button:focus {
+  background: rgb(255, 255, 40);
 }
 
 .repo-list .repo-item:nth-child(3) .button {
   background: #0cf;
 }
+.repo-list .repo-item:nth-child(3) .button:hover,
+.repo-list .repo-item:nth-child(3) .button:focus {
+  background: #49DBFF;
+}
 
 .repo-list .repo-item:nth-child(4) .button {
   background: orange;
+}
+.repo-list .repo-item:nth-child(4) .button:hover,
+.repo-list .repo-item:nth-child(4) .button:focus {
+  background: rgb(255, 213, 44);
 }
 
 /* Animation */
@@ -74,7 +90,7 @@
     border-color: rgba(255,255,255,0.3);
   }
   100% {
-    border-color: rgba(255,255,255,0.7);
+    border-color: rgba(255,255,255,0.6);
   }
 }
 
