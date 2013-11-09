@@ -1,8 +1,16 @@
 <div class="commit-display">
   <div class="row">
-    <div class="columns large-2 author"></div>
-    <div class="columns large-4 filename"></div>
+    <div class="columns large-2 author">{{author_login}}</div>
+    <div class="columns large-4 filename">{{filename}}</div>
     <div class="columns large-3 language"></div>
   </div>
-  <pre class="row diff"></pre>
+  <div class="row">
+    <div class="diff">
+      {{#diff_lines}}
+      <div class="line {{cls}}">
+        <span class="old-num">{{{old_num}}}</span><span class="new-num">{{{new_num}}}</span><span class="op">{{{op}}}</span><pre class="content">{{content}}</pre>
+      </div>
+      {{/diff_lines}}
+    </div>
+  </div>
 </div>

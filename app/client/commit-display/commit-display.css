@@ -2,6 +2,7 @@
   border: 1px solid #ccc;
   font-family: Consolas, 'Liberation Mono', Courier, monospace;
   color: #333;
+  font-size: 13px;
   /* TODO: Show horizontal scroll, but only when needed. */
 }
 
@@ -15,11 +16,11 @@
   /* TODO: Never break lines, but still keep indentation. */
 }
 
-.commit-display .line:first-child * {
+.commit-display .line * {
   padding-top: 5px;
 }
 
-.commit-display .line:last-child * {
+.commit-display .line * {
   padding-bottom: 5px;
 }
 

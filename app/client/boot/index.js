@@ -21,7 +21,7 @@ function startGame (data) {
   , outerRadius: $('.timer').height() / 2
   , onComplete: finishGame.bind(null, false)
   });
-  timer.start();
+  // timer.start();
   $('.timer').empty().append(timer.$el);
 
   $('.repo-selector').empty().append(
