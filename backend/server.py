@@ -1,6 +1,8 @@
+import collections
 import config
 import flask
 import json
+import random
 import MySQLdb as mysql
 import MySQLdb.cursors
 
@@ -35,6 +37,24 @@ DB = mysql.connect(
     cursorclass=MySQLdb.cursors.DictCursor)
 
 
+def load_repos():
+  cursor = DB.cursor()
+  cursor.execute('SELECT * FROM repository')
+  first_row = cursor.fetchone()
+  repo_class = collections.namedtuple('Repository', ' '.join(first_row.keys()))
+  result = {}
+  result[first_row['name']] = repo_class(**first_row)
+  for row in cursor.fetchall():
+    result[row['name']] = repo_class(**row)
+
+  return result
+
+
+# Assume we have enough memory to keep all repositories loaded.
+REPOS = load_repos()
+REPO_NAMES = REPOS.keys()
+
+
 @APP.route("/")
 def hello():
   return open('../app/index.html', 'r').read();
@@ -46,12 +66,11 @@ def commit():
   if not cursor.execute(RANDOM_COMMIT_SQL % '>='):
     cursor.execute(RANDOM_COMMIT_SQL % '<')
   commit = cursor.fetchone()
-  cursor.execute(RANDOM_REPOS_SQL)
-  repos = cursor.fetchall()
-  repos = [repo for repo in repos if repo['name'] != commit['repository']][:3]
-  cursor.execute('SELECT * FROM repository WHERE name = %s',
-                 commit['repository'])
-  repos.append(cursor.fetchone())
+  repo_names = random.sample(REPO_NAMES, 4)
+  if commit['repository'] not in repo_names:
+    repo_names = repo_names[:3] + [commit['repository']]
+  repos = [REPOS[i]._asdict() for i in repo_names]
+
   return flask.Response(json.dumps({
     'commit': commit,
     'repos': repos
