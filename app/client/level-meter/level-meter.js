@@ -12,6 +12,7 @@ reactive.set(function (obj, prop, val) {
 
 // TODO: Switch away from reactive.
 // TODO: Merge guessed, missed and progress: /docs/progress-bar-mock.png.
+// TODO: Add light gray plusses for each round still in queue.
 // TODO: Use a flashy animation on each change.
 module.exports = function (model) {
   var $el = $(template);
