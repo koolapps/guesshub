@@ -1,3 +1,8 @@
+body {
+  background: url(/img/simple_dashed.png);
+  color: #fff;
+}
+
 #content {
   margin: 0 auto;
   width: 900px;
