@@ -93,7 +93,6 @@
   font-family: Consolas, 'Liberation Mono', Courier, monospace;
   color: #333;
   font-size: 13px;
-  /* TODO: Show horizontal scroll, but only when needed. */
 }
 
 .commit-display .diff:before, .commit-display .diff:after {
