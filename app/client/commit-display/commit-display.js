@@ -4,8 +4,6 @@ var prism = require('prism');
 
 var template = Hogan.compile(require('./template'));
 
-// TODO: Add block name.
-
 function CommitDisplay (model) {
   this.model = model;
   this.render();

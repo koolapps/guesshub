@@ -112,6 +112,11 @@
   padding-bottom: 5px;
 }
 
+.commit-display .block-name {
+  color: #999;
+  background-color: #EAF2F5;
+}
+
 .commit-display .del {
   background-color: #FDD;
 }
