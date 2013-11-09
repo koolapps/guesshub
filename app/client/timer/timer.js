@@ -2,10 +2,12 @@ var $ = require('jquery');
 var d3 = require('d3');
 var template = require('./template');
 
+var SEC = 1000;
+var TWOPI = 2 * Math.PI;
+
 // TODO: Add comments to this code.
-// TODO: Center the timer label.
-// TODO: Color timer red when time remaining <25%.
-// TODO: Pulsate the timer label when time remaining <25%.
+// TODO: Animate ticks.
+// TODO: Pulsate the timer and label when time remaining <25%.
 // TODO: Add timer tick sounds, louder when time remaining <25%.
 function Timer (options) {
   if (!options.interval) {
@@ -31,21 +33,16 @@ Timer.prototype._initialDraw = function () {
     'translate(' + this.outerRadius + ',' + this.outerRadius +')'
   );
 
-  this.group.append('path').attr('fill', 'black');
+  this.group.append('path').attr('fill', '#eee');
   this._updatePath(1);
 
-  this.group.append('circle')
-    .attr('r', this.innerRadius)
-    .attr('fill', 'white')
-    .attr('stroke', 'grey');
-
-
+  var arc = d3.svg.arc().innerRadius(this.innerRadius).outerRadius(this.outerRadius);
   this.group.append('text')
-    .text(this.timeLeft)
-    .attr('text-anchor', 'middle');
+      .text(this.timeLeft)
+      .attr('fill', '#eee')
+      .attr('text-anchor', 'middle')
+      .attr('alignment-baseline', 'middle');
 };
-
-var SEC = 1000;
 
 Timer.prototype.start = function() {
   this.timeout = setTimeout(function () {
@@ -60,7 +57,9 @@ Timer.prototype.stop = function () {
 
 Timer.prototype._decrementTime = function() {
   this.timeLeft--;
-  this.group.select('text').text(this.timeLeft);
+  var text = this.group.select('text');
+  text.text(this.timeLeft);
+  this._colorByTime(text);
   if (this.timeLeft === 0) {
     this._completeCallback();
   } else {
@@ -68,17 +67,23 @@ Timer.prototype._decrementTime = function() {
   }
 };
 
-var TWOPI = 2 * Math.PI;
-
 Timer.prototype._updatePath = function (ratioLeft) {
-  this.group.select('path').attr(
+  var path = this.group.select('path');
+  path.attr(
     'd',
     d3.svg.arc()
       .startAngle(TWOPI)
-      .endAngle(TWOPI - (ratioLeft * TWOPI))
+      .endAngle(TWOPI * (1 - ratioLeft))
       .innerRadius(this.innerRadius)
       .outerRadius(this.outerRadius)
   );
+  this._colorByTime(path);
+};
+
+Timer.prototype._colorByTime = function (elem) {
+  if (this.timeLeft <= this.interval / 4) {
+    elem.attr('fill', '#a50000');
+  }
 };
 
 module.exports = Timer;

@@ -19,6 +19,7 @@ function startGame (data) {
   var timer = new Timer({
     interval: 15
   , outerRadius: $('.timer').height() / 2
+  , progressWidth: 8
   , onComplete: finishGame.bind(null, false)
   });
   // timer.start();
