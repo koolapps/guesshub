@@ -6,7 +6,9 @@ var template = Hogan.compile(require('./template'));
 module.exports = function (repos, callback) {
   var model = {
     repos: repos.map(function (repo) {
-      return repo.toJSON();
+      var result = repo.toJSON();
+      result.name = result.name.replace('/', '\n');
+      return result;
     })
   };
 
