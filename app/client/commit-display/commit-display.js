@@ -13,7 +13,7 @@ var Hogan = require('hogan.js');
 
 module.exports = function (model) {
   template = Hogan.compile(template);
-console.log(template)
+
   var oldNum = model.old_start_line();
   var newNum = model.new_start_line();
   var lines = model.diff_lines().split('\n').map(function (line) {
