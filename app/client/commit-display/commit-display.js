@@ -2,7 +2,6 @@ var $ = require('jquery');
 var Hogan = require('hogan.js');
 var template = Hogan.compile(require('./template'));
 
-// TODO: Hide all metadata by default.
 // TODO: Add hooks to reveal parts of the metadata from within other modules.
 // TODO: Add author avatar.
 // TODO: Derive language from filename.
