@@ -5,14 +5,25 @@ import MySQLdb as mysql
 import MySQLdb.cursors
 
 
-RANDOM_SQL = '''
+RANDOM_COMMIT_SQL = '''
 SELECT *
-FROM %(table)s
+FROM commit
   JOIN (SELECT (RAND() * (
-      SELECT MAX(order_id) FROM %(table)s)) AS value) AS random
-WHERE %(table)s.order_id >= random.value
-ORDER BY %(table)s.order_id ASC
-LIMIT %(limit)d'''
+      SELECT MAX(order_id) FROM commit)) AS value) AS random
+WHERE commit.order_id %s random.value
+  AND commit.grade >= 0
+ORDER BY commit.order_id ASC
+LIMIT 1'''
+
+
+RANDOM_REPOS_SQL = '''
+SELECT *
+FROM repository
+  JOIN (SELECT (RAND() * (
+      SELECT MAX(order_id) FROM repository)) AS value) AS random
+WHERE repository.order_id >= random.value
+ORDER BY repository.order_id ASC
+LIMIT 4'''
 
 
 APP = flask.Flask(__name__, static_folder='../app', static_url_path='')
@@ -32,12 +43,14 @@ def hello():
 @APP.route("/commit")
 def commit():
   cursor = DB.cursor()
-  cursor.execute(RANDOM_SQL % {'table': 'commit', 'limit': 1})
+  if not cursor.execute(RANDOM_COMMIT_SQL % '>='):
+    cursor.execute(RANDOM_COMMIT_SQL % '<')
   commit = cursor.fetchone()
-  cursor.execute(RANDOM_SQL % {'table': 'repository', 'limit': 4})
+  cursor.execute(RANDOM_REPOS_SQL)
   repos = cursor.fetchall()
   repos = [repo for repo in repos if repo['name'] != commit['repository']][:3]
-  cursor.execute('SELECT * FROM repository WHERE name = %s', commit['repository'])
+  cursor.execute('SELECT * FROM repository WHERE name = %s',
+                 commit['repository'])
   repos.append(cursor.fetchone())
   return flask.Response(json.dumps({
     'commit': commit,
