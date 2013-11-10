@@ -18,22 +18,50 @@ function Game (options) {
 }
 
 Game.prototype.start = function () {
-  this.startLevel(0);
+  this.startLevel(8);
 };
+
+//              /-fst-fst-bns-fst-fst-\
+// reg-reg-reg-|                       |-final-survival
+//              \-hrd-hrd-bns-hrd-hrd-/
+
+var LEVELS_PATH = [
+  [ 'regular' ],
+  [ 'regular' ],
+  [ 'regular' ],
+  [ 'fast', 'hard' ],
+  [ 'fast', 'hard' ],
+  [ 'bonus' ],
+  [ 'fast', 'hard' ],
+  [ 'fast', 'hard' ],
+  [ 'final' ],
+  [ 'survival' ],
+];
+var LEVEL_TYPES = ['regular', 'fast', 'hard', 'bonus', 'final', 'survival'];
 
 Game.prototype.startLevel = function (level) {
   console.log('Game DEBUG: starting level %d', level);
-  this.levelProgress = new UserLevelProgress();
-  this.levelProgress.rounds(ROUNDS_PER_LEVEL);
-  this._renderLevelMeter();
-  this._getLevelData(level, this.startRound.bind(this));
-};
 
-Game.prototype._getLevelData = function (level, cb) {
-  $.getJSON('level/' + level, function (data) {
-    data.level_no = level;
-    this.level = new Level(data);
-    cb();
+  var types = LEVELS_PATH[level];
+  var type;
+  if (types.length === 1) {
+    type = types[0];
+  } else {
+    while (type == null) {
+      type = window.prompt('Choose type from: ' + types.join(', ')).trim();
+      if (LEVEL_TYPES.indexOf(type) === -1) type = null;
+    }
+  }
+
+  Level.getLevel({
+    type: type,
+    level_no: level
+  }, function (level) {
+    this.level = level;
+    this.levelProgress = new UserLevelProgress();
+    this.levelProgress.rounds(this.level.rounds().length);
+    this._renderLevelMeter();
+    this.startRound();
   }.bind(this));
 };
 
@@ -64,7 +92,7 @@ Game.prototype._renderLevelMeter = function () {
 
 Game.prototype._renderTimer = function () {
   this.timer = new Timer({
-    interval: 15
+    interval: this.level.timer()
   , outerRadius: this.$timer.height() / 2
   , progressWidth: 8
   , onComplete: this._finishRound.bind(this, false)

@@ -55,11 +55,8 @@ NUMBER_LEVELS = 15
 NUMBER_GRADES = 50
 GRADES_PER_LEVEL =  NUMBER_GRADES / NUMBER_LEVELS
 
-def get_round(level):
+def get_round(grade_lower_bound, grade_upper_bound):
   cursor = DB.cursor()
-  level = int(level)
-  grade_lower_bound = level * GRADES_PER_LEVEL
-  grade_upper_bound = grade_lower_bound + GRADES_PER_LEVEL
   if not cursor.execute(RANDOM_COMMIT_SQL % ('>=', grade_lower_bound, grade_upper_bound)):
     cursor.execute(RANDOM_COMMIT_SQL % ('<', grade_lower_bound, grade_upper_bound))
   commit = cursor.fetchone()
@@ -73,11 +70,15 @@ def get_round(level):
     'repos': repos
   }
 
-@APP.route("/level/<level>")
-def level(level):
+@APP.route("/level/<length>/<grade_lower_bound>/<grade_upper_bound>")
+def level(length, grade_lower_bound, grade_upper_bound):
+  length = int(length)
+  grade_upper_bound = int(grade_upper_bound)
+  grade_lower_bound = int(grade_lower_bound)
+
   level_rounds = []
-  for i in range(0, ROUNDS_PER_LEVEL):
-    level_rounds.append(get_round(level))
+  for i in range(0, length):
+    level_rounds.append(get_round(grade_lower_bound, grade_upper_bound))
 
   return flask.Response(json.dumps({
     'rounds': level_rounds
