@@ -30,7 +30,8 @@ var LEVEL_DIFFICULTY = {
   fast: [0, 25],
   hard: [25, 50],
   regular: [0, 25],
-  bonus: [0, 25]
+  bonus: [0, 25],
+  all: [0, 50]
 };
 
 //              /-fst-fst-bns-fst-fst-\
@@ -104,7 +105,23 @@ Level.getLevel = function (levelDescriptor, cb) {
     });
   // 1 survival: infinite mode (3 mistakes before losing), random commits, timer by grade.
   } else if (type === 'survival') {
-
+    console.log('here')
+    var grade = LEVEL_DIFFICULTY['all'];
+    $.get('level/1000/' + grade[0] + '/' + grade[1], function (data) {
+      var rules = LEVEL_RULES[type][levelDescriptor.level_no];
+      rules.level_no = levelDescriptor.level_no;
+      $.extend(data, rules);
+      var level = new Level(data);
+      level.timer = function (grade) {
+        console.log(grade)
+        if (grade <= 25) {
+          return 20;
+        } else {
+          return 30;
+        }
+      };
+      cb(level);
+    });
   }
 };
 
