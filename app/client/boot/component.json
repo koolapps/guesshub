@@ -4,7 +4,8 @@
   "development": {},
   "main": "index.js",
   "scripts": [
-    "index.js"
+    "index.js",
+    "game.js"
   ],
   "styles": [
     "boot.css"

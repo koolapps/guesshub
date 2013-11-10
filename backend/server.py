@@ -60,12 +60,12 @@ def hello():
   return open('../app/index.html', 'r').read();
 
 
+ROUNDS_PER_LEVEL = 10
 NUMBER_LEVELS = 10
 NUMBER_GRADES = 50
 GRADES_PER_LEVEL =  NUMBER_GRADES / NUMBER_LEVELS
 
-@APP.route("/commit/<level>")
-def commit(level):
+def get_round(level):
   cursor = DB.cursor()
   level = int(level)
   grade_upper_bound = level * GRADES_PER_LEVEL
@@ -78,9 +78,20 @@ def commit(level):
     repo_names = repo_names[:3] + [commit['repository']]
   repos = [REPOS[i]._asdict() for i in repo_names]
 
-  return flask.Response(json.dumps({
+  return {
     'commit': commit,
     'repos': repos
+  }
+
+@APP.route("/level/<level>")
+def level(level):
+  level_rounds = []
+  for i in range(0, ROUNDS_PER_LEVEL):
+    level_rounds.append(get_round(level))
+
+  print level_rounds
+  return flask.Response(json.dumps({
+    'rounds': level_rounds
   }), mimetype='text/json')
 
 

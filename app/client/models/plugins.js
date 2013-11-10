@@ -8,5 +8,6 @@ module.exports = function (Model) {
         return clone(this.attrs);
       };
     })
-    .use(defaults);
+    .use(defaults)
+    ;
 }
