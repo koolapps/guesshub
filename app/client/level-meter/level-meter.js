@@ -26,6 +26,6 @@ module.exports = function (model) {
   }
   model.on('change guessed', update.bind(null, true));
   model.on('change missed', update.bind(null, false));
-  console.log($el)
+
   return $el;
 };
