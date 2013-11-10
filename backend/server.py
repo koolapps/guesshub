@@ -89,7 +89,6 @@ def level(level):
   for i in range(0, ROUNDS_PER_LEVEL):
     level_rounds.append(get_round(level))
 
-  print level_rounds
   return flask.Response(json.dumps({
     'rounds': level_rounds
   }), mimetype='text/json')
