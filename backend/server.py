@@ -58,7 +58,7 @@ def get_round(grade_lower_bound, grade_upper_bound):
   if commit['repository'] not in repo_names:
     repo_names = repo_names[:3] + [commit['repository']]
   repos = [REPOS[i]._asdict() for i in repo_names]
-
+  random.shuffle(repos)
   return {
     'commit': commit,
     'repos': repos
