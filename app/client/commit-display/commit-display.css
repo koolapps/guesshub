@@ -124,7 +124,7 @@
 
 .line.del:before {
   content: "";
-  border-right: 24px solid rgba(173, 0, 0, 0.58);
+  border-right: 24px solid rgba(173, 0, 0, 0.54);
   border-top: 12px solid transparent;
   border-bottom: 12px solid transparent;
   position: absolute;
@@ -152,13 +152,13 @@
 .commit-display .del .old-num,
 .commit-display .del .new-num {
   border-color: #4B3C3C;
-  background-color: rgba(173, 0, 0, 0.15);
+  background-color: rgba(173, 0, 0, 0.1);
 }
 
 .commit-display .ins .old-num,
 .commit-display .ins .new-num {
   border-color: #286928;
-  background-color: rgba(0, 173, 0, 0.15);
+  background-color: rgba(0, 173, 0, 0.1);
 }
 
 .commit-display .op {
