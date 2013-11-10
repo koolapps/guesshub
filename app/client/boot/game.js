@@ -24,7 +24,7 @@ function Game (options) {
 }
 
 Game.prototype.start = function () {
-  this.startLevel(9);
+  this.startLevel(0);
 };
 
 Game.prototype.startLevel = function (level) {
@@ -47,8 +47,10 @@ Game.prototype.startLevel = function (level) {
     level_no: level
   }, function (level) {
     this.level = level;
-    this.levelProgress = new UserLevelProgress();
-    this.levelProgress.rounds(this.level.rounds().length);
+    this.levelProgress = new UserLevelProgress({
+      rounds: this.level.rounds().length,
+      mistakes_left: this.level.mistakes()
+    });
     this._renderLevelMeter();
     this.startRound();
   }.bind(this));
@@ -70,9 +72,12 @@ Game.prototype._finishRound = function (won) {
     );
     progress.guessed(progress.guessed() + 1);
   } else {
+    progress.mistakes_left(progress.mistakes_left() - 1);
     progress.missed(progress.missed() + 1);
   }
-  if (progress.completed_round() === progress.rounds()) {
+  if (progress.mistakes_left() === 0) {
+    alert('Lost level, too many mistakes');
+  } else if (progress.completed_round() === progress.rounds()) {
     this.startLevel(this.level.level_no() + 1);
   } else {
     this.startRound();

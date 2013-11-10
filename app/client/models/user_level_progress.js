@@ -6,4 +6,5 @@ module.exports = plugins(model('UserLevelProgress'))
   .attr('completed_round',    { default: 0 })
   .attr('guessed',            { default: 0 })
   .attr('missed',             { default: 0 })
-  .attr('points',             { default: 0 });
+  .attr('points',             { default: 0 })
+  .attr('mistakes_left',      { default: 0 });
