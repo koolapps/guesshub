@@ -7,6 +7,12 @@ import MySQLdb as mysql
 import MySQLdb.cursors
 
 
+ROUNDS_PER_LEVEL = 10
+NUMBER_LEVELS = 10
+NUMBER_GRADES = 50
+GRADES_PER_LEVEL = NUMBER_GRADES / NUMBER_LEVELS
+
+
 RANDOM_COMMIT_SQL = '''
 SELECT *
 FROM commit
@@ -16,16 +22,6 @@ WHERE commit.order_id %s random.value
   AND commit.grade > %d AND commit.grade <= %d
 ORDER BY commit.order_id ASC
 LIMIT 1'''
-
-
-RANDOM_REPOS_SQL = '''
-SELECT *
-FROM repository
-  JOIN (SELECT (RAND() * (
-      SELECT MAX(order_id) FROM repository)) AS value) AS random
-WHERE repository.order_id >= random.value
-ORDER BY repository.order_id ASC
-LIMIT 4'''
 
 
 APP = flask.Flask(__name__, static_folder='../app', static_url_path='')
@@ -56,20 +52,15 @@ REPO_NAMES = REPOS.keys()
 
 
 @APP.route("/")
-def hello():
+def homepage():
   return open('../app/index.html', 'r').read();
 
-
-ROUNDS_PER_LEVEL = 10
-NUMBER_LEVELS = 10
-NUMBER_GRADES = 50
-GRADES_PER_LEVEL =  NUMBER_GRADES / NUMBER_LEVELS
 
 def get_round(level):
   cursor = DB.cursor()
   level = int(level)
-  grade_upper_bound = level * GRADES_PER_LEVEL
-  grade_lower_bound = grade_upper_bound - GRADES_PER_LEVEL
+  grade_lower_bound = level * GRADES_PER_LEVEL
+  grade_upper_bound = grade_lower_bound + GRADES_PER_LEVEL
   if not cursor.execute(RANDOM_COMMIT_SQL % ('>=', grade_lower_bound, grade_upper_bound)):
     cursor.execute(RANDOM_COMMIT_SQL % ('<', grade_lower_bound, grade_upper_bound))
   commit = cursor.fetchone()
