@@ -51,6 +51,6 @@ function finishGame (won) {
   }
 }
 
-$.getJSON('/commit', startGame);
+$.getJSON('/commit/1', startGame);
 
 // TODO: Add support for switchable background music.

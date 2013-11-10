@@ -13,7 +13,7 @@ FROM commit
   JOIN (SELECT (RAND() * (
       SELECT MAX(order_id) FROM commit)) AS value) AS random
 WHERE commit.order_id %s random.value
-  AND commit.grade >= 0
+  AND commit.grade > %d AND commit.grade <= %d
 ORDER BY commit.order_id ASC
 LIMIT 1'''
 
@@ -60,11 +60,18 @@ def hello():
   return open('../app/index.html', 'r').read();
 
 
-@APP.route("/commit")
-def commit():
+NUMBER_LEVELS = 10
+NUMBER_GRADES = 50
+GRADES_PER_LEVEL =  NUMBER_GRADES / NUMBER_LEVELS
+
+@APP.route("/commit/<level>")
+def commit(level):
   cursor = DB.cursor()
-  if not cursor.execute(RANDOM_COMMIT_SQL % '>='):
-    cursor.execute(RANDOM_COMMIT_SQL % '<')
+  level = int(level)
+  grade_upper_bound = level * GRADES_PER_LEVEL
+  grade_lower_bound = grade_upper_bound - GRADES_PER_LEVEL
+  if not cursor.execute(RANDOM_COMMIT_SQL % ('>=', grade_lower_bound, grade_upper_bound)):
+    cursor.execute(RANDOM_COMMIT_SQL % ('<', grade_lower_bound, grade_upper_bound))
   commit = cursor.fetchone()
   repo_names = random.sample(REPO_NAMES, 4)
   if commit['repository'] not in repo_names:
