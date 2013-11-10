@@ -18,7 +18,7 @@ function Game (options) {
 }
 
 Game.prototype.start = function () {
-  this.startLevel(8);
+  this.startLevel(0);
 };
 
 //              /-fst-fst-bns-fst-fst-\
@@ -115,7 +115,7 @@ Game.prototype._renderCommitDisplay = function (commit) {
 };
 
 Game.prototype.startRound = function () {
-  this.round = this.level.getRound(this.levelProgress.completed_round());
+  this.round = this.level.rounds()[this.levelProgress.completed_round()];
   this
     ._renderTimer()
     ._renderRepos(this.round.repos())

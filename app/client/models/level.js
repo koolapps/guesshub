@@ -22,6 +22,10 @@ var Level = plugins(model('Level'))
   .attr('timer')
   ;
 
+Level.on('construct', function (m) {
+  m.rounds(m.rounds().map(Round));
+});
+
 var LEVEL_DIFFICULTY = {
   fast: [0, 25],
   hard: [25, 50],
@@ -98,12 +102,10 @@ Level.getLevel = function (levelDescriptor, cb) {
       };
       cb(level);
     });
+  // 1 survival: infinite mode (3 mistakes before losing), random commits, timer by grade.
+  } else if (type === 'survival') {
 
   }
-};
-
-Level.prototype.getRound = function (r) {
-  return new Round(this.rounds()[r]);
 };
 
 module.exports = Level
