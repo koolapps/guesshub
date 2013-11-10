@@ -31,6 +31,8 @@ def compute_grade(commit):
   the closer the commit is to our ideal.
   """
   # TODO: Make grade correlate with difficulty instead.
+  # TODO: Add file extension (language) to grading. e.g. we probably would
+  #       want to do away with .md and .txt files.
 
   lines = commit['diff_lines'].split('\n')
 
