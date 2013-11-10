@@ -27,6 +27,14 @@ var LEVEL_DIFFICULTY = {
   all: [0, 50]
 };
 
+var ROUNDS_PER_LEVEL = {
+  regular: 10,
+  fast: 10,
+  hard: 10,
+  final: 20,
+  survival: 100,
+};
+
 //              /-fst-fst-bns-fst-fst-\
 // reg-reg-reg-|                       |-final-survival
 //              \-hrd-hrd-bns-hrd-hrd-/
@@ -89,12 +97,26 @@ Level.prototype.getTimer = function (grade) {
   return this.timer();
 };
 
+Level.url = function (options) {
+  var url = 'level';
+  url += '/' + ROUNDS_PER_LEVEL[options.type] || 10;
+  url += '/' + options.gradeLowerBound || 0;
+  url += '/' + options.gradeUpperBound || 5;
+  return url;
+};
+
 Level.getAvailableTypes = function (levelNo) {
   return LEVELS_PATH[levelNo];
 };
 
 Level.isValidType = function (type) {
   return LEVEL_TYPES.indexOf(type) === -1;
+};
+
+Level.create = function (levelDescriptor, data) {
+  var rules = LEVEL_RULES[levelDescriptor.type][levelDescriptor.level_no];
+  $.extend(data, rules, levelDescriptor);
+  return new Level(data);
 };
 
 Level.getLevel = function (levelDescriptor, cb) {
@@ -108,11 +130,13 @@ Level.getLevel = function (levelDescriptor, cb) {
     case 'hard':
     case 'regular':
       var grade = LEVEL_DIFFICULTY[type];
-      $.get('level/10/' + grade[0] + '/' + grade[1], function (data) {
-        var rules = LEVEL_RULES[type][levelDescriptor.level_no];
-        rules.level_no = levelDescriptor.level_no;
-        $.extend(data, rules);
-        cb(new Level(data));
+      var url = Level.url({
+        type: type,
+        grade: grade
+      });
+
+      $.get(url, function (data) {
+        cb(Level.create(levelDescriptor, data));
       });
     break;
 
