@@ -4,32 +4,20 @@ var Repo = require('./repo');
 var Commit = require('./commit');
 var plugins = require('./plugins');
 
-var Round = plugins(model('Round'))
-  .attr('commit')
-  .attr('repos');
+var LEVELS_PATH = [
+  [ 'regular' ],
+  [ 'regular' ],
+  [ 'regular' ],
+  [ 'fast', 'hard' ],
+  [ 'fast', 'hard' ],
+  [ 'bonus' ],
+  [ 'fast', 'hard' ],
+  [ 'fast', 'hard' ],
+  [ 'final' ],
+  [ 'survival' ],
+];
 
-Round.on('construct', function (m) {
-  m.commit(new Commit(m.commit()));
-  m.repos(m.repos().map(Repo));
-});
-
-
-var Level = plugins(model('Level'))
-  .attr('rounds')
-  .attr('level_no')
-  .attr('type')
-  .attr('mistakes')
-  .attr('timer')
-  ;
-
-Level.on('construct', function (m) {
-  m.rounds(m.rounds().map(Round));
-});
-
-// To override.
-Level.prototype.getTimer = function (grade) {
-  return this.timer();
-};
+var LEVEL_TYPES = ['regular', 'fast', 'hard', 'bonus', 'final', 'survival'];
 
 var LEVEL_DIFFICULTY = {
   fast: [0, 25],
@@ -72,6 +60,41 @@ var LEVEL_RULES = {
   survival: {
     9: { mistakes: 3 },
   }
+};
+
+var Round = plugins(model('Round'))
+  .attr('commit')
+  .attr('repos');
+
+Round.on('construct', function (m) {
+  m.commit(new Commit(m.commit()));
+  m.repos(m.repos().map(Repo));
+});
+
+
+var Level = plugins(model('Level'))
+  .attr('rounds')
+  .attr('level_no')
+  .attr('type')
+  .attr('mistakes')
+  .attr('timer')
+  ;
+
+Level.on('construct', function (m) {
+  m.rounds(m.rounds().map(Round));
+});
+
+// To override.
+Level.prototype.getTimer = function (grade) {
+  return this.timer();
+};
+
+Level.getAvailableTypes = function (levelNo) {
+  return LEVELS_PATH[levelNo];
+};
+
+Level.isValidType = function (type) {
+  return LEVEL_TYPES.indexOf(type) === -1;
 };
 
 Level.getLevel = function (levelDescriptor, cb) {

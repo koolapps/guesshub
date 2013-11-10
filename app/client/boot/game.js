@@ -27,35 +27,18 @@ Game.prototype.start = function () {
   this.startLevel(0);
 };
 
-//              /-fst-fst-bns-fst-fst-\
-// reg-reg-reg-|                       |-final-survival
-//              \-hrd-hrd-bns-hrd-hrd-/
-
-var LEVELS_PATH = [
-  [ 'regular' ],
-  [ 'regular' ],
-  [ 'regular' ],
-  [ 'fast', 'hard' ],
-  [ 'fast', 'hard' ],
-  [ 'bonus' ],
-  [ 'fast', 'hard' ],
-  [ 'fast', 'hard' ],
-  [ 'final' ],
-  [ 'survival' ],
-];
-var LEVEL_TYPES = ['regular', 'fast', 'hard', 'bonus', 'final', 'survival'];
-
 Game.prototype.startLevel = function (level) {
   console.log('Game DEBUG: starting level %d', level);
 
-  var types = LEVELS_PATH[level];
+  var types = Level.getAvailableTypes(level);
+  console.log(types)
   var type;
   if (types.length === 1) {
     type = types[0];
   } else {
     while (type == null) {
       type = window.prompt('Choose type from: ' + types.join(', ')).trim();
-      if (LEVEL_TYPES.indexOf(type) === -1) type = null;
+      if (Level.isValidType(type)) type = null;
     }
   }
 
