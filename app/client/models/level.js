@@ -77,58 +77,68 @@ var LEVEL_RULES = {
 Level.getLevel = function (levelDescriptor, cb) {
   console.log('Level DEBUG getting level', levelDescriptor)
   var type = levelDescriptor.type;
-  if (['fast', 'hard', 'regular', 'bonus'].indexOf(type) !== -1) {
-    var grade = LEVEL_DIFFICULTY[type];
-    $.get('level/10/' + grade[0] + '/' + grade[1], function (data) {
-      var rules = LEVEL_RULES[type][levelDescriptor.level_no];
-      rules.level_no = levelDescriptor.level_no;
-      $.extend(data, rules);
-      cb(new Level(data));
-    });
-  } else if (type === 'bonus') {
-    // TODO: Implement right.
-  } else if (type === 'final') {
-    var fastGrade = LEVEL_DIFFICULTY['fast'];
-    var hardGrade = LEVEL_DIFFICULTY['hard'];
 
-    $.when(
-      $.get('level/10/' + fastGrade[0] + '/' + fastGrade[1]),
-      $.get('level/10/' + hardGrade[0] + '/' + hardGrade[1])
-    ).done(function (res1, res2) {
-      var data = {
-        rounds: res1[0].rounds.concat(res2[0].rounds)
-      };
-      data.level_no = levelDescriptor.level_no;
-      var level = new Level(data);
-      var nextIsHard = true;
-      level.timer = function () {
-        nextIsHard = !nextIsHard;
-        var rules = LEVEL_RULES[nextIsHard ? 'hard' : 'fast'];
-        var keys = Object.keys(rules);
-        return rules[keys[Math.floor(Math.random() * keys.length)]].timer;
-      };
-      cb(level);
-    });
-  // 1 survival: infinite mode (3 mistakes before losing), random commits, timer by grade.
-  } else if (type === 'survival') {
-    console.log('here')
-    var grade = LEVEL_DIFFICULTY['all'];
-    $.get('level/1000/' + grade[0] + '/' + grade[1], function (data) {
-      var rules = LEVEL_RULES[type][levelDescriptor.level_no];
-      rules.level_no = levelDescriptor.level_no;
-      $.extend(data, rules);
-      var level = new Level(data);
-      level.getTimer = function (grade) {
-        console.log(grade)
-        if (grade <= 25) {
-          return 20;
-        } else {
-          return 30;
-        }
-      };
-      cb(level);
-    });
-  }
+  switch (type) {
+    case 'bonus':
+    // TODO: implement.
+    case 'fast':
+    case 'hard':
+    case 'regular':
+      var grade = LEVEL_DIFFICULTY[type];
+      $.get('level/10/' + grade[0] + '/' + grade[1], function (data) {
+        var rules = LEVEL_RULES[type][levelDescriptor.level_no];
+        rules.level_no = levelDescriptor.level_no;
+        $.extend(data, rules);
+        cb(new Level(data));
+      });
+    break;
+
+    case 'final':
+      var fastGrade = LEVEL_DIFFICULTY['fast'];
+      var hardGrade = LEVEL_DIFFICULTY['hard'];
+      $.when(
+        $.get('level/10/' + fastGrade[0] + '/' + fastGrade[1]),
+        $.get('level/10/' + hardGrade[0] + '/' + hardGrade[1])
+      ).done(function (res1, res2) {
+        var data = {
+          rounds: res1[0].rounds.concat(res2[0].rounds)
+        };
+        data.level_no = levelDescriptor.level_no;
+        var level = new Level(data);
+        var nextIsHard = true;
+        level.timer = function () {
+          nextIsHard = !nextIsHard;
+          var rules = LEVEL_RULES[nextIsHard ? 'hard' : 'fast'];
+          var keys = Object.keys(rules);
+          return rules[keys[Math.floor(Math.random() * keys.length)]].timer;
+        };
+        cb(level);
+      });
+    break;
+    
+    // 1 survival: infinite mode (3 mistakes before losing), random commits, timer by grade.
+    case 'survival':
+      var grade = LEVEL_DIFFICULTY['all'];
+      $.get('level/1000/' + grade[0] + '/' + grade[1], function (data) {
+        var rules = LEVEL_RULES[type][levelDescriptor.level_no];
+        rules.level_no = levelDescriptor.level_no;
+        $.extend(data, rules);
+        var level = new Level(data);
+        level.getTimer = function (grade) {
+          console.log(grade)
+          if (grade <= 25) {
+            return 20;
+          } else {
+            return 30;
+          }
+        };
+        cb(level);
+      });
+    break;
+
+    default:
+      throw new Error('Wrong level type ' + type);
+    }
 };
 
 module.exports = Level
