@@ -15,6 +15,7 @@
     "repo.js",
     "commit.js",
     "plugins.js",
-    "level.js"
+    "level.js",
+    "user.js"
   ]
 }

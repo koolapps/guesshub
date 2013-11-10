@@ -16,7 +16,8 @@
     "level-meter",
     "models",
     "repo-list",
-    "commit-display"
+    "commit-display",
+    "score-card"
   ],
   "dependencies": {
     "component/jquery": "*"

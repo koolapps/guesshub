@@ -2,6 +2,7 @@ var $ = require('jquery');
 var Timer = require('timer');
 var Level = require('models').Level
 var repoList = require('repo-list');
+var scoreCard = require('score-card');
 var levelMeter = require('level-meter');
 var CommitDisplay = require('commit-display');
 var UserLevelProgress = require('models').UserLevelProgress;
@@ -11,10 +12,15 @@ var ROUNDS_PER_LEVEL = 10;
 module.exports = Game;
 
 function Game (options) {
+  this.user = options.user;
+
   this.$repos = options.$repos;
   this.$timer = options.$timer;
+  this.$scoreCard = options.$scoreCard;
   this.$levelMeter = options.$levelMeter;
   this.$commitDisplay = options.$commitDisplay;
+
+  this._renderScoreCard(this.user);
 }
 
 Game.prototype.start = function () {
@@ -75,6 +81,10 @@ Game.prototype._finishRound = function (won) {
   // TODO: Add sound effects on win/loss.
   progress.completed_round(progress.completed_round() + 1);
   if (won) {
+    this.user.addScore(
+      this.round.commit(),
+      Math.floor((Date.now() - this.startTime) /  1000)
+    );
     progress.guessed(progress.guessed() + 1);
   } else {
     progress.missed(progress.missed() + 1);
@@ -114,6 +124,10 @@ Game.prototype._renderCommitDisplay = function (commit) {
   return this;
 };
 
+Game.prototype._renderScoreCard = function(user) {
+  this.$scoreCard.append(scoreCard(user));
+};
+
 Game.prototype.startRound = function () {
   this.round = this.level.rounds()[this.levelProgress.completed_round()];
   this
@@ -121,6 +135,7 @@ Game.prototype.startRound = function () {
     ._renderRepos(this.round.repos())
     ._renderCommitDisplay(this.round.commit());
   this.timer.start();
-  
+  this.startTime = Date.now();
+
   console.log('psst', this.round.commit().repository());
 };

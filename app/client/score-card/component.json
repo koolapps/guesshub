@@ -1,0 +1,17 @@
+{
+  "name": "score-card",
+  "description": "shows the user score",
+  "dependencies": {
+    "component/jquery": "*",
+    "twitter/hogan.js": "*"
+  },
+  "development": {},
+  "main": "score-card.js",
+  "scripts": [
+    "score-card.js",
+    "template.js"
+  ],
+  "styles": [
+    "score-card.css"
+  ]
+}
