@@ -61,10 +61,10 @@ var LEVEL_RULES = {
     7: { mistakes: 5, timer: 30 },
   },
   bonus: {
-    5: { mistakes: 0, timer: 15 },
+    5: { mistakes: -1, timer: 15 },
   },
   final: {
-    8: { mistakes: 0, timer: 15 },
+    8: { mistakes: 1, timer: 15 },
   },
   survival: {
     9: { mistakes: 3 },
