@@ -26,6 +26,11 @@ Level.on('construct', function (m) {
   m.rounds(m.rounds().map(Round));
 });
 
+// To override.
+Level.prototype.getTimer = function (grade) {
+  return this.timer();
+};
+
 var LEVEL_DIFFICULTY = {
   fast: [0, 25],
   hard: [25, 50],
@@ -112,7 +117,7 @@ Level.getLevel = function (levelDescriptor, cb) {
       rules.level_no = levelDescriptor.level_no;
       $.extend(data, rules);
       var level = new Level(data);
-      level.timer = function (grade) {
+      level.getTimer = function (grade) {
         console.log(grade)
         if (grade <= 25) {
           return 20;
