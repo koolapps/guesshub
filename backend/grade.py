@@ -2,7 +2,7 @@ import config
 import re
 import MySQLdb as mysql
 import MySQLdb.cursors as mysql_cursors
-
+from os import path
 
 COUNT_SQL = 'SELECT MAX(order_id) FROM commit'
 BATCH_SQL = 'SELECT * FROM commit WHERE %s <= order_id AND order_id < %s'
@@ -12,6 +12,7 @@ WORD_REGEX = re.compile(r'\w+')
 
 MIN_LINE_COUNT = 3
 MAX_LINE_COUNT = 30
+MIN_DIFF_COUNT = 2
 MAX_LINE_LENGTH = 80
 MIN_SPACE_RATIO = 0.01
 MIN_WORDS_COUNT = 10
@@ -23,6 +24,8 @@ IDEAL_CONTEXT_COUNT = 5
 
 IDEAL_KEYWORD_RATIO = 0.02
 
+NON_CODE_FILES = ['txt', 'md', 'json', 'yml', 'xml', 'lock', 'makefile', 'html', 'erb', 'mustache'
+                  'manifest', 'properties']
 
 def compute_grade(commit):
   """Computes a grade for a given commit.
@@ -31,8 +34,11 @@ def compute_grade(commit):
   the closer the commit is to our ideal.
   """
   # TODO: Make grade correlate with difficulty instead.
-  # TODO: Add file extension (language) to grading. e.g. we probably would
-  #       want to do away with .md and .txt files.
+
+  # Skip non code diffs.
+  (_, ext) = path.splitext(commit['filename'])
+  if ext[1:] in NON_CODE_FILES:
+    return -1
 
   lines = commit['diff_lines'].split('\n')
 
@@ -56,8 +62,12 @@ def compute_grade(commit):
   # How close are we to the ideal total line count?
   line_count_grade = abs(len(lines) - IDEAL_LINE_COUNT)
 
-  # How close are we to the ideal diffed line count?
+  # Skip diffs with too little diff lines.
   diff_count = len([i for i in lines if i[:1] in ('+', '-')])
+  if diff_count < MIN_DIFF_COUNT:
+    return -1
+
+  # How close are we to the ideal diffed line count?
   diff_count_grade = abs(diff_count - IDEAL_DIFF_COUNT)
 
   # How close are we to the ideal context line count?

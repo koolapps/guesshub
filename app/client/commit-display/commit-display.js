@@ -98,35 +98,45 @@ CommitDisplay.prototype._getCommitLanguage = function() {
         ''                  : null,
         'c'                 : 'c',
         'h'                 : 'c',
+        'cpp'               : 'cpp',
+        'hpp'               : 'cpp',
+        'cc'                : 'cpp',
+        'vim'               : 'clike',
+        'pbxproj'           : 'clike',
+        'm'                 : 'clike',
+        'go'                : 'clike',
         'coffeescript'      : 'coffeescript',
         'cs'                : 'csharp',
         'css'               : 'css',
+        'less'              : 'css',
         'd'                 : 'd',
-        'go'                : 'go',
         'lhs'               : 'haskell',
         'html'              : 'html',
         'xml'               : 'markup',
         'java'              : 'java',
+        'scala'             : 'java',
         'js'                : 'javascript',
         'json'              : 'javascript',
+        'ts'                : 'javascript',
         'lua'               : 'lua',
         'php'               : 'php',
         'py'                : 'python',
         'r'                 : 'r',
         'rb'                : 'ruby',
         'scm'               : 'scheme',
-        'sh'                : 'shell',
+        'sh'                : 'bash',
+        'bash'              : 'bash',
+        'zsh'               : 'bash',
         'sql'               : 'sql',
         'scss'              : 'scss',
-        'php'               : 'php',
         'groovy'            : 'groovy',
         'gvy'               : 'groovy',
         'gy'                : 'groovy',
         'gsh'               : 'gsh',
         'feature'           : 'gherkin'
-  }[ext] || 'generic'; 
+  }[ext] || 'generic';
   console.log('CommitDisplay DEBUG: extension %s language %s', ext, lang);
-  return lang; 
+  return lang;
 };
 
 
