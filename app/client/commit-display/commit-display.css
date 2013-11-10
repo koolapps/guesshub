@@ -131,24 +131,6 @@
   left: -24px;
 }
 
-.line.del:after {
-  content: "";
-  border-left: 24px solid #550000;
-  border-top: 12px solid transparent;
-  border-bottom: 12px solid transparent;
-  position: absolute;
-  right: -24px;
-}
-
-.line.ins:before {
-  content: "";
-  border-right: 24px solid #005F00;
-  border-top: 12px solid transparent;
-  border-bottom: 12px solid transparent;
-  position: absolute;
-  left: -24px;
-}
-
 .line.ins:after {
   content: "";
   border-left: 24px solid #005500;
@@ -158,7 +140,8 @@
   right: -24px;
 }
 
-.commit-display .old-num, .commit-display .new-num {
+.commit-display .old-num,
+.commit-display .new-num {
   border-right: 1px solid #333;
   color: #aaa;
   text-align: center;
@@ -166,12 +149,14 @@
   height: 24px;
 }
 
-.commit-display .del .old-num, .commit-display .del .new-num {
+.commit-display .del .old-num,
+.commit-display .del .new-num {
   border-color: #4B3C3C;
   background-color: #5F0000;
 }
 
-.commit-display .ins .old-num, .commit-display .ins .new-num {
+.commit-display .ins .old-num,
+.commit-display .ins .new-num {
   border-color: #286928;
   background-color: #005F00;
 }
@@ -184,13 +169,4 @@
 
 .commit-display .content {
   padding-left: 10px;
-}
-
-/* Adjust the yellowgreen color from the Prism funky theme. */
-.prism-theme-funky .token.operator,
-.prism-theme-funky .token.entity,
-.prism-theme-funky .token.url,
-.prism-theme-funky .language-css .token.string,
-.prism-theme-funky .toke.variable {
-  color: yellowgreen;
 }
