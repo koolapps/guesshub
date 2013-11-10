@@ -7,7 +7,6 @@ var CommitDisplay = require('commit-display');
 var UserLevelProgress = require('models').UserLevelProgress;
 
 var ROUNDS_PER_LEVEL = 10;
-var NUMBER_LEVELS = 10
 
 module.exports = Game;
 

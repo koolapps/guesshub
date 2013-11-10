@@ -7,12 +7,6 @@ import MySQLdb as mysql
 import MySQLdb.cursors
 
 
-ROUNDS_PER_LEVEL = 10
-NUMBER_LEVELS = 10
-NUMBER_GRADES = 50
-GRADES_PER_LEVEL = NUMBER_GRADES / NUMBER_LEVELS
-
-
 RANDOM_COMMIT_SQL = '''
 SELECT *
 FROM commit
@@ -55,6 +49,11 @@ REPO_NAMES = REPOS.keys()
 def homepage():
   return open('../app/index.html', 'r').read();
 
+
+ROUNDS_PER_LEVEL = 10
+NUMBER_LEVELS = 15
+NUMBER_GRADES = 50
+GRADES_PER_LEVEL =  NUMBER_GRADES / NUMBER_LEVELS
 
 def get_round(level):
   cursor = DB.cursor()
