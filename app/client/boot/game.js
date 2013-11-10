@@ -24,7 +24,7 @@ function Game (options) {
 }
 
 Game.prototype.start = function () {
-  this.startLevel(8);
+  this.startLevel(0);
 };
 
 Game.prototype.startLevel = function (level) {

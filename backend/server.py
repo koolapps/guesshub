@@ -17,16 +17,6 @@ WHERE commit.order_id %s random.value
 ORDER BY commit.order_id ASC
 LIMIT 1'''
 
-RANDOM_UNBOUNDED_COMMIT_SQL = '''
-SELECT *
-FROM commit
-  JOIN (SELECT (RAND() * (
-      SELECT MAX(order_id) FROM commit)) AS value) AS random
-WHERE commit.order_id %s random.value
-  AND commit.grade > -1
-ORDER BY commit.order_id ASC
-LIMIT 1'''
-
 APP = flask.Flask(__name__, static_folder='../app', static_url_path='')
 DB = mysql.connect(
     host=config.DB_HOST,
@@ -58,14 +48,10 @@ REPO_NAMES = REPOS.keys()
 def homepage():
   return open('../app/index.html', 'r').read();
 
-def get_round(grade_lower_bound=None, grade_upper_bound=None):
+def get_round(grade_lower_bound, grade_upper_bound):
   cursor = DB.cursor()
-  if grade_lower_bound == None or grade_upper_bound == None:
-    if not cursor.execute(RANDOM_UNBOUNDED_COMMIT_SQL % '>='):
-      cursor.execute(RANDOM_UNBOUNDED_COMMIT_SQL % '<')
-  else:
-    if not cursor.execute(RANDOM_COMMIT_SQL % ('>=', grade_lower_bound, grade_upper_bound)):
-      cursor.execute(RANDOM_COMMIT_SQL % ('<', grade_lower_bound, grade_upper_bound))
+  if not cursor.execute(RANDOM_COMMIT_SQL % ('>=', grade_lower_bound, grade_upper_bound)):
+    cursor.execute(RANDOM_COMMIT_SQL % ('<', grade_lower_bound, grade_upper_bound))
   commit = cursor.fetchone()
   repo_names = random.sample(REPO_NAMES, 4)
   if commit['repository'] not in repo_names:
@@ -91,13 +77,21 @@ def level(length, grade_lower_bound, grade_upper_bound):
     'rounds': level_rounds
   }), mimetype='text/json')
 
-@APP.route("/level/<length>")
-def random_grade_level(length):
+@APP.route("/final_level/<length>/<grade_lower_bound>/<grade_upper_bound>")
+def random_grade_level(length, grade_upper_bound, grade_lower_bound):
   length = int(length)
-  
+  grade_upper_bound = int(grade_upper_bound)
+  grade_lower_bound = int(grade_lower_bound)
+
   level_rounds = []
-  for i in range(0, length):
-    level_rounds.append(get_round())
+  half_length = int(length / 2)
+  # Easy
+  for i in range(0, half_length):
+    level_rounds.append(get_round(grade_lower_bound, int(grade_upper_bound / 2)))
+
+  # Hard
+  for i in range(0, half_length):
+    level_rounds.append(get_round(int(grade_upper_bound / 2), grade_upper_bound))
 
   return flask.Response(json.dumps({
     'rounds': level_rounds

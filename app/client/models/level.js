@@ -24,7 +24,8 @@ var LEVEL_DIFFICULTY = {
   hard: [25, 50],
   regular: [0, 25],
   bonus: [0, 25],
-  all: [0, 50]
+  final: [0, 50],
+  survival: [0, 50]
 };
 
 var ROUNDS_PER_LEVEL = {
@@ -111,10 +112,14 @@ Level.prototype.getTimer = function (grade) {
 };
 
 Level.url = function (options) {
-  console.log(options);
-  var url = 'level';
+  var url = '';
+  if (options.type === 'final') {
+    url = 'final_level';
+  } else {
+    url = 'level';
+  }
   url += '/' + (ROUNDS_PER_LEVEL[options.type] || 10);
-  if (options.grade) {
+  if (options.grade){
     url += '/' + options.grade[0];
     url += '/' + options.grade[1];
   }
@@ -144,49 +149,18 @@ Level.fetch = function (url, levelDescriptor, cb) {
 
 Level.getLevel = function (levelDescriptor, cb) {
   console.log('Level DEBUG getting level', levelDescriptor);
+  if (!Level.isValidType(type)) {
+    throw new Error('Wrong level type ' + type);
+  }
   var type = levelDescriptor.type;
-
-  switch (type) {
-    case 'bonus':
-    // TODO: implement.
-    case 'fast':
-    case 'hard':
-    case 'regular':
-      Level.fetch(
-        Level.url({
-          type: type,
-          grade: LEVEL_DIFFICULTY[type]
-        }),
-        levelDescriptor,
-        cb
-      );
-    break;
-
-    case 'final':
-      Level.fetch(
-        Level.url({
-          type: type
-        }),
-        levelDescriptor,
-        cb
-      );
-    break;
-    
-    // 1 survival: infinite mode (3 mistakes before losing), random commits, timer by grade.
-    case 'survival':
-      var grade = LEVEL_DIFFICULTY['all'];
-      $.get('level/1000/' + grade[0] + '/' + grade[1], function (data) {
-        var rules = LEVEL_RULES[type][levelDescriptor.level_no];
-        rules.level_no = levelDescriptor.level_no;
-        $.extend(data, rules);
-        var level = new Level(data);
-        cb(level);
-      });
-    break;
-
-    default:
-      throw new Error('Wrong level type ' + type);
-    }
+  Level.fetch(
+    Level.url({
+      type: type,
+      grade: LEVEL_DIFFICULTY[type]
+    }),
+    levelDescriptor,
+    cb
+  );
 };
 
 module.exports = Level;
