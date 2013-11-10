@@ -18,4 +18,5 @@ module.exports = plugins(model('Commit'))
   .attr('new_start_line')
   .attr('block_name')
   .attr('diff_lines')
+  .attr('grade')
   ;
