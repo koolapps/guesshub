@@ -49,12 +49,6 @@ REPO_NAMES = REPOS.keys()
 def homepage():
   return open('../app/index.html', 'r').read();
 
-
-ROUNDS_PER_LEVEL = 10
-NUMBER_LEVELS = 15
-NUMBER_GRADES = 50
-GRADES_PER_LEVEL =  NUMBER_GRADES / NUMBER_LEVELS
-
 def get_round(grade_lower_bound, grade_upper_bound):
   cursor = DB.cursor()
   if not cursor.execute(RANDOM_COMMIT_SQL % ('>=', grade_lower_bound, grade_upper_bound)):
