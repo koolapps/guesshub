@@ -20,32 +20,32 @@
 /* Skew */
 .repo-list .repo-item:nth-child(1) .button,
 .repo-list .repo-item:nth-child(2) .button {
-  -webkit-transform: skew(20deg); 
-  -moz-transform: skew(20deg); 
+  -webkit-transform: skew(20deg);
+  -moz-transform: skew(20deg);
   -o-transform: skew(20deg);
   transform: skew(20deg);
 }
 
 .repo-list .repo-item:nth-child(1) .label,
 .repo-list .repo-item:nth-child(2) .label {
-  -webkit-transform: skew(-20deg); 
-  -moz-transform: skew(-20deg); 
+  -webkit-transform: skew(-20deg);
+  -moz-transform: skew(-20deg);
   -o-transform: skew(-20deg);
   transform: skew(-20deg);
 }
 
 .repo-list .repo-item:nth-child(3) .button,
 .repo-list .repo-item:nth-child(4) .button {
-  -webkit-transform: skew(-20deg); 
-  -moz-transform: skew(-20deg); 
+  -webkit-transform: skew(-20deg);
+  -moz-transform: skew(-20deg);
   -o-transform: skew(-20deg);
   transform: skew(-20deg);
 }
 
 .repo-list .repo-item:nth-child(3) .label,
 .repo-list .repo-item:nth-child(4) .label {
-  -webkit-transform: skew(20deg); 
-  -moz-transform: skew(20deg); 
+  -webkit-transform: skew(20deg);
+  -moz-transform: skew(20deg);
   -o-transform: skew(20deg);
   transform: skew(20deg);
 }
@@ -97,3 +97,5 @@
 .repo-list .repo-item .button {
   -webkit-animation: repo-item-pulse 1s infinite alternate;
 }
+
+/* TODO: Make sure the animation does not cause flicker on all OSs. */
