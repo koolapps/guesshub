@@ -1,4 +1,3 @@
-import collections
 import config
 import re
 import MySQLdb as mysql
@@ -123,21 +122,12 @@ def show_grade_histogram():
       passwd=config.DB_PASSWORD,
       db=config.DB_NAME)
   read_cursor = db.cursor()
-  histogram = collections.defaultdict(lambda: 0)
-
-  read_cursor.execute(COUNT_SQL)
-  count = read_cursor.fetchone()[0]
-
-  for start in range(0, count + BATCH_SIZE, BATCH_SIZE):
-    read_cursor.execute('SELECT grade FROM commit '
-                        'WHERE %s <= order_id AND order_id < %s AND grade >= 0',
-                        (start, start + BATCH_SIZE))
-    for i in  read_cursor.fetchall():
-      histogram[i[0]] += 1
-
+  read_cursor.execute('SELECT grade, COUNT(grade) FROM commit '
+                      'WHERE grade >= 0 GROUP BY grade')
+  histogram = dict(read_cursor.fetchall())
   print 'Histogram:'
   for n in range(0, max(histogram.keys()) + 1):
-    print '%-2d: %d' % (n, histogram[n])
+    print '%-2d: %d' % (n, histogram.get(n, 0))
   print 'Total:', sum(histogram.values())
 
 
