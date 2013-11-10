@@ -1,4 +1,4 @@
-var $ = require('jquery')
+var $ = require('jquery');
 var model = require('model');
 var Repo = require('./repo');
 var Commit = require('./commit');
@@ -94,14 +94,30 @@ Level.on('construct', function (m) {
 
 // To override.
 Level.prototype.getTimer = function (grade) {
-  return this.timer();
+  if (this.type() === 'final') {
+    this.nextIsHard = !this.nextIsHard;
+    var rules = LEVEL_RULES[this.nextIsHard ? 'hard' : 'fast'];
+    var keys = Object.keys(rules);
+    return rules[keys[Math.floor(Math.random() * keys.length)]].timer;
+  } else if (this.type() === 'survival') {
+    if (grade <= 25) {
+      return 20;
+    } else {
+      return 30;
+    }
+  } else {
+    return this.timer();
+  }
 };
 
 Level.url = function (options) {
+  console.log(options);
   var url = 'level';
-  url += '/' + ROUNDS_PER_LEVEL[options.type] || 10;
-  url += '/' + options.gradeLowerBound || 0;
-  url += '/' + options.gradeUpperBound || 5;
+  url += '/' + (ROUNDS_PER_LEVEL[options.type] || 10);
+  if (options.grade) {
+    url += '/' + options.grade[0];
+    url += '/' + options.grade[1];
+  }
   return url;
 };
 
@@ -119,8 +135,15 @@ Level.create = function (levelDescriptor, data) {
   return new Level(data);
 };
 
+Level.fetch = function (url, levelDescriptor, cb) {
+  // TODO: handle errors.
+  $.get(url, function (data) {
+    cb(Level.create(levelDescriptor, data));
+  });
+};
+
 Level.getLevel = function (levelDescriptor, cb) {
-  console.log('Level DEBUG getting level', levelDescriptor)
+  console.log('Level DEBUG getting level', levelDescriptor);
   var type = levelDescriptor.type;
 
   switch (type) {
@@ -129,38 +152,24 @@ Level.getLevel = function (levelDescriptor, cb) {
     case 'fast':
     case 'hard':
     case 'regular':
-      var grade = LEVEL_DIFFICULTY[type];
-      var url = Level.url({
-        type: type,
-        grade: grade
-      });
-
-      $.get(url, function (data) {
-        cb(Level.create(levelDescriptor, data));
-      });
+      Level.fetch(
+        Level.url({
+          type: type,
+          grade: LEVEL_DIFFICULTY[type]
+        }),
+        levelDescriptor,
+        cb
+      );
     break;
 
     case 'final':
-      var fastGrade = LEVEL_DIFFICULTY['fast'];
-      var hardGrade = LEVEL_DIFFICULTY['hard'];
-      $.when(
-        $.get('level/10/' + fastGrade[0] + '/' + fastGrade[1]),
-        $.get('level/10/' + hardGrade[0] + '/' + hardGrade[1])
-      ).done(function (res1, res2) {
-        var data = {
-          rounds: res1[0].rounds.concat(res2[0].rounds)
-        };
-        data.level_no = levelDescriptor.level_no;
-        var level = new Level(data);
-        var nextIsHard = true;
-        level.timer = function () {
-          nextIsHard = !nextIsHard;
-          var rules = LEVEL_RULES[nextIsHard ? 'hard' : 'fast'];
-          var keys = Object.keys(rules);
-          return rules[keys[Math.floor(Math.random() * keys.length)]].timer;
-        };
-        cb(level);
-      });
+      Level.fetch(
+        Level.url({
+          type: type
+        }),
+        levelDescriptor,
+        cb
+      );
     break;
     
     // 1 survival: infinite mode (3 mistakes before losing), random commits, timer by grade.
@@ -171,14 +180,6 @@ Level.getLevel = function (levelDescriptor, cb) {
         rules.level_no = levelDescriptor.level_no;
         $.extend(data, rules);
         var level = new Level(data);
-        level.getTimer = function (grade) {
-          console.log(grade)
-          if (grade <= 25) {
-            return 20;
-          } else {
-            return 30;
-          }
-        };
         cb(level);
       });
     break;
@@ -188,4 +189,4 @@ Level.getLevel = function (levelDescriptor, cb) {
     }
 };
 
-module.exports = Level
+module.exports = Level;
