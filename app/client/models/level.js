@@ -75,6 +75,7 @@ var LEVEL_RULES = {
 };
 
 Level.getLevel = function (levelDescriptor, cb) {
+  console.log('Level DEBUG getting level', levelDescriptor)
   var type = levelDescriptor.type;
   if (['fast', 'hard', 'regular', 'bonus'].indexOf(type) !== -1) {
     var grade = LEVEL_DIFFICULTY[type];
