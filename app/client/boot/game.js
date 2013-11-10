@@ -31,7 +31,7 @@ Game.prototype.startLevel = function (level) {
   console.log('Game DEBUG: starting level %d', level);
 
   var types = Level.getAvailableTypes(level);
-  console.log(types)
+
   var type;
   if (types.length === 1) {
     type = types[0];
