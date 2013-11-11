@@ -1,6 +1,7 @@
 body {
   background: url(/img/simple_dashed.png);
   color: #fff;
+  -webkit-user-select: none;
 }
 
 #logo {
