@@ -52,15 +52,15 @@
 
 /* Colors */
 .repo-list .repo-item:nth-child(1) .button {
-  background: deeppink;
+  background: #F01EF0;
 }
 .repo-list .repo-item:nth-child(1) .button:hover,
 .repo-list .repo-item:nth-child(1) .button:focus {
-  background: rgb(255, 76, 173);
+  background: #FF30FF;
 }
 
 .repo-list .repo-item:nth-child(2) .button {
-  background: rgb(221, 221, 21);
+  background: #FFE821;
 }
 .repo-list .repo-item:nth-child(2) .button:hover,
 .repo-list .repo-item:nth-child(2) .button:focus {
@@ -68,7 +68,7 @@
 }
 
 .repo-list .repo-item:nth-child(3) .button {
-  background: #0cf;
+  background: #49CEFF;
 }
 .repo-list .repo-item:nth-child(3) .button:hover,
 .repo-list .repo-item:nth-child(3) .button:focus {
@@ -76,11 +76,11 @@
 }
 
 .repo-list .repo-item:nth-child(4) .button {
-  background: orange;
+  background: #FF8C18;
 }
 .repo-list .repo-item:nth-child(4) .button:hover,
 .repo-list .repo-item:nth-child(4) .button:focus {
-  background: rgb(255, 213, 44);
+  background: orange;
 }
 
 /* Animation */

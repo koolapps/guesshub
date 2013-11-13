@@ -115,11 +115,11 @@
 }
 
 .commit-display .del {
-  background-color: rgba(173, 0, 0, 0.5);
+  background-image: linear-gradient(to right, rgba(173, 0, 0, 0.5) 90%, transparent);
 }
 
 .commit-display .ins {
-  background-color: rgba(0, 173, 0, 0.5);
+  background-image: linear-gradient(to left, rgba(0, 173, 0, 0.5) 90%, transparent);
 }
 
 .line.del:before {
@@ -155,10 +155,12 @@
   background-color: rgba(173, 0, 0, 0.1);
 }
 
-.commit-display .ins .old-num,
+.commit-display .ins .old-num {
+  border-color: #273B27;
+}
+
 .commit-display .ins .new-num {
   border-color: #286928;
-  background-color: rgba(0, 173, 0, 0.1);
 }
 
 .commit-display .op {
