@@ -11,11 +11,9 @@
   </div>
   <div class="row">
     <div class="prism-theme-funky diff">
-      {{#block_name}}
-        <div class="line context block-name">
-          <span class="old-num">...</span><span class="new-num">...</span><span class="op">&nbsp;</span><code class="content">{{block_name}}</code>
-        </div>
-      {{/block_name}}
+      <div class="line context block-name">
+        <span class="old-num">...</span><span class="new-num">...</span><span class="op">&nbsp;</span><code class="content">{{block_name}}</code>
+      </div>
       {{#diff_lines}}
       <div class="line {{cls}}">
         <span class="old-num">{{{old_num}}}</span><span class="new-num">{{{new_num}}}</span><span class="op">{{{op}}}</span><code class="content">{{{content}}}</code>
