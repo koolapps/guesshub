@@ -89,12 +89,9 @@ Game.prototype._renderLevelMeter = function () {
 };
 
 Game.prototype._renderTimer = function (commit) {
-  this.timer = new Timer({
-    interval: this.level.getTimer(commit.grade()),
-    outerRadius: this.$timer.height() / 2,
-    progressWidth: 8,
-    onComplete: this._finishRound.bind(this, false)
-  });
+  this.timer = new Timer(
+      this.level.getTimer(commit.grade()),
+      this._finishRound.bind(this, false));
   this.$timer.empty().append(this.timer.$el);
   return this;
 };

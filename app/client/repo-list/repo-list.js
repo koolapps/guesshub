@@ -7,13 +7,14 @@ module.exports = function (repos, callback) {
   var model = {
     repos: repos.map(function (repo) {
       var result = repo.toJSON();
-      result.name = result.name.replace('/', '\n');
+      var parts = result.name.split('/');
+      result.owner = parts[0];
+      result.name = parts[1];
       return result;
     })
   };
 
   return $(template.render(model))
-    .addClass('large-block-grid-' + repos.length)
     .on('click', 'li', function () {
       callback(repos[$(this).index()]);
     });

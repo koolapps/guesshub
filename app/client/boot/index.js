@@ -6,11 +6,11 @@ var user = new User();
 
 var game = new Game({
   user: user,
-  $timer: $('.timer'),
-  $repos: $('.repo-selector'),
-  $scoreCard: $('.score-card'),
-  $levelMeter: $('.level-meter'),
-  $commitDisplay: $('.commit-display'),
+  $timer: $('#timer'),
+  $repos: $('#repo-selector'),
+  $scoreCard: $('#score-card'),
+  $levelMeter: $('#level-meter'),
+  $commitDisplay: $('#commit-display'),
 });
 
 game.start();

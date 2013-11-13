@@ -1,4 +1,11 @@
-h1.score {
+.score {
   font-weight: bold;
   font-size: 30px;
+  color: yellow;
+}
+
+.score img {
+  width: 23px;
+  position: relative;
+  top: 2px;
 }

@@ -1,14 +1,27 @@
-.timer {
-  height: 100px;
-  top: -20px;
-  left: -30px;
+#timer>div {
+  padding: 0px 20px;
+  height: 15px;
 }
 
-.timer svg {
-  display: block;
-  margin: 0 auto;
+#timer .tick,
+#timer .spacer {
+  height: 100%;
+  display: inline-block;
 }
 
-.timer text {
-  font-size: 30px;
+#timer .tick {
+  background: #fff;
+  border: 2px #ccc solid;
+}
+
+#timer .tick.expired {
+  display: none;
+}
+
+#timer.panic .tick {
+  background: #fa0000;
+}
+
+#timer.panic .text {
+  color: #fa0000;
 }

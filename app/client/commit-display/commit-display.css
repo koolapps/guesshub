@@ -1,5 +1,5 @@
 /* Reset any stupidity from highlight lib. */
-.commit-display code {
+#commit-display code {
   border: none;
   word-wrap: break-word;
   padding: none;
@@ -13,17 +13,17 @@
   background: none !important;
 }
 
-.commit-display code * {
+#commit-display code * {
   background: none !important;
 }
 
-.commit-display .metadata {
+#commit-display .metadata {
   border: 1px solid #ccc;
   height: 50px;
   padding-top:15px;
 }
 
-.commit-display .metadata.blurred {
+#commit-display .metadata.blurred {
   color: transparent;
   text-shadow: 0 0 9px rgba(0, 0, 0, 0.35);
   position: relative;
@@ -32,7 +32,7 @@
   border-radius: 3px;
 }
 
-.commit-display .metadata .cover {
+#commit-display .metadata .cover {
   display: none;
   position: absolute;
   left: 0;
@@ -48,11 +48,11 @@
     to(rgba(255, 255, 255, 1)));
 }
 
-.commit-display .metadata.blurred .cover {
+#commit-display .metadata.blurred .cover {
   display: block;
 }
 
-.commit-display .metadata.blurred .author img {
+#commit-display .metadata.blurred .author img {
   opacity: 0.1;
 }
 
@@ -64,7 +64,7 @@
   margin-top: -4px;
 }
 
-.commit-display .metadata .author .name {
+#commit-display .metadata .author .name {
   text-overflow: ellipsis;
   width: calc(100% - 25px - 0.9375em);
   white-space: nowrap;
@@ -72,57 +72,57 @@
   display: inline-block;
 }
 
-.commit-display .metadata .filename {
+#commit-display .metadata .filename {
   text-overflow:ellipsis;
   white-space: nowrap;
   overflow: hidden;
   height: 100%;
 }
 
-.commit-display .metadata.blurred .filename label {
+#commit-display .metadata.blurred .filename label {
   color: inherit;
 }
 
-.commit-display .metadata .filename label {
+#commit-display .metadata .filename label {
   color: #999;
 }
 
-.commit-display .diff {
+#commit-display .diff {
   font-family: Consolas, 'Liberation Mono', Courier, monospace;
   font-size: 13px;
 }
 
-.commit-display .diff:before, .commit-display .diff:after {
+#commit-display .diff:before, #commit-display .diff:after {
   /* Fuck you, foundation grid! */
   content: none;
 }
 
-.commit-display .line {
+#commit-display .line {
   display: block;
   position: relative;
   height: 24px;
 }
 
-.commit-display .line > * {
+#commit-display .line > * {
   padding-top: 5px;
   display: inline-block;
   padding-bottom: 5px;
 }
 
-.commit-display .block-name {
+#commit-display .block-name {
   color: #969696 !important;
   border-bottom: 1px #28283D solid;
 }
 
-.commit-display .del {
+#commit-display .del {
   background-image: linear-gradient(to right, rgba(173, 0, 0, 0.5) 90%, transparent);
 }
 
-.commit-display .ins {
+#commit-display .ins {
   background-image: linear-gradient(to left, rgba(0, 173, 0, 0.5) 90%, transparent);
 }
 
-.line.del:before {
+#commit-display .line.del:before {
   content: "";
   border-right: 24px solid rgba(173, 0, 0, 0.54);
   border-top: 12px solid transparent;
@@ -131,7 +131,7 @@
   left: -24px;
 }
 
-.line.ins:after {
+#commit-display .line.ins:after {
   content: "";
   border-left: 24px solid rgba(0, 173, 0, 0.5);
   border-top: 12px solid transparent;
@@ -140,8 +140,8 @@
   right: -24px;
 }
 
-.commit-display .old-num,
-.commit-display .new-num {
+#commit-display .old-num,
+#commit-display .new-num {
   border-right: 1px solid #333;
   color: #aaa;
   text-align: center;
@@ -149,26 +149,26 @@
   height: 24px;
 }
 
-.commit-display .del .old-num,
-.commit-display .del .new-num {
+#commit-display .del .old-num,
+#commit-display .del .new-num {
   border-color: #6B2F2F;
   background-color: rgba(173, 0, 0, 0.1);
 }
 
-.commit-display .ins .old-num {
+#commit-display .ins .old-num {
   border-color: #273B27;
 }
 
-.commit-display .ins .new-num {
+#commit-display .ins .new-num {
   border-color: #286928;
 }
 
-.commit-display .op {
+#commit-display .op {
   color: #ccc;
   text-align: center;
   width: 20px;
 }
 
-.commit-display .content {
+#commit-display .content {
   padding-left: 10px;
 }

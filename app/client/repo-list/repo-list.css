@@ -1,85 +1,87 @@
 .repo-list {
-  width: 108%;
-  position: relative;
-  left: -1.5%;
+  padding: 10px 0px 20px 9px;
 }
 
-.repo-list .repo-item .button {
+.repo-list .repo-item {
+  display: inline-block;
+  width: 212px;
   height: 50px;
   cursor: pointer;
-  width: 90%;
   color: black;
   font-weight: bold;
   text-align: center;
   line-height: 21px;
-  white-space: pre;
   border: 5px rgba(255,255,255,0.6) solid;
   border-top-width: 4px;
 }
 
+.repo-list .repo-item:nth-child(3) {
+  margin-left: 21px;
+}
+
 /* Skew */
-.repo-list .repo-item:nth-child(1) .button,
-.repo-list .repo-item:nth-child(2) .button {
-  -webkit-transform: skew(20deg);
-  -moz-transform: skew(20deg);
-  -o-transform: skew(20deg);
-  transform: skew(20deg);
+.repo-list .repo-item:nth-child(1),
+.repo-list .repo-item:nth-child(2) {
+  -webkit-transform: skew(-20deg);
+  -moz-transform: skew(-20deg);
+  -o-transform: skew(-20deg);
+  transform: skew(-20deg);
 }
 
 .repo-list .repo-item:nth-child(1) .label,
 .repo-list .repo-item:nth-child(2) .label {
-  -webkit-transform: skew(-20deg);
-  -moz-transform: skew(-20deg);
-  -o-transform: skew(-20deg);
-  transform: skew(-20deg);
-}
-
-.repo-list .repo-item:nth-child(3) .button,
-.repo-list .repo-item:nth-child(4) .button {
-  -webkit-transform: skew(-20deg);
-  -moz-transform: skew(-20deg);
-  -o-transform: skew(-20deg);
-  transform: skew(-20deg);
-}
-
-.repo-list .repo-item:nth-child(3) .label,
-.repo-list .repo-item:nth-child(4) .label {
   -webkit-transform: skew(20deg);
   -moz-transform: skew(20deg);
   -o-transform: skew(20deg);
   transform: skew(20deg);
 }
 
+.repo-list .repo-item:nth-child(3),
+.repo-list .repo-item:nth-child(4) {
+  -webkit-transform: skew(20deg);
+  -moz-transform: skew(20deg);
+  -o-transform: skew(20deg);
+  transform: skew(20deg);
+}
+
+.repo-list .repo-item:nth-child(3) .label,
+.repo-list .repo-item:nth-child(4) .label {
+  -webkit-transform: skew(-20deg);
+  -moz-transform: skew(-20deg);
+  -o-transform: skew(-20deg);
+  transform: skew(-20deg);
+}
+
 /* Colors */
-.repo-list .repo-item:nth-child(1) .button {
+.repo-list .repo-item:nth-child(1) {
   background: #F01EF0;
 }
-.repo-list .repo-item:nth-child(1) .button:hover,
-.repo-list .repo-item:nth-child(1) .button:focus {
+.repo-list .repo-item:nth-child(1):hover,
+.repo-list .repo-item:nth-child(1):focus {
   background: #FF30FF;
 }
 
-.repo-list .repo-item:nth-child(2) .button {
+.repo-list .repo-item:nth-child(2) {
   background: #FFE821;
 }
-.repo-list .repo-item:nth-child(2) .button:hover,
-.repo-list .repo-item:nth-child(2) .button:focus {
+.repo-list .repo-item:nth-child(2):hover,
+.repo-list .repo-item:nth-child(2):focus {
   background: rgb(255, 255, 40);
 }
 
-.repo-list .repo-item:nth-child(3) .button {
+.repo-list .repo-item:nth-child(3) {
   background: #49CEFF;
 }
-.repo-list .repo-item:nth-child(3) .button:hover,
-.repo-list .repo-item:nth-child(3) .button:focus {
+.repo-list .repo-item:nth-child(3):hover,
+.repo-list .repo-item:nth-child(3):focus {
   background: #49DBFF;
 }
 
-.repo-list .repo-item:nth-child(4) .button {
+.repo-list .repo-item:nth-child(4) {
   background: #FF8C18;
 }
-.repo-list .repo-item:nth-child(4) .button:hover,
-.repo-list .repo-item:nth-child(4) .button:focus {
+.repo-list .repo-item:nth-child(4):hover,
+.repo-list .repo-item:nth-child(4):focus {
   background: orange;
 }
 
@@ -94,7 +96,7 @@
   }
 }
 
-.repo-list .repo-item .button {
+.repo-list .repo-item {
   -webkit-animation: repo-item-pulse 1s infinite alternate;
 }
 

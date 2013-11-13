@@ -4,21 +4,45 @@ body {
   -webkit-user-select: none;
 }
 
+#container {
+  margin: 0 auto;
+  width: 1100px;
+  margin-top: 25px;
+  position: relative;
+}
+
+#sidebar {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 120px;
+  padding-right: 20px;
+  text-align: center;
+}
+
+#trophies-icon {
+  width: 60px;
+}
+
+#content {
+  position: absolute;
+  left: 140px;
+  width: 900px;
+}
+
 #logo {
   margin: auto;
   display: block;
   text-align: center;
   font-family: "Lucida Console", Consolas, monospace;
   font-size: 30px;
-  padding-top: 25px;
 }
 
-#content {
-  margin: 0 auto;
-  width: 900px;
-  padding-top: 20px;
+#timer {
+  margin-bottom: 20px;
+  margin-top: 40px;
 }
 
-.row {
-  margin-top: 20px;
+#level-meter {
+  display: none;
 }

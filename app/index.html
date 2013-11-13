@@ -4,17 +4,20 @@
     <link type="text/css" rel="stylesheet" href="build/build.css" />
   </head>
   <body>
-    <h1 id="logo">
-      What the Change ?!
-    </h1>
-    <div id="content">
-      <div class="row">
-        <div class="large-3 columns timer"></div>
-        <div class="large-1 large-offset-1 columns score-card"></div>
-        <div class="large-7 columns level-meter"></div>
+    <div id="container">
+      <div id="sidebar">
+        <img id="trophies-icon" src="/img/trophy.png" />
+        <div id="score-card"></div>
       </div>
-      <div class="row repo-selector"></div>
-      <div class="commit-display"></div>
+      <div id="content">
+        <h1 id="logo">
+          What the Change ?!
+        </h1>
+        <div id="timer"></div>
+        <div id="level-meter"></div>
+        <div id="repo-selector"></div>
+        <div id="commit-display"></div>
+      </div>
     </div>
     <script type="text/javascript" src="build/build.js" charset="utf-8"></script>
     <script type="text/javascript">require('boot');</script>
