@@ -26,6 +26,9 @@
 
 .power-list .power .count {
   height: 16px;
+  position: relative;
+  left: 30px;
+  top: -65px;
 }
 
 .power-list .power .icon {
