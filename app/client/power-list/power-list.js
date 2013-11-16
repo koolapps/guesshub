@@ -17,6 +17,7 @@ var POWER_TOOLTIPS = {
 };
 var MAX_POWERS = 5;
 
+// TODO: Resize icons to be the same size.
 module.exports = function (user, mode, callback) {
   var $el = $('<div/>', { class: 'power-list' });
   function update() {
@@ -29,7 +30,10 @@ module.exports = function (user, mode, callback) {
 
   // TODO: Make choices respond to QWER keyboards keys.
   $el.on('click', '.power', function () {
-    (callback || $.noop)($(this).attr('data-power-type'));
+    var $this = $(this);
+    if ($this.is('.available')) {
+      (callback || $.noop)($this.attr('data-power-type'));
+    }
   });
 
   return $el;
