@@ -11,6 +11,7 @@ var game = new Game({
   $scoreCard: $('#score-card'),
   $levelMeter: $('#level-meter'),
   $commitDisplay: $('#commit-display'),
+  $powerList: $('#power-list'),
 });
 
 game.start();

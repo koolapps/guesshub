@@ -3,6 +3,7 @@ var Timer = require('timer');
 var Level = require('models').Level;
 var repoList = require('repo-list');
 var scoreCard = require('score-card');
+var powerList = require('power-list');
 var levelMeter = require('level-meter');
 var CommitDisplay = require('commit-display');
 var UserLevelProgress = require('models').UserLevelProgress;
@@ -19,8 +20,10 @@ function Game (options) {
   this.$scoreCard = options.$scoreCard;
   this.$levelMeter = options.$levelMeter;
   this.$commitDisplay = options.$commitDisplay;
+  this.$powerList = options.$powerList;
 
   this._renderScoreCard(this.user);
+  this._renderPowers(this.user);
 }
 
 Game.prototype.start = function () {
@@ -111,6 +114,13 @@ Game.prototype._renderCommitDisplay = function (commit) {
 
 Game.prototype._renderScoreCard = function(user) {
   this.$scoreCard.append(scoreCard(user));
+};
+
+Game.prototype._renderPowers = function(user) {
+  this.$powerList.append(powerList(user, 'use', function(type) {
+    user.removePower(type);
+    alert('TODO: Use power: "' + type + '".');
+  }));
 };
 
 Game.prototype.startRound = function () {

@@ -1,0 +1,66 @@
+.power-list {
+  margin-top: 115px;
+}
+
+.power-list .power {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.power-list .power.available {
+  opacity: 1.0;
+  cursor: pointer;
+}
+
+.power-list .power:not(.available) {
+  opacity: 0.3;
+}
+
+.power-list .power.available:hover,
+.power-list .power.available:focus,
+.power-list .power.available:active {
+  color: yellow;
+}
+
+.power-list .power .count {
+  height: 16px;
+}
+
+.power-list .power .icon {
+  display: inline-block;
+  width: 64px;
+}
+
+.power-list .power .icon.active {
+  display: none;
+}
+
+.power-list .power.available:hover .icon.normal,
+.power-list .power.available:focus .icon.normal,
+.power-list .power.available:active .icon.normal {
+  display: none;
+}
+
+.power-list .power.available:hover .icon.active,
+.power-list .power.available:focus .icon.active,
+.power-list .power.available:active .icon.active {
+  display: inline-block;
+}
+
+.power-list .tooltip {
+  position: absolute;
+  top: 11px;
+  left: -83px;
+  display: none;
+  text-align: right;
+  color: #fff;
+  width: 95px;
+  z-index: 200;
+  letter-spacing: 1px;
+}
+
+.power-list .power:hover .tooltip {
+  display: block;
+}

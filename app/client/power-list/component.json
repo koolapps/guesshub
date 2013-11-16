@@ -1,0 +1,17 @@
+{
+  "name": "power-list",
+  "description": "a list of purchaseable, activatable powers",
+  "dependencies": {
+    "component/jquery": "*",
+    "twitter/hogan.js": "*"
+  },
+  "development": {},
+  "main": "power-list.js",
+  "scripts": [
+    "power-list.js",
+    "template.js"
+  ],
+  "styles": [
+    "power-list.css"
+  ]
+}

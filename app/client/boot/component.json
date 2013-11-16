@@ -17,7 +17,8 @@
     "models",
     "repo-list",
     "commit-display",
-    "score-card"
+    "score-card",
+    "power-list"
   ],
   "dependencies": {
     "component/jquery": "*"

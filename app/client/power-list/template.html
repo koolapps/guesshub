@@ -1,0 +1,16 @@
+{{#powers}}
+  <div class="power {{#available}}available{{/available}}"
+        data-power-type="{{type}}">
+    <img class="icon normal" src="/img/power-{{type}}-normal.png" />
+    <img class="icon active" src="/img/power-{{type}}-active.png" />
+    <div class="count">
+      {{#count}}
+        {{count}}
+      {{/count}}
+    </div>
+    {{#price}}
+      <div class="price">{{price}}</div>
+    {{/price}}
+    <div class="tooltip">{{tooltip}}</div>
+  </div>
+{{/powers}}
