@@ -18,7 +18,7 @@
 }
 
 #commit-display .metadata {
-  border: 1px solid #ccc;
+  border-bottom: 1px solid #28283D;
   height: 50px;
   padding-top:15px;
 }
