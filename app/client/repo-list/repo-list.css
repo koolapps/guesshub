@@ -24,6 +24,10 @@
   margin-right: 0;
 }
 
+.repo-list .label {
+  white-space: nowrap;
+}
+
 /* Skew */
 .repo-list .repo-item:nth-child(1),
 .repo-list .repo-item:nth-child(2) {
