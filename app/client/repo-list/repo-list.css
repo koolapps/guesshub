@@ -6,6 +6,11 @@
   display: inline-block;
   width: 190px;
   margin-right: 30px;
+}
+
+.repo-list .repo-item .repo-button {
+  display: inline-block;
+  width: 190px;
   height: 50px;
   cursor: pointer;
   color: black;
@@ -29,8 +34,8 @@
 }
 
 /* Skew */
-.repo-list .repo-item:nth-child(1),
-.repo-list .repo-item:nth-child(2) {
+.repo-list .repo-item:nth-child(1) .repo-button,
+.repo-list .repo-item:nth-child(2) .repo-button {
   -webkit-transform: skew(-20deg);
   -moz-transform: skew(-20deg);
   -o-transform: skew(-20deg);
@@ -45,8 +50,8 @@
   transform: skew(20deg);
 }
 
-.repo-list .repo-item:nth-child(3),
-.repo-list .repo-item:nth-child(4) {
+.repo-list .repo-item:nth-child(3) .repo-button,
+.repo-list .repo-item:nth-child(4) .repo-button {
   -webkit-transform: skew(20deg);
   -moz-transform: skew(20deg);
   -o-transform: skew(20deg);
@@ -62,35 +67,35 @@
 }
 
 /* Colors */
-.repo-list .repo-item:nth-child(1) {
+.repo-list .repo-item:nth-child(1) .repo-button {
   background: #F01EF0;
 }
-.repo-list .repo-item:nth-child(1):hover,
-.repo-list .repo-item:nth-child(1):focus {
+.repo-list .repo-item:nth-child(1) .repo-button:hover,
+.repo-list .repo-item:nth-child(1) .repo-button:focus {
   background: #FF30FF;
 }
 
-.repo-list .repo-item:nth-child(2) {
+.repo-list .repo-item:nth-child(2) .repo-button {
   background: #FFE821;
 }
-.repo-list .repo-item:nth-child(2):hover,
-.repo-list .repo-item:nth-child(2):focus {
+.repo-list .repo-item:nth-child(2) .repo-button:hover,
+.repo-list .repo-item:nth-child(2) .repo-button:focus {
   background: rgb(255, 255, 40);
 }
 
-.repo-list .repo-item:nth-child(3) {
+.repo-list .repo-item:nth-child(3) .repo-button {
   background: #49CEFF;
 }
-.repo-list .repo-item:nth-child(3):hover,
-.repo-list .repo-item:nth-child(3):focus {
+.repo-list .repo-item:nth-child(3) .repo-button:hover,
+.repo-list .repo-item:nth-child(3) .repo-button:focus {
   background: #49DBFF;
 }
 
-.repo-list .repo-item:nth-child(4) {
+.repo-list .repo-item:nth-child(4) .repo-button {
   background: #FF8C18;
 }
-.repo-list .repo-item:nth-child(4):hover,
-.repo-list .repo-item:nth-child(4):focus {
+.repo-list .repo-item:nth-child(4) .repo-button:hover,
+.repo-list .repo-item:nth-child(4) .repo-button:focus {
   background: orange;
 }
 
@@ -105,7 +110,7 @@
   }
 }
 
-.repo-list .repo-item {
+.repo-list .repo-item  .repo-button {
   -webkit-animation: repo-item-pulse 1s infinite alternate;
 }
 

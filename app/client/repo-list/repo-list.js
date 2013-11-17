@@ -24,7 +24,7 @@ RepoList.prototype.render = function() {
   };
   var callback = this.onSelect;
   this.$el = $(template.render(model))
-    .on('click', 'li', function () {
+    .on('click', '.repo-button', function () {
       callback(repos[$(this).index()]);
     });
 };
