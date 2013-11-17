@@ -25,7 +25,8 @@ IDEAL_CONTEXT_COUNT = 5
 IDEAL_KEYWORD_RATIO = 0.02
 
 NON_CODE_FILES = ['txt', 'md', 'json', 'yml', 'xml', 'lock', 'makefile', 'plist'
-                  'html', 'erb', 'mustache' 'manifest', 'properties', 'css']
+                  'html', 'erb', 'mustache' 'manifest', 'properties', 'css'
+                  'gitignore']
 
 def compute_grade(commit):
   """Computes a grade for a given commit.
