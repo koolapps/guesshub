@@ -12,8 +12,9 @@ function RepoList (repos, onSelect) {
 }
 
 RepoList.prototype.render = function() {
+  var repos = this.repos;
   var model = {
-    repos: this.repos.map(function (repo) {
+    repos: repos.map(function (repo) {
       var result = repo.toJSON();
       var parts = result.name.split('/');
       result.owner = parts[0];
