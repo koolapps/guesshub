@@ -24,7 +24,7 @@ IDEAL_CONTEXT_COUNT = 5
 
 IDEAL_KEYWORD_RATIO = 0.02
 
-NON_CODE_FILES = ['txt', 'md', 'json', 'yml', 'xml', 'lock', 'makefile',
+NON_CODE_FILES = ['txt', 'md', 'json', 'yml', 'xml', 'lock', 'makefile', 'plist'
                   'html', 'erb', 'mustache' 'manifest', 'properties', 'css']
 
 def compute_grade(commit):
