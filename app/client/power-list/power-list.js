@@ -21,8 +21,6 @@ var MAX_POWERS = 5;
 module.exports = function (user, mode, callback) {
   var $el = $('<div/>', { class: 'power-list' });
   function update() {
-    console.log(user);
-    console.log(getPowers(user,mode));
     $el.html(template.render({ powers: getPowers(user, mode) }));
   }
   user.on('change', update);
