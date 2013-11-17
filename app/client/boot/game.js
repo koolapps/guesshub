@@ -124,6 +124,7 @@ Game.prototype._renderPowers = function(user) {
         this.timer.addPercentTime(25);
         break;
       case 'commit':
+        this.commitDisplay.setVisibility({ metadata: true });
       case 'repo':
       case 'half':
         break;
