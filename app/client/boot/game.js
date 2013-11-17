@@ -126,6 +126,7 @@ Game.prototype._renderPowers = function(user) {
           this.commitDisplay.setVisibility({ metadata: true });
         break;
       case 'repo':
+      
         break;
       case 'half':
           var hidden = 0;

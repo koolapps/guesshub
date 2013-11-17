@@ -9,7 +9,7 @@ function RepoList (repos, onSelect) {
   this.repos = repos;
   this.onSelect = onSelect;
   this.render();
-};
+}
 
 RepoList.prototype.render = function() {
   var model = {
@@ -18,7 +18,6 @@ RepoList.prototype.render = function() {
       var parts = result.name.split('/');
       result.owner = parts[0];
       result.name = parts[1];
-      console.log(result.hidden)
       return result;
     })
   };
@@ -34,3 +33,4 @@ RepoList.prototype.hideRepos = function(repos) {
     this.$el.find('[data-id=' + repo.id() + ']').addClass('hide');
   }, this);
 };
+
