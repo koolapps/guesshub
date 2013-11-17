@@ -43,7 +43,22 @@ task('clean', { async: true }, function () {
   })
 });
 
-/* TODO: Make watch work on Windows. */
+// For this to work on Windows, patch jake as follows:
+//
+// jake/lib/watch_task.js:23
+// - return item == filePath;
+// + return item.split(/[\\\/]/).join('/') == filePath.split(/[\\\/]/).join('/');
+//
+// jake/lib/task/task.js:162
+// + this._currentPrereqIndex = 0;
+//
+// jake/node_modules/utilities/lib/file.js:201
+// - if (inclPat.test(p) && !exclPat.test(p)) {
+// + if (p && inclPat.test(p) && !exclPat.test(p)) {
 watchTask(['build'], function () {
-  this.watchFiles.exclude('build/');
+  this.watchFiles.include('client/*/template.html');
+
+  this.watchFiles.exclude(/^build\b/);
+  this.watchFiles.exclude(/^components\b/);
+  this.watchFiles.exclude(/\btemplate\.js$/);
 });
