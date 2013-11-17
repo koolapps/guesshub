@@ -8,4 +8,5 @@ module.exports = plugins(model('Repo'))
     .attr('author_avatar_url')
     .attr('description')
     .attr('watcher_count')
-    .attr('star_count');
+    .attr('star_count')
+    .attr('hidden');

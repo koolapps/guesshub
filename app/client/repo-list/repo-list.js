@@ -1,21 +1,36 @@
-var $ = require('jquery')
-var Hogan = require('hogan.js')
+var $ = require('jquery');
+var Hogan = require('hogan.js');
 var template = Hogan.compile(require('./template'));
 
+module.exports = RepoList;
+
 // TODO: Make choices respond to 1-4 keyboards keys.
-module.exports = function (repos, callback) {
+function RepoList (repos, onSelect) {
+  this.repos = repos;
+  this.onSelect = onSelect;
+  this.render();
+};
+
+RepoList.prototype.render = function() {
   var model = {
-    repos: repos.map(function (repo) {
+    repos: this.repos.map(function (repo) {
       var result = repo.toJSON();
       var parts = result.name.split('/');
       result.owner = parts[0];
       result.name = parts[1];
+      console.log(result.hidden)
       return result;
     })
   };
-
-  return $(template.render(model))
+  var callback = this.onSelect;
+  this.$el = $(template.render(model))
     .on('click', 'li', function () {
       callback(repos[$(this).index()]);
     });
+};
+
+RepoList.prototype.hideRepos = function(repos) {
+  repos.forEach(function (repo) {
+    this.$el.find('[data-id=' + repo.id() + ']').addClass('hide');
+  }, this);
 };

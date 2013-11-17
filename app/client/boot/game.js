@@ -1,7 +1,7 @@
 var $ = require('jquery');
 var Timer = require('timer');
 var Level = require('models').Level;
-var repoList = require('repo-list');
+var RepoList = require('repo-list');
 var scoreCard = require('score-card');
 var powerList = require('power-list');
 var levelMeter = require('level-meter');
@@ -100,9 +100,8 @@ Game.prototype._renderTimer = function (commit) {
 };
 
 Game.prototype._renderRepos = function (repos) {
-  this.$repos.empty().append(
-    repoList(repos, this._onGuess.bind(this))
-  );
+  this.repoList = new RepoList(repos, this._onGuess.bind(this));
+  this.$repos.empty().append(this.repoList.$el);
   return this;
 };
 
@@ -121,12 +120,26 @@ Game.prototype._renderPowers = function(user) {
     user.removePower(type);
     switch (type) {
       case 'time':
-        this.timer.addPercentTime(25);
+          this.timer.addPercentTime(25);
         break;
       case 'commit':
-        this.commitDisplay.setVisibility({ metadata: true });
+          this.commitDisplay.setVisibility({ metadata: true });
+        break;
       case 'repo':
+        break;
       case 'half':
+          var hidden = 0;
+          var correctRepoName = this.round.commit().repository();
+          this.repoList.hideRepos(
+            this.round.repos().sort(function () {
+              return 0.5 - Math.random();
+            }).filter(function (repo) {
+              if (hidden < 2 && repo.name() != correctRepoName) {
+                hidden++;
+                return repo;
+              }
+            })
+          );
         break;
       default:
         throw new Error('Unexpected power type ' + type);

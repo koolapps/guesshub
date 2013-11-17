@@ -8,6 +8,10 @@ body {
   -webkit-user-select: none;
 }
 
+.hide {
+  display: none !important;
+}
+
 #container {
   margin: 0 auto;
   width: 1140px;
