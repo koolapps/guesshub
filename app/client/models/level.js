@@ -39,8 +39,8 @@ var ROUNDS_PER_LEVEL = {
 //              /-fst-fst-bns-fst-fst-\
 // reg-reg-reg-|                       |-final-survival
 //              \-hrd-hrd-bns-hrd-hrd-/
-// “faster”: easy commits but low timer.
-// “harder”: long, keyword-less commits but long time.
+// "faster": easy commits but low timer.
+// "harder": long, keyword-less commits but long time.
 
 var LEVEL_RULES = {
   regular: {
