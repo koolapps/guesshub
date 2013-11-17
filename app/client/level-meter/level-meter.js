@@ -8,20 +8,19 @@ module.exports = function (model) {
   var $el = $(template);
   var $innerMeter = $('<div/>', { class: 'inner-meter' });
   var $outerMeter = $el.find('.outer-meter');
-  var partWidth = 100 / model.rounds();
+  var partHeight = 100 / model.rounds();
 
   function update (guessed) {
     var $part = $innerMeter
       .clone()
-      .css('width', partWidth + '%')
-      .addClass(guessed ? 'guessed' : 'missed')
-      .append($('<span/>').text(guessed ? '+' : '–'));
+      .css('height', partHeight + '%')
+      .addClass(guessed ? 'guessed' : 'missed');
 
     $outerMeter.append($part);
 
     // Make sure we don't have any empty space at the edge.
     if (model.completed_round() === model.rounds()) {
-      $outerMeter.width($el.find('.inner-meter').width() * model.rounds());
+      $outerMeter.height($el.find('.inner-meter').height() * model.rounds());
     }
   }
   model.on('change guessed', update.bind(null, true));

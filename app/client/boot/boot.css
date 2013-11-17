@@ -1,3 +1,7 @@
+html, body, #container {
+  height: 100%;
+}
+
 body {
   background: url(/img/simple_dashed.png);
   color: #fff;
@@ -6,7 +10,7 @@ body {
 
 #container {
   margin: 0 auto;
-  width: 1100px;
+  width: 1140px;
   margin-top: 25px;
   position: relative;
 }
@@ -44,5 +48,7 @@ body {
 }
 
 #level-meter {
-  display: none;
+  position: absolute;
+  left: 1100px;
+  height: calc(100% - 50px);
 }
