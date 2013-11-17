@@ -119,8 +119,18 @@ Game.prototype._renderScoreCard = function(user) {
 Game.prototype._renderPowers = function(user) {
   this.$powerList.append(powerList(user, 'use', function(type) {
     user.removePower(type);
-    alert('TODO: Use power: "' + type + '".');
-  }));
+    switch (type) {
+      case 'time':
+        this.timer.addPercentTime(25);
+        break;
+      case 'commit':
+      case 'repo':
+      case 'half':
+        break;
+      default:
+        throw new Error('Unexpected power type ' + type);
+    }
+  }.bind(this)));
 };
 
 Game.prototype.startRound = function () {

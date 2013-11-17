@@ -54,4 +54,14 @@ Timer.prototype._draw = function () {
   this.$el.children().last().remove();
 };
 
+Timer.prototype.addPercentTime = function (val) {
+  var bonusTime = (val / 100) * this.interval;
+  this.timeLeft = Math.round(
+    Math.min(this.interval, bonusTime + this.timeLeft)
+  );
+  this._ticks.slice(0, this.timeLeft).forEach(function ($tick) {
+    $tick.removeClass('expired');
+  });
+};
+
 module.exports = Timer;
