@@ -208,6 +208,6 @@ Game.prototype._renderPowers = function(mode) {
 
 Game.prototype._renderHub = function() {
   // TODO: Handle locked levels.
-  this.$levelHub.append(levelHub(this.campaign, this.showLevel.bind(this)));
+  this.$levelHub.append(levelHub(this.campaign, this.user, this.showLevel.bind(this)));
   this.$levelHub.show();
 };

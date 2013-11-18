@@ -4,7 +4,8 @@ var plugins = require('./plugins');
 // TODO: Revert to empty powers and 0 score once we're done debugging.
 var User = plugins(model('User'))
   .attr('score', { default: 50000 })
-  .attr('powers', { default: {time: 5, repo: 1, commit: 1, half: 1} });
+  .attr('powers', { default: {time: 5, repo: 1, commit: 1, half: 1} })
+  .attr('completed_level_ids', { default: [] });
 
 User.MAX_POWERS = 5;
 
@@ -57,6 +58,16 @@ User.prototype.canAffordPower = function (power) {
 
 User.prototype.canUsePower = function (power) {
   return this.powerCount(power) > 0;
+};
+
+User.prototype.completeLevel = function (level) {
+  if (this.completed_level_ids().indexOf(level.id()) === -1) {
+    this.completed_level_ids().push(level.id());
+  }
+};
+
+User.prototype.isLevelComplete = function (level) {
+  return this.completed_level_ids().indexOf(level.id()) !== -1;
 };
 
 module.exports = User;

@@ -19,11 +19,17 @@
 .level-hub .level {
   clear: both;
   font-weight: bold;
+  color: grey;
+  cursor: not-allowed;
+}
+
+.level-hub .unlocked {
+  color: inherit;
   cursor: pointer;
 }
 
-.level-hub .level:hover,
-.level-hub .level:focus,
-.level-hub .level:active {
+.level-hub .level.unlocked:hover,
+.level-hub .level.unlocked:focus,
+.level-hub .level.unlocked:active {
   color: yellow;
 }

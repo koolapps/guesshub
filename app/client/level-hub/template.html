@@ -1,19 +1,19 @@
 <div class="intro-levels">
   {{#intro_levels}}
-    <div class="level">{{name}}</div>
+    <div class="level {{#is_unlocked}}unlocked{{/is_unlocked}}" data-id="{{id}}">{{name}}</div>
   {{/intro_levels}}
 </div>
 <div class="levels-branch">
   <div class="fast-levels">
     {{#fast_levels}}
-      <div class="level">{{name}}</div>
+      <div class="level {{#is_unlocked}}unlocked{{/is_unlocked}}" data-id="{{id}}">{{name}}</div>
     {{/fast_levels}}
   </div>
   <div class="hard-levels">
     {{#hard_levels}}
-      <div class="level">{{name}}</div>
+      <div class="level {{#is_unlocked}}unlocked{{/is_unlocked}}" data-id="{{id}}">{{name}}</div>
     {{/hard_levels}}
   </div>
 </div>
-<div class="level">{{final_level.name}}</div>
-<div class="level">{{survival_level.name}}</div>
+<div class="level {{#is_unlocked}}unlocked{{/is_unlocked}}">{{final_level.name}}</div>
+<div class="level {{#is_unlocked}}unlocked{{/is_unlocked}}">{{survival_level.name}}</div>
