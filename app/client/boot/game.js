@@ -151,11 +151,15 @@ Game.prototype._finishRound = function (won) {
   // TODO: Add sound effects on win/loss.
   progress.completed_round(progress.completed_round() + 1);
   if (won) {
-    this.user.addScore(
-      this.round.commit(),
-      Math.floor((Date.now() - this.startTime) /  1000)
-    );
+    // TODO: Finalize the score calculation formula.
+    // Assuming grade is between 0 and 50 we rescale to 50 - 100.
+    var grade = 50 + this.round.commit().grade();
+    var secondsTaken = Math.floor((Date.now() - this.startTime) /  1000);
+    var pointsEarned = Math.round(grade / Math.sqrt(1 + secondsTaken));
+    // TODO: Don't add score to the user until the level is done.
+    this.user.addScore(pointsEarned);
     progress.guessed(progress.guessed() + 1);
+    progress.score_earned(progress.score_earned() + pointsEarned);
   } else {
     progress.mistakes_left(progress.mistakes_left() - 1);
     progress.missed(progress.missed() + 1);

@@ -9,14 +9,8 @@ var User = plugins(model('User'))
 
 User.MAX_POWERS = 5;
 
-User.prototype.addScore = function (commit, secondsTaken) {
-  // TODO: Finalize the score calculation formula.
-  // TODO: Move score calculation to game.js.
-  // Assuming grade is between 0 and 50 we rescale to 50 - 100
-  var grade = commit.grade() * 2;
-  this.score(
-    this.score() + Math.round(grade / Math.sqrt(1 + secondsTaken))
-  );
+User.prototype.addScore = function (points) {
+  this.score(this.score() + points);
 };
 
 User.prototype.subtractScore = function (value) {
