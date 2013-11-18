@@ -19,7 +19,8 @@
     "commit-display",
     "score-card",
     "power-list",
-    "level-hub"
+    "level-hub",
+    "finish-screen"
   ],
   "dependencies": {
     "component/jquery": "*"

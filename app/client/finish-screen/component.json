@@ -1,0 +1,17 @@
+{
+  "name": "finish-screen",
+  "description": "a level results screen",
+  "dependencies": {
+    "component/jquery": "*",
+    "twitter/hogan.js": "*"
+  },
+  "development": {},
+  "main": "finish-screen.js",
+  "scripts": [
+    "finish-screen.js",
+    "template.js"
+  ],
+  "styles": [
+    "finish-screen.css"
+  ]
+}

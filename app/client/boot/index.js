@@ -16,6 +16,7 @@ var game = new Game({
   $commitDisplay: $('#commit-display'),
   $powerList: $('#power-list'),
   $levelHub: $('#level-hub'),
+  $finishScreen: $('#finish-screen'),
 });
 
 game.start();

@@ -1,0 +1,17 @@
+.finish-screen {
+  text-align: center;
+  line-height: 30px;
+  margin-top: 50px;
+}
+
+.finish-screen .commit {
+  text-align: left;
+}
+
+.finish-screen .commit * {
+  vertical-align: middle;
+}
+
+.finish-screen .commit .author.icon {
+  width: 32px;
+}

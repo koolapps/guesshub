@@ -9,6 +9,7 @@ var scoreCard = require('score-card');
 var powerList = require('power-list');
 var levelMeter = require('level-meter');
 var levelHub = require('level-hub');
+var finishScreen = require('finish-screen');
 
 var CommitDisplay = require('commit-display');
 var Timer = require('timer');
@@ -31,6 +32,7 @@ function Game (options) {
   this.startTime = null;
 
   // DOM references.
+  this.$finishScreen = options.$finishScreen;
   this.$repos = options.$repos;
   this.$timer = options.$timer;
   this.$scoreCard = options.$scoreCard;
@@ -60,6 +62,7 @@ Game.prototype.clear = function () {
   this.$commitDisplay.empty().hide();
   this.$powerList.empty().hide();
   this.$levelHub.empty().hide();
+  this.$finishScreen.empty().hide();
 
   // TODO: Properly destroy widgets?
   this.commitDisplay = null;
@@ -82,7 +85,7 @@ Game.prototype.showLevel = function (level) {
   // TODO: Show loading bar.
   level.fetchRounds(function(rounds) {
     this.levelRounds = rounds;
-    this.levelProgress = UserLevelProgress.create(level);
+    this.levelProgress = UserLevelProgress.create(level, this.user);
 
     this._renderScoreCard();
     this._renderPowers('use');
@@ -90,6 +93,15 @@ Game.prototype.showLevel = function (level) {
 
     this.startRound();
   }.bind(this));
+};
+
+Game.prototype.showFinishScreen = function () {
+  this.clear();
+
+  this._renderScoreCard();
+  this._renderLevelMeter();
+  this._renderPowers('inactive');
+  this._renderFinishScreen();
 };
 
 Game.prototype.startRound = function () {
@@ -110,38 +122,46 @@ Game.prototype._onGuess = function (repo) {
 };
 
 Game.prototype._onPower = function (mode, power) {
-  if (mode == 'buy') {
-    this.user.addPower(power);
-    this.user.subtractScore(power.price());
-  } else {
-    // TODO: Maybe move these into Power.use()?
-    switch (power.id()) {
-      case 'time':
-        this.timer.addPercentTime(25);
-        break;
-      case 'commit':
-        this.commitDisplay.setVisibility({ metadata: true });
-        break;
-      case 'repo':
-        alert('TODO: Use repo power.');
-        break;
-      case 'half':
-        var hidden = 0;
-        var correctRepoName = this.round.commit().repository();
-        this.repoList.hideRepos(
-          this.round.repos().sort(function () {
-            return 0.5 - Math.random();
-          }).filter(function (repo) {
-            if (hidden < 2 && repo.name() != correctRepoName) {
-              hidden++;
-              return repo;
-            }
-          }));
-        break;
-      default:
-        throw new Error('Unexpected power: ' + power.id());
-    }
-    this.user.removePower(power);
+  switch (mode) {
+    case 'buy':
+      this.user.addPower(power);
+      this.user.subtractScore(power.price());
+      break;
+    case 'buy':
+      // TODO: Maybe move these into Power.use()?
+      switch (power.id()) {
+        case 'time':
+          this.timer.addPercentTime(25);
+          break;
+        case 'commit':
+          this.commitDisplay.setVisibility({ metadata: true });
+          break;
+        case 'repo':
+          alert('TODO: Use repo power.');
+          break;
+        case 'half':
+          var hidden = 0;
+          var correctRepoName = this.round.commit().repository();
+          this.repoList.hideRepos(
+            this.round.repos().sort(function () {
+              return 0.5 - Math.random();
+            }).filter(function (repo) {
+              if (hidden < 2 && repo.name() != correctRepoName) {
+                hidden++;
+                return repo;
+              }
+            }));
+          break;
+        default:
+          throw new Error('Unexpected power: ' + power.id());
+      }
+      this.user.removePower(power);
+      break;
+    case 'inactive':
+      // No interaction possible.
+      break;
+    default:
+      throw Error('Invalid mode: ' + mode);
   }
 };
 
@@ -165,19 +185,13 @@ Game.prototype._finishRound = function (won) {
     progress.missed(progress.missed() + 1);
   }
   if (progress.mistakes_left() < 0) {
-    // LOSS.
-    // TODO: Show level end screen.
-    this.showHub();
+    this.showFinishScreen();
   } else if (progress.completed_round() === progress.rounds()) {
-    this._finishLevel();
+    this.user.completeLevel(this.level);
+    this.showFinishScreen();
   } else {
     this.startRound();
   }
-};
-
-Game.prototype._finishLevel = function() {
-  this.user.completeLevel(this.level);
-  this.showHub();
 };
 
 /**** Rendering ****/
@@ -217,7 +231,17 @@ Game.prototype._renderPowers = function(mode) {
 };
 
 Game.prototype._renderHub = function() {
-  // TODO: Handle locked levels.
   this.$levelHub.append(levelHub(this.campaign, this.user, this.showLevel.bind(this)));
   this.$levelHub.show();
+};
+
+Game.prototype._renderFinishScreen = function() {
+  this.$finishScreen.append(
+      finishScreen(this.user,
+                   this.level,
+                   this.levelRounds.map(function(r) { return r.commit(); }),
+                   this.levelProgress,
+                   this.showHub.bind(this),
+                   this.showLevel.bind(this, this.level)));
+  this.$finishScreen.show();
 };
