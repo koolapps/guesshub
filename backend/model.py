@@ -10,13 +10,12 @@ PATCH_HEADER_REGEX = re.compile(
 
 
 class Commit(object):
-  """TODO"""
+  """A single patch hunk linked to a GitHub commit."""
 
   def __init__(self, commit_json, patch_number,
                contents_url, patch_filename,
                patch_start_old, patch_start_new,
                patch_header, patch_lines):
-    """TODO"""
     self.sha = commit_json['sha']
     self.patch_number = patch_number
     self.message = commit_json['commit']['message']
@@ -27,13 +26,15 @@ class Commit(object):
       self.author_login = None
       self.author_avatar_url = None
     self.author_name = commit_json['commit']['author']['name']
-  
+
     repository_matches = REPOSITORY_REGEX.findall(commit_json['url'])
     assert repository_matches and len(repository_matches) == 1, commit_json
     self.repository = repository_matches[0]
 
+    # TODO: Remove these throughout the codebase.
     self.file_contents_url = contents_url  # After the patch application.
-    self.file_contents = None  # TODO(max99x): Maybe fetch this eagerly?
+    self.file_contents = None
+
     self.filename = patch_filename
     self.additions = len([i for i in patch_lines if i.startswith('+')])
     self.deletions = len([i for i in patch_lines if i.startswith('-')])
@@ -44,7 +45,7 @@ class Commit(object):
 
   @staticmethod
   def split_from_json(json):
-    """TODO"""
+    """Given a GitHub commit JSON, yield Commit objects for all patch hunks."""
     assert json
     patch_number = 0
     if 'files' in json:
@@ -58,7 +59,11 @@ class Commit(object):
 
   @staticmethod
   def split_patch(patch):
-    """TODO"""
+    """Given a full patch, yield all hunks.
+
+    The hunks are tuples of:
+      old_start_line, new_start_line, optional_header, list_of_lines
+    """
     current_header = None
     current_lines = []
     def assemble():
@@ -83,7 +88,7 @@ class Commit(object):
 
 
 class Repository(object):
-  """TODO"""
+  """A GitHub repository."""
 
   def __init__(self, repository_json, star_count):
     self.id = repository_json['id']

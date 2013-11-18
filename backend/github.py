@@ -42,7 +42,7 @@ class GitHub(object):
     result = requests.get(url, params=full_params, headers=request_headers)
 
     # Explode on client errors and retry on server error.
-    status = result.status_code 
+    status = result.status_code
     if status >= 500:
       return self.Fetch(url, **params)
     elif status == 403:
@@ -64,7 +64,7 @@ class GitHub(object):
     return result
 
   def List(self, url, pages=None, **params):
-    """TODO"""
+    """Fetches and yields each item from a GH listing."""
     if pages is None:
       page_range = itertools.repeat(1)
     else:
@@ -88,18 +88,21 @@ class GitHub(object):
           url = next_page_links[0]
 
   def GetCommitsList(self, repo, pages_count):
-    """TODO"""
+    """Yields the SHAs of recent commits given a repo name."""
     for commit_json in self.List('repos/%s/commits' % repo, pages_count):
       yield commit_json['sha']
 
   def GetCommits(self, repo, sha):
-    """TODO"""
+    """Yields Commit objects for each patch in a given commit.
+
+    The commit is specified by a repo name and a SHA hash.
+    """
     commit_json = self.Fetch('repos/%s/commits/%s' % (repo, sha)).json()
     for commit in model.Commit.split_from_json(commit_json):
       yield commit
 
   def GetStarCount(self, repo):
-    """TODO"""
+    """Returns the number stars for a repository given its name."""
     response = self.Fetch('repos/%s/stargazers' % repo)
     first_page_count = len(response.json())
 
@@ -114,19 +117,19 @@ class GitHub(object):
       return first_page_count
 
   def GetUserRespositories(self, username):
-    """TODO"""
+    """Yields the repositories of a given user as Repository objects."""
     for repository_json in self.List('users/%s/repos' % username):
       yield model.Repository(repository_json,
                              self.GetStarCount(repository_json['full_name']))
 
   def GetTopUsers(self):
-    """TODO"""
+    """Yields the usernames of the top 10,000 users."""
     search_url = 'search/users?q=followers%3A%3E%3D0&sort=followers'
     for user_json in self.List(search_url):
       yield user_json['login']
 
   def GetTopRepositories(self):
-    """TODO"""
+    """Yields the top 10,000 repositories as Repository objects."""
     search_url = 'search/repositories?q=stars%3A>%3D0&sort=stars'
     for repository_json in self.List(search_url):
       yield model.Repository(repository_json,
