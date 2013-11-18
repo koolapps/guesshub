@@ -4,7 +4,6 @@ var Level = require('./level');
 var plugins = require('./plugins');
 
 // Immutable collection of levels.
-// TODO: Update the user model with campaign progress.
 // TODO: Add bonus levels.
 var Campaign = plugins(model('Campaign'))
   .attr('intro_levels')
