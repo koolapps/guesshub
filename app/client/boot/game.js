@@ -177,9 +177,7 @@ Game.prototype._renderLevelMeter = function () {
 };
 
 Game.prototype._renderTimer = function (seconds) {
-  this.timer = new Timer(
-      seconds,
-      this._finishRound.bind(this, false));
+  this.timer = new Timer(seconds, this._finishRound.bind(this, false));
   this.$timer.empty().append(this.timer.$el);
   this.$timer.show();
 };
