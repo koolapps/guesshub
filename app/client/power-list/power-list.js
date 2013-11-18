@@ -11,10 +11,10 @@ var POWER_PRICES = {
   half: 42000
 };
 var POWER_TOOLTIPS = {
-  time: 'Buy 25% of your time back!',
-  commit: 'Reveal commit metadata!',
-  repo: 'Reveal repository details!',
-  half: 'Remove two wrong choices!'
+  time: 'Buy 25% of your time back',
+  commit: 'Reveal commit metadata',
+  repo: 'Reveal repository details',
+  half: 'Remove two wrong choices'
 };
 var MAX_POWERS = 5;
 
