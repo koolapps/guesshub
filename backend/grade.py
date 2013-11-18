@@ -24,6 +24,7 @@ IDEAL_CONTEXT_COUNT = 5
 
 IDEAL_KEYWORD_RATIO = 0.02
 
+# TODO: Maybe switch to a whitelist instead?
 NON_CODE_FILES = ['txt', 'md', 'json', 'yml', 'xml', 'lock', 'makefile', 'plist'
                   'html', 'erb', 'mustache' 'manifest', 'properties', 'css'
                   'gitignore']
@@ -104,7 +105,7 @@ def update_grades():
       passwd=config.DB_PASSWORD,
       db=config.DB_NAME,
       cursorclass=mysql_cursors.DictCursor)
-  
+
   count_cursor = db.cursor()
   count_cursor.execute(COUNT_SQL)
   count = count_cursor.fetchone()['MAX(order_id)']
