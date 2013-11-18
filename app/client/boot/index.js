@@ -20,7 +20,7 @@ var game = new Game({
 
 game.start();
 
-// DEBUG
+// TODO: Remove in non-debug builds.
 window.game = game;
 
 // TODO: Add support for switchable background music.
