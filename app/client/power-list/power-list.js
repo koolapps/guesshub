@@ -33,8 +33,11 @@ function getPowers(powers, user, mode) {
     } else if (mode == 'use') {
       isAvailable = user.canUsePower(power);
       priceDisplay = null;
+    } else if (mode == 'inactive') {
+      isAvailable = false;
+      priceDisplay = null;
     } else {
-      throw Error('Invalid mode: ' + mode + '. Must be "buy" or "use".');
+      throw Error('Invalid mode: ' + mode);
     }
     return {
       type: power.id(),
