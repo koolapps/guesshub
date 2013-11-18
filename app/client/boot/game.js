@@ -94,10 +94,6 @@ Game.prototype.showLevel = function (level) {
 
 Game.prototype.startRound = function () {
   this.round = this.levelRounds[this.levelProgress.completed_round()];
-  if (!this.round.timer()) {
-    console.log(this.round);
-    console.log(this.round.timer());
-  }
   this._renderTimer(this.round.timer())
   this._renderRepos(this.round.repos())
   this._renderCommitDisplay(this.round.commit());
