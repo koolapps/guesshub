@@ -1,0 +1,29 @@
+.level-hub {
+  text-align: center;
+  line-height: 30px;
+  margin-top: 50px;
+}
+
+.level-hub .fast-levels {
+  float: left;
+}
+
+.level-hub .hard-levels {
+  float: right;
+}
+
+.level-hub .hard-levels {
+  float: right;
+}
+
+.level-hub .level {
+  clear: both;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.level-hub .level:hover,
+.level-hub .level:focus,
+.level-hub .level:active {
+  color: yellow;
+}

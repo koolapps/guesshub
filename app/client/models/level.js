@@ -2,165 +2,38 @@ var $ = require('jquery');
 var model = require('model');
 var Repo = require('./repo');
 var Commit = require('./commit');
+var Round = require('./round');
 var plugins = require('./plugins');
 
-var LEVELS_PATH = [
-  [ 'regular' ],
-  [ 'regular' ],
-  [ 'regular' ],
-  [ 'fast', 'hard' ],
-  [ 'fast', 'hard' ],
-  [ 'bonus' ],
-  [ 'fast', 'hard' ],
-  [ 'fast', 'hard' ],
-  [ 'final' ],
-  [ 'survival' ],
-];
-
-var LEVEL_TYPES = ['regular', 'fast', 'hard', 'bonus', 'final', 'survival'];
-
-var LEVEL_DIFFICULTY = {
-  fast: [0, 25],
-  hard: [25, 50],
-  regular: [0, 25],
-  bonus: [0, 25],
-  final: [0, 50],
-  survival: [0, 50]
-};
-
-var ROUNDS_PER_LEVEL = {
-  regular: 10,
-  fast: 10,
-  hard: 10,
-  final: 20,
-  survival: 100,
-};
-
-//              /-fst-fst-bns-fst-fst-\
-// reg-reg-reg-|                       |-final-survival
-//              \-hrd-hrd-bns-hrd-hrd-/
-// "faster": easy commits but low timer.
-// "harder": long, keyword-less commits but long time.
-
-var LEVEL_RULES = {
-  regular: {
-    0: { mistakes: 5, timer: 60 },
-    1: { mistakes: 4, timer: 50 },
-    2: { mistakes: 3, timer: 40 },
-  },
-  fast: {
-    3: { mistakes: 2, timer: 20 },
-    4: { mistakes: 2, timer: 15 },
-    6: { mistakes: 1, timer: 5 },
-    7: { mistakes: 1, timer: 5 },
-  },
-  hard: {
-    3: { mistakes: 5, timer: 30 },
-    4: { mistakes: 5, timer: 30 },
-    6: { mistakes: 5, timer: 30 },
-    7: { mistakes: 5, timer: 30 },
-  },
-  bonus: {
-    5: { mistakes: -1, timer: 15 },
-  },
-  final: {
-    8: { mistakes: 1, timer: 15 },
-  },
-  survival: {
-    9: { mistakes: 3 },
-  }
-};
-
-var Round = plugins(model('Round'))
-  .attr('commit')
-  .attr('repos');
-
-Round.on('construct', function (m) {
-  m.commit(new Commit(m.commit()));
-  m.repos(m.repos().map(Repo));
-});
-
-
+// Immutable level descriptions, declared as part of a Campaign.
 var Level = plugins(model('Level'))
-  .attr('rounds')
-  .attr('level_no')
-  .attr('type')
-  .attr('mistakes')
-  .attr('timer')
+  .attr('name')
+  .attr('num_rounds', { default: 10 })
+  .attr('min_grade')
+  .attr('max_grade')
+  .attr('num_mistakes_allowed')
+  .attr('timer')  // null: per-Round, based on grade.
   ;
+// TODO: Switch grade to a normalized range (0-1?).
 
-Level.on('construct', function (m) {
-  m.rounds(m.rounds().map(Round));
-});
-
-// To override.
-Level.prototype.getTimer = function (grade) {
-  if (this.type() === 'final') {
-    this.nextIsHard = !this.nextIsHard;
-    var rules = LEVEL_RULES[this.nextIsHard ? 'hard' : 'fast'];
-    var keys = Object.keys(rules);
-    return rules[keys[Math.floor(Math.random() * keys.length)]].timer;
-  } else if (this.type() === 'survival') {
-    if (grade <= 25) {
-      return 20;
-    } else {
-      return 30;
-    }
-  } else {
-    return this.timer();
-  }
-};
-
-Level.url = function (options) {
-  var url = '';
-  if (options.type === 'final') {
-    url = 'final_level';
-  } else {
-    url = 'level';
-  }
-  url += '/' + (ROUNDS_PER_LEVEL[options.type] || 10);
-  if (options.grade){
-    url += '/' + options.grade[0];
-    url += '/' + options.grade[1];
-  }
-  return url;
-};
-
-Level.getAvailableTypes = function (levelNo) {
-  return LEVELS_PATH[levelNo];
-};
-
-Level.isValidType = function (type) {
-  return LEVEL_TYPES.indexOf(type) === -1;
-};
-
-Level.create = function (levelDescriptor, data) {
-  var rules = LEVEL_RULES[levelDescriptor.type][levelDescriptor.level_no];
-  $.extend(data, rules, levelDescriptor);
-  return new Level(data);
-};
-
-Level.fetch = function (url, levelDescriptor, cb) {
-  // TODO: handle errors.
-  $.get(url, function (data) {
-    cb(Level.create(levelDescriptor, data));
+Level.prototype.fetchRounds = function (callback) {
+  var url = '/' + [
+    'level',
+    this.num_rounds(),
+    this.min_grade(),
+    this.max_grade()
+  ].join('/');
+  var defaultTimer = this.timer();
+  // TODO: Retry with exponential backoff on errors.
+  $.getJSON(url, function (commits_json) {
+    callback(commits_json.rounds.map(function(c) {
+      return new Round({
+        commit: new Commit(c.commit),
+        repos: c.repos.map(Repo),
+        constant_timer: defaultTimer
+      });
+    }));
   });
-};
-
-Level.getLevel = function (levelDescriptor, cb) {
-  console.log('Level DEBUG getting level', levelDescriptor);
-  if (!Level.isValidType(type)) {
-    throw new Error('Wrong level type ' + type);
-  }
-  var type = levelDescriptor.type;
-  Level.fetch(
-    Level.url({
-      type: type,
-      grade: LEVEL_DIFFICULTY[type]
-    }),
-    levelDescriptor,
-    cb
-  );
 };
 
 module.exports = Level;

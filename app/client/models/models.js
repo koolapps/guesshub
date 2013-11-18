@@ -1,5 +1,8 @@
-exports.UserLevelProgress = require('./user_level_progress');
-exports.Repo = require('./repo');
-exports.Commit = require('./commit');
+exports.Campaign = require('./campaign');
 exports.Level = require('./level');
-exports.User = require('./user')
+exports.Round = require('./round')
+exports.Commit = require('./commit');
+exports.Repo = require('./repo');
+
+exports.User = require('./user');
+exports.UserLevelProgress = require('./user_level_progress');

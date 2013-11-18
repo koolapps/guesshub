@@ -16,6 +16,8 @@
     "commit.js",
     "plugins.js",
     "level.js",
-    "user.js"
+    "user.js",
+    "campaign.js",
+    "round.js"
   ]
 }

@@ -1,0 +1,17 @@
+{
+  "name": "level-hub",
+  "description": "a menu of available levels",
+  "dependencies": {
+    "component/jquery": "*",
+    "twitter/hogan.js": "*"
+  },
+  "development": {},
+  "main": "level-hub.js",
+  "scripts": [
+    "level-hub.js",
+    "template.js"
+  ],
+  "styles": [
+    "level-hub.css"
+  ]
+}

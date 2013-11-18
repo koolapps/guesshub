@@ -77,25 +77,6 @@ def level(length, grade_lower_bound, grade_upper_bound):
     'rounds': level_rounds
   }), mimetype='text/json')
 
-@APP.route("/final_level/<length>/<grade_lower_bound>/<grade_upper_bound>")
-def random_grade_level(length, grade_upper_bound, grade_lower_bound):
-  length = int(length)
-  grade_upper_bound = int(grade_upper_bound)
-  grade_lower_bound = int(grade_lower_bound)
-
-  level_rounds = []
-  half_length = int(length / 2)
-  # Easy
-  for i in range(0, half_length):
-    level_rounds.append(get_round(grade_lower_bound, int(grade_upper_bound / 2)))
-
-  # Hard
-  for i in range(0, half_length):
-    level_rounds.append(get_round(int(grade_upper_bound / 2), grade_upper_bound))
-
-  return flask.Response(json.dumps({
-    'rounds': level_rounds
-  }), mimetype='text/json')
 
 if __name__ == "__main__":
   APP.run(debug=True)

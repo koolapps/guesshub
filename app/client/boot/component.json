@@ -18,7 +18,8 @@
     "repo-list",
     "commit-display",
     "score-card",
-    "power-list"
+    "power-list",
+    "level-hub"
   ],
   "dependencies": {
     "component/jquery": "*"

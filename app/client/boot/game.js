@@ -1,66 +1,148 @@
 var $ = require('jquery');
-var Timer = require('timer');
+
 var Level = require('models').Level;
-var RepoList = require('repo-list');
+var UserLevelProgress = require('models').UserLevelProgress;
+
 var scoreCard = require('score-card');
 var powerList = require('power-list');
 var levelMeter = require('level-meter');
-var CommitDisplay = require('commit-display');
-var UserLevelProgress = require('models').UserLevelProgress;
+var levelHub = require('level-hub');
 
-var ROUNDS_PER_LEVEL = 10;
+var CommitDisplay = require('commit-display');
+var Timer = require('timer');
+var RepoList = require('repo-list');
 
 module.exports = Game;
 
 function Game (options) {
+  // Game state.
   this.user = options.user;
+  this.campaign = options.campaign;
 
+  // Level state.
+  this.level = null;
+  this.levelProgress = null;
+  this.levelRounds = null;
+
+  // Round state.
+  this.round = null;
+  this.startTime = null;
+
+  // DOM references.
   this.$repos = options.$repos;
   this.$timer = options.$timer;
   this.$scoreCard = options.$scoreCard;
   this.$levelMeter = options.$levelMeter;
   this.$commitDisplay = options.$commitDisplay;
   this.$powerList = options.$powerList;
+  this.$levelHub = options.$levelHub;
 
-  this._renderScoreCard(this.user);
-  this._renderPowers(this.user);
+  // Widget references.
+  this.commitDisplay = null;
+  this.timer = null;
+  this.repoList = null;
 }
 
+/**** State Control ****/
+
 Game.prototype.start = function () {
-  this.startLevel(0);
+  // TODO: Start from a tutorial skipping the hub for new users.
+  this.showHub();
 };
 
-Game.prototype.startLevel = function (level) {
-  console.log('Game DEBUG: starting level %d', level);
+Game.prototype.clear = function () {
+  this.$repos.empty().hide();
+  this.$timer.empty().hide();
+  this.$scoreCard.empty().hide();
+  this.$levelMeter.empty().hide();
+  this.$commitDisplay.empty().hide();
+  this.$powerList.empty().hide();
+  this.$levelHub.empty().hide();
 
-  var types = Level.getAvailableTypes(level);
+  // TODO: Properly destroy widgets?
+  this.commitDisplay = null;
+  this.timer = null;
+};
 
-  var type;
-  if (types.length === 1) {
-    type = types[0];
-  } else {
-    while (type == null) {
-      type = window.prompt('Choose type from: ' + types.join(', ')).trim();
-      if (Level.isValidType(type)) type = null;
-    }
-  }
+Game.prototype.showHub = function () {
+  this.clear();
 
-  Level.getLevel({
-    type: type,
-    level_no: level
-  }, function (level) {
-    this.level = level;
-    this.levelProgress = new UserLevelProgress({
-      rounds: this.level.rounds().length,
-      mistakes_left: this.level.mistakes()
-    });
+  // TODO: Add achievements UI.
+  this._renderScoreCard();
+  this._renderPowers('buy');
+  this._renderHub();
+};
+
+Game.prototype.showLevel = function (level) {
+  this.clear();
+
+  this.level = level;
+  // TODO: Show loading bar.
+  level.fetchRounds(function(rounds) {
+    this.levelRounds = rounds;
+    this.levelProgress = UserLevelProgress.create(level);
+
+    this._renderScoreCard();
+    this._renderPowers('use');
     this._renderLevelMeter();
+
     this.startRound();
   }.bind(this));
 };
 
+Game.prototype.startRound = function () {
+  this.round = this.levelRounds[this.levelProgress.completed_round()];
+  if (!this.round.timer()) {
+    console.log(this.round);
+    console.log(this.round.timer());
+  }
+  this._renderTimer(this.round.timer())
+  this._renderRepos(this.round.repos())
+  this._renderCommitDisplay(this.round.commit());
+  this.timer.start();
+  this.startTime = Date.now();
+
+  console.log('ANSWER:', this.round.commit().repository());
+};
+
+/**** Event Handling ****/
+
 Game.prototype._onGuess = function (repo) {
   this._finishRound(repo.name() === this.round.commit().repository());
+};
+
+Game.prototype._onPower = function (mode, type) {
+  if (mode == 'buy') {
+    alert('TODO: Buy power: "' + type + '".');
+  } else {
+    this.user.removePower(type);
+    switch (type) {
+      case 'time':
+        this.timer.addPercentTime(25);
+        break;
+      case 'commit':
+        this.commitDisplay.setVisibility({ metadata: true });
+        break;
+      case 'repo':
+        alert('TODO: Use power: "' + type + '".');
+        break;
+      case 'half':
+        var hidden = 0;
+        var correctRepoName = this.round.commit().repository();
+        this.repoList.hideRepos(
+          this.round.repos().sort(function () {
+            return 0.5 - Math.random();
+          }).filter(function (repo) {
+            if (hidden < 2 && repo.name() != correctRepoName) {
+              hidden++;
+              return repo;
+            }
+          }));
+        break;
+      default:
+        throw new Error('Unexpected power type ' + type);
+    }
+  }
 };
 
 Game.prototype._finishRound = function (won) {
@@ -78,84 +160,55 @@ Game.prototype._finishRound = function (won) {
     progress.mistakes_left(progress.mistakes_left() - 1);
     progress.missed(progress.missed() + 1);
   }
-  if (progress.mistakes_left() === 0) {
-    alert('Lost level, too many mistakes');
+  if (progress.mistakes_left() < 0) {
+    alert('LOSS. TODO: Show level end screen.');
   } else if (progress.completed_round() === progress.rounds()) {
-    this.startLevel(this.level.level_no() + 1);
+    alert('WIN. TODO: Show level end screen.');
   } else {
     this.startRound();
   }
 };
 
+/**** Rendering ****/
+
 Game.prototype._renderLevelMeter = function () {
   this.$levelMeter.empty().append(levelMeter(this.levelProgress));
+  this.$levelMeter.show();
 };
 
-Game.prototype._renderTimer = function (commit) {
+Game.prototype._renderTimer = function (seconds) {
   this.timer = new Timer(
-      this.level.getTimer(commit.grade()),
+      seconds,
       this._finishRound.bind(this, false));
   this.$timer.empty().append(this.timer.$el);
-  return this;
+  this.$timer.show();
 };
 
 Game.prototype._renderRepos = function (repos) {
   this.repoList = new RepoList(repos, this._onGuess.bind(this));
   this.$repos.empty().append(this.repoList.$el);
-  return this;
+  this.$repos.show();
 };
 
 Game.prototype._renderCommitDisplay = function (commit) {
   this.commitDisplay = new CommitDisplay(commit);
   this.$commitDisplay.empty().append(this.commitDisplay.$el);
-  return this;
+  this.$commitDisplay.show();
 };
 
-Game.prototype._renderScoreCard = function(user) {
-  this.$scoreCard.append(scoreCard(user));
+Game.prototype._renderScoreCard = function() {
+  this.$scoreCard.append(scoreCard(this.user));
+  this.$scoreCard.show();
 };
 
-Game.prototype._renderPowers = function(user) {
-  this.$powerList.append(powerList(user, 'use', function(type) {
-    user.removePower(type);
-    switch (type) {
-      case 'time':
-          this.timer.addPercentTime(25);
-        break;
-      case 'commit':
-          this.commitDisplay.setVisibility({ metadata: true });
-        break;
-      case 'repo':
-      
-        break;
-      case 'half':
-          var hidden = 0;
-          var correctRepoName = this.round.commit().repository();
-          this.repoList.hideRepos(
-            this.round.repos().sort(function () {
-              return 0.5 - Math.random();
-            }).filter(function (repo) {
-              if (hidden < 2 && repo.name() != correctRepoName) {
-                hidden++;
-                return repo;
-              }
-            })
-          );
-        break;
-      default:
-        throw new Error('Unexpected power type ' + type);
-    }
-  }.bind(this)));
+Game.prototype._renderPowers = function(mode) {
+  var callback = this._onPower.bind(this, mode);
+  this.$powerList.append(powerList(this.user, mode, callback));
+  this.$powerList.show();
 };
 
-Game.prototype.startRound = function () {
-  this.round = this.level.rounds()[this.levelProgress.completed_round()];
-  this
-    ._renderTimer(this.round.commit())
-    ._renderRepos(this.round.repos())
-    ._renderCommitDisplay(this.round.commit());
-  this.timer.start();
-  this.startTime = Date.now();
-
-  console.log('psst', this.round.commit().repository());
+Game.prototype._renderHub = function() {
+  // TODO: Handle locked levels.
+  this.$levelHub.append(levelHub(this.campaign, this.showLevel.bind(this)));
+  this.$levelHub.show();
 };
