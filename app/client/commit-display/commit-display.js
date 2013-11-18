@@ -91,8 +91,8 @@ CommitDisplay.prototype.render = function() {
 };
 
 CommitDisplay.prototype._getCommitLanguage = function() {
-  var ext = this.model.filename().split('.').slice(-1)[0];
-  ext = (ext || '').toLowerCase().trim();
+  var ext = /\.[^.]+$/.exec(this.model.filename());
+  ext = (ext ? ext[0] : '').toLowerCase().trim();
 
   var lang = {
         ''                  : null,
