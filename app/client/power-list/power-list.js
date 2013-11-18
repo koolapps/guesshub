@@ -3,6 +3,7 @@ var Hogan = require('hogan.js');
 var template = Hogan.compile(require('./template'));
 
 var POWER_TYPES = ['time', 'commit', 'repo', 'half'];
+// TODO: Tweak prices to match score.
 var POWER_PRICES = {
   time: 300,
   commit: 2000,

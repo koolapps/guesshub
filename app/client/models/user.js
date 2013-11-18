@@ -7,6 +7,8 @@ var User = plugins(model('User'))
   .attr('powers', { default: {time: 5, repo: 1, commit: 1, half: 1} });
 
 User.prototype.addScore = function (commit, secondsTaken) {
+  // TODO: Finalize the score calculation formula.
+  // TODO: Move score calculation to game.js.
   // Assuming grade is between 0 and 50 we rescale to 50 - 100
   var grade = commit.grade() * 2;
   this.score(

@@ -4,7 +4,6 @@ var template = Hogan.compile(require('./template'));
 
 module.exports = RepoList;
 
-// TODO: Make choices respond to 1-4 keyboards keys.
 function RepoList (repos, onSelect) {
   this.repos = repos;
   this.onSelect = onSelect;
@@ -13,6 +12,8 @@ function RepoList (repos, onSelect) {
 
 RepoList.prototype.render = function() {
   var repos = this.repos;
+
+  // Extract owner and repo name from the full repo name.
   var model = {
     repos: repos.map(function (repo) {
       var result = repo.toJSON();
@@ -22,6 +23,9 @@ RepoList.prototype.render = function() {
       return result;
     })
   };
+
+  // Render the list and listen to clicks.
+  // TODO: Make choices respond to 1-4 keyboards keys.
   var callback = this.onSelect;
   this.$el = $(template.render(model))
     .on('click', '.repo-button', function () {
