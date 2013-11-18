@@ -20,4 +20,7 @@ var game = new Game({
 
 game.start();
 
+// DEBUG
+window.game = game;
+
 // TODO: Add support for switchable background music.

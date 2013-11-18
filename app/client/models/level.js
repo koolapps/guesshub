@@ -7,12 +7,14 @@ var plugins = require('./plugins');
 
 // Immutable level descriptions, declared as part of a Campaign.
 var Level = plugins(model('Level'))
+  .attr('id')
   .attr('name')
   .attr('num_rounds', { default: 10 })
   .attr('min_grade')
   .attr('max_grade')
   .attr('num_mistakes_allowed')
   .attr('timer')  // null: per-Round, based on grade.
+  .attr('unlocks')
   ;
 // TODO: Switch grade to a normalized range (0-1?).
 

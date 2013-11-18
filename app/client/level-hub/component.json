@@ -9,7 +9,8 @@
   "main": "level-hub.js",
   "scripts": [
     "level-hub.js",
-    "template.js"
+    "template.js",
+    "level-template.js"
   ],
   "styles": [
     "level-hub.css"

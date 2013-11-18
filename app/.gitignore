@@ -1,4 +1,4 @@
 build
 components
 node_modules
-client/*/template.js
+client/*/*template.js

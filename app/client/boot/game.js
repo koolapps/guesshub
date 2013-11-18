@@ -165,12 +165,16 @@ Game.prototype._finishRound = function (won) {
     // TODO: Show level end screen.
     this.showHub();
   } else if (progress.completed_round() === progress.rounds()) {
-    // WIN.
-    // TODO: Show level end screen.
-    this.showHub();
+    this._finishLevel();
   } else {
     this.startRound();
   }
+};
+
+Game.prototype._finishLevel = function() {
+  this.user.completeLevel(this.level);
+  this.clear();
+  this.showHub();
 };
 
 /**** Rendering ****/
