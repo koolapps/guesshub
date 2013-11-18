@@ -1,10 +1,12 @@
 var model = require('model');
 var plugins = require('./plugins');
 
+// TODO: Revert to empty powers and 0 score once we're done debugging.
 var User = plugins(model('User'))
-  .attr('score', { default: 0 })
-  // TODO: Revert to empty powers once we're done debugging.
+  .attr('score', { default: 50000 })
   .attr('powers', { default: {time: 5, repo: 1, commit: 1, half: 1} });
+
+User.MAX_POWERS = 5;
 
 User.prototype.addScore = function (commit, secondsTaken) {
   // TODO: Finalize the score calculation formula.
@@ -25,17 +27,36 @@ User.prototype.subtractScore = function (value) {
 
 User.prototype.addPower = function (power) {
   var powers = this.powers();
-  powers[power]++;
+  if (!this.canStorePower(power)) {
+    throw Error('No space for power "' + power.id() + '".');
+  }
+  powers[power.id()]++;
   this.powers(powers);
 };
 
 User.prototype.removePower = function (power) {
   var powers = this.powers();
-  if (powers[power] <= 0) {
-    throw Error('No power of type "' + power + '" to remove.');
+  if (powers[power.id()] <= 0) {
+    throw Error('No power "' + power.id() + '" to remove.');
   }
-  powers[power]--;
+  powers[power.id()]--;
   this.powers(powers);
+};
+
+User.prototype.powerCount = function (power) {
+  return this.powers()[power.id()];
+};
+
+User.prototype.canStorePower = function (power) {
+  return this.powerCount(power) < User.MAX_POWERS;
+};
+
+User.prototype.canAffordPower = function (power) {
+  return this.score() >= power.price();
+};
+
+User.prototype.canUsePower = function (power) {
+  return this.powerCount(power) > 0;
 };
 
 module.exports = User;

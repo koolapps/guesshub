@@ -18,6 +18,7 @@
     "level.js",
     "user.js",
     "campaign.js",
-    "round.js"
+    "round.js",
+    "power.js"
   ]
 }

@@ -1,7 +1,9 @@
 var $ = require('jquery');
 
-var Level = require('models').Level;
-var UserLevelProgress = require('models').UserLevelProgress;
+var models = require('models');
+var Level = models.Level;
+var UserLevelProgress = models.UserLevelProgress;
+var Power = models.Power;
 
 var scoreCard = require('score-card');
 var powerList = require('power-list');
@@ -111,12 +113,13 @@ Game.prototype._onGuess = function (repo) {
   this._finishRound(repo.name() === this.round.commit().repository());
 };
 
-Game.prototype._onPower = function (mode, type) {
+Game.prototype._onPower = function (mode, power) {
   if (mode == 'buy') {
-    alert('TODO: Buy power: "' + type + '".');
+    this.user.addPower(power);
+    this.user.subtractScore(power.price());
   } else {
-    this.user.removePower(type);
-    switch (type) {
+    // TODO: Maybe move these into Power.use()?
+    switch (power.id()) {
       case 'time':
         this.timer.addPercentTime(25);
         break;
@@ -124,7 +127,7 @@ Game.prototype._onPower = function (mode, type) {
         this.commitDisplay.setVisibility({ metadata: true });
         break;
       case 'repo':
-        alert('TODO: Use power: "' + type + '".');
+        alert('TODO: Use repo power.');
         break;
       case 'half':
         var hidden = 0;
@@ -140,8 +143,9 @@ Game.prototype._onPower = function (mode, type) {
           }));
         break;
       default:
-        throw new Error('Unexpected power type ' + type);
+        throw new Error('Unexpected power: ' + power.id());
     }
+    this.user.removePower(power);
   }
 };
 
@@ -203,7 +207,7 @@ Game.prototype._renderScoreCard = function() {
 
 Game.prototype._renderPowers = function(mode) {
   var callback = this._onPower.bind(this, mode);
-  this.$powerList.append(powerList(this.user, mode, callback));
+  this.$powerList.append(powerList(Power.ALL, this.user, mode, callback));
   this.$powerList.show();
 };
 

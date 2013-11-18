@@ -11,7 +11,7 @@ var UserLevelProgress = plugins(model('UserLevelProgress'))
 
 UserLevelProgress.create = function (level) {
   return new UserLevelProgress({
-    rounds: level.num_rounds().length,
+    rounds: level.num_rounds(),
     guessed: 0,
     missed: 0,
     points: 0,
