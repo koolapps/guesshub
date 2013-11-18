@@ -17,7 +17,7 @@ module.exports = function (campaign, user, callback) {
   $el.on('click', '.level', function () {
     var id = parseInt($(this).data('id'), 10);
     if (campaign.isUnlocked(id, user.completed_level_ids())) {
-      callback(campaign.getByName($(this).text()));      
+      callback(campaign.getLevelById(id));
     }
   });
 

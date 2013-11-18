@@ -15,21 +15,6 @@ var Campaign = plugins(model('Campaign'))
   ;
 
 Campaign.on('construct', function (model) {
-  model._levelsByName = {};
-  var levelsByName = {};
-  var index = function(level) {
-    var name = level.name();
-    if (name in model._levelsByName) {
-      throw Error('Duplicate level name: ' + name);
-    } else {
-      model._levelsByName[name] = level;
-    }
-  };
-  model.intro_levels().map(index);
-  model.fast_levels().map(index);
-  model.hard_levels().map(index);
-  index(model.final_level());
-  index(model.survival_level());
   model._flattenLevels();
 });
 
@@ -45,19 +30,17 @@ Campaign.prototype._flattenLevels = function () {
   store(this.survival_level());
 };
 
-Campaign.prototype.getByName = function (name) {
-  if (!(name in this._levelsByName)) {
-    throw Error('No level named: ' + name);
-  }
-  return this._levelsByName[name];
+Campaign.prototype.getLevelById = function (id) {
+  var level = this._levels.filter(function (l) {
+    return l.id() === id;
+  })[0];
+  console.assert(level, 'Not expecting unknown ids');
+  return level;
 };
 
 Campaign.prototype.isUnlocked = function(levelId, completedLevelIds) {
   return levelId === 1 || completedLevelIds.some(function (id) {
-    var completedLevel = this._levels.filter(function (l) {
-      return l.id() === id;
-    })[0];
-    console.assert(completedLevel);
+    var completedLevel = this.getLevelById(id);
     return completedLevel.unlocks().indexOf(levelId) > -1;
   }, this);
 };
