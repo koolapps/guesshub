@@ -163,7 +163,8 @@ Game.prototype._finishRound = function (won) {
   if (progress.mistakes_left() < 0) {
     alert('LOSS. TODO: Show level end screen.');
   } else if (progress.completed_round() === progress.rounds()) {
-    alert('WIN. TODO: Show level end screen.');
+    this.clear();
+    this.showHub();
   } else {
     this.startRound();
   }
