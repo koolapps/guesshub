@@ -1,10 +1,10 @@
-.score {
+.score-card-container .score {
   font-weight: bold;
   font-size: 30px;
   color: yellow;
 }
 
-.score img {
+.score-card-container .score img {
   width: 23px;
   position: relative;
   top: 2px;
