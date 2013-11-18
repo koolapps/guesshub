@@ -161,9 +161,12 @@ Game.prototype._finishRound = function (won) {
     progress.missed(progress.missed() + 1);
   }
   if (progress.mistakes_left() < 0) {
-    alert('LOSS. TODO: Show level end screen.');
+    // LOSS.
+    // TODO: Show level end screen.
+    this.showHub();
   } else if (progress.completed_round() === progress.rounds()) {
-    this.clear();
+    // WIN.
+    // TODO: Show level end screen.
     this.showHub();
   } else {
     this.startRound();
