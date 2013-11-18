@@ -11,6 +11,7 @@ module.exports = function (levelProgress) {
   var totalRounds = levelProgress.rounds();
   var partHeight = 100 / totalRounds;
 
+  // TODO: Re-render based on the full state of levelProgress.
   function update (guessed) {
     var $part = $innerMeter
       .clone()

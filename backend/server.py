@@ -18,6 +18,7 @@ ORDER BY commit.order_id ASC
 LIMIT 1'''
 
 APP = flask.Flask(__name__, static_folder='../app', static_url_path='')
+# TODO: Figure out when the connection should be reinitialized.
 DB = mysql.connect(
     host=config.DB_HOST,
     user=config.DB_USER,
