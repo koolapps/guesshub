@@ -15,5 +15,5 @@
     {{/hard_levels}}
   </div>
 </div>
-<div class="level {{#is_unlocked}}unlocked{{/is_unlocked}}">{{final_level.name}}</div>
-<div class="level {{#is_unlocked}}unlocked{{/is_unlocked}}">{{survival_level.name}}</div>
+<div class="level {{#final_level.is_unlocked}}unlocked{{/final_level.is_unlocked}}" data-id="{{final_level.id}}">{{final_level.name}}</div>
+<div class="level {{#survival_level.is_unlocked}}unlocked{{/survival_level.is_unlocked}}" data-id="{{survival_level.id}}">{{survival_level.name}}</div>
