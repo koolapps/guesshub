@@ -173,7 +173,6 @@ Game.prototype._finishRound = function (won) {
 
 Game.prototype._finishLevel = function() {
   this.user.completeLevel(this.level);
-  this.clear();
   this.showHub();
 };
 
