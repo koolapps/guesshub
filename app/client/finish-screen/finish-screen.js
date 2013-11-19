@@ -2,7 +2,6 @@ var $ = require('jquery');
 var Hogan = require('hogan.js');
 var template = Hogan.compile(require('./template'));
 
-// TODO: Add icons.
 // Shows the results of a level.
 module.exports = function (user, level, commits, levelProgress,
                            hubCallback, retryCallback) {

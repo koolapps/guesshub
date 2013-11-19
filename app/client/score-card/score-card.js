@@ -19,7 +19,7 @@ module.exports = function (user) {
   return $el;
 };
 
-// TODO: Factored out into a component.
+// TODO: Factor out into a component.
 function resize($el, desiredWidth, min, max, step, cb) {
   if (!$.contains(document.documentElement, $el[0])) {
     // Wait until inserted.
