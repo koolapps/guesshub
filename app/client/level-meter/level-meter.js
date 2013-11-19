@@ -1,7 +1,6 @@
 var $ = require('jquery');
 var template = require('./template');
 
-// TODO: Add light gray plusses for each round still in queue.
 // TODO: Use a flashy animation on each change.
 
 module.exports = function (levelProgress) {
