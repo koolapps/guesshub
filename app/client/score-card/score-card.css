@@ -1,11 +1,12 @@
-.score-card-container .score {
+.score-card-container {
   font-weight: bold;
-  font-size: 30px;
-  color: yellow;
+  white-space: nowrap;
+  font-size: 20px;
+  display: inline-block;
+  margin: auto;
 }
 
-.score-card-container .score img {
-  width: 23px;
+.score-card-container img {
   position: relative;
-  top: 2px;
+  width: 16px;
 }

@@ -3,7 +3,8 @@
   "description": "a list of purchaseable, activatable powers",
   "dependencies": {
     "component/jquery": "*",
-    "twitter/hogan.js": "*"
+    "twitter/hogan.js": "*",
+    "component/humanize-number": "*"
   },
   "development": {},
   "main": "power-list.js",

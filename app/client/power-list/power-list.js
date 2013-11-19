@@ -1,4 +1,5 @@
 var $ = require('jquery');
+var humanize = require('humanize-number');
 var Hogan = require('hogan.js');
 var template = Hogan.compile(require('./template'));
 
@@ -30,7 +31,7 @@ function getPowers(powers, user, mode) {
       var canStore = user.canStorePower(power);
       isAvailable = user.canAffordPower(power) && canStore;
       priceHasIcon = canStore;
-      priceDisplay = canStore ? power.price() : 'FULL';
+      priceDisplay = canStore ? humanize(power.price()) : 'FULL';
     } else if (mode == 'use') {
       isAvailable = user.canUsePower(power);
       priceDisplay = null;

@@ -3,7 +3,8 @@
   "description": "shows the user score",
   "dependencies": {
     "component/jquery": "*",
-    "twitter/hogan.js": "*"
+    "twitter/hogan.js": "*",
+    "component/humanize-number": "*"
   },
   "development": {},
   "main": "score-card.js",
