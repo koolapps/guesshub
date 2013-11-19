@@ -25,6 +25,7 @@ Can't launch without
     Ensure server can handle reasonable traffic.
   Update readme and repo metadata with description, links, etc.
   Ensure we can build minified JS cleanly.
+  Figure out license and add icon credits.
 
 Shouldn't launch without
   Add tutorial (outlined in doc).
