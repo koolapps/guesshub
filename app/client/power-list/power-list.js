@@ -25,10 +25,11 @@ module.exports = function (powers, user, mode, callback) {
 
 function getPowers(powers, user, mode) {
   return $.map(powers, function (power) {
-    var isAvailable, priceDisplay;
+    var isAvailable, priceDisplay, priceHasIcon;
     if (mode == 'buy') {
       var canStore = user.canStorePower(power);
       isAvailable = user.canAffordPower(power) && canStore;
+      priceHasIcon = canStore;
       priceDisplay = canStore ? power.price() : 'FULL';
     } else if (mode == 'use') {
       isAvailable = user.canUsePower(power);
@@ -44,7 +45,8 @@ function getPowers(powers, user, mode) {
       tooltip: power.tooltip(),
       count: user.powerCount(power),
       available: isAvailable,
-      price: priceDisplay
+      price: priceDisplay,
+      priceHasIcon: priceHasIcon
     };
   });
 }

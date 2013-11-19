@@ -67,3 +67,9 @@
 .power-list .power:hover .tooltip {
   display: block;
 }
+
+.power-list .price img {
+  height: 14px;
+  position: relative;
+  top: 1px;
+}
