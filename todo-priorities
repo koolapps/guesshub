@@ -1,0 +1,78 @@
+Can't launch without
+  Show mistakes left.
+  Implement repo power.
+  Finalize the score calculation formula.
+  Decide on app name.
+  Decide on level names.
+  Finalize finish screen UI.
+    Scale down icon.
+    Clean up commit list.
+    Make commit list scrollable.
+  Finalize difficulty/grade calculation.
+    ./grade.py:38:  # TODO: Make grade correlate with difficulty instead.
+    ./grade.py:95:  # TODO: Find a better model controlled by these factors.
+    ./models/level.js:19:// TODO: Switch grade to a normalized range (0-1?).
+    Limit choices by owner/language at higher difficulties?
+  ./models/power.js:11:// TODO: Tweak prices to match score.
+  ./models/round.js:18:    // TODO: Decide on a formula to match grade to time.
+  ./models/user.js:4:// TODO: Revert to empty powers and 0 score once we're done debugging.
+  Make repo public (non-trivial).
+  ./config.py:1:# TODO(max99x): Disable the account with the checked-in credentials.
+  Get a domain.
+  Set up server.
+    ./server.py:21:# TODO: Figure out when the connection should be reinitialized.
+    Ensure server can handle reasonable traffic.
+  Update readme and repo metadata with description, links, etc.
+  Ensure we can build minified JS cleanly.
+
+Shouldn't launch without
+  Add tutorial (outlined in doc).
+  Add sound effect on win/loss.
+  Add sound effect on guess/miss.
+  Add animation on guess/miss.
+  ./boot/game.js:179:    // TODO: Don't add score to the user until the level is done.
+  ./finish-screen/finish-screen.js:58:    // TODO: Track guessed state of each commit and set it in is_guessed.
+  ./power-list/power-list.js:7:// TODO: Resize icons to be the same size.
+  ./repo-list/repo-list.css:117:/* TODO: Make sure the animation does not cause flicker on all OSs. */
+  Get at least 100K valid commit records.
+  ./boot/index.js:6:// TODO: Support storing user state [whole User model].
+
+Nice to have
+  Add animation on score change.
+  Add animation on level unlock.
+  Add animation on power purchase.
+  Add animation on power use.
+  Add animation on start of round (e.g. diff lines flying in).
+  Keep track of all players' statistics.
+  Show the user's statistics in the achievements UI.
+  Show a graph comparison against other players on the finish screen.
+  Add achievements.
+    Keep track of achievements.
+    Show a lists of achievements when the user clicks on the trophy icon.
+    ./finish-screen/finish-screen.js:52:  // TODO: Achievements on the finish page.
+  ./models/campaign.js:7:// TODO: Add bonus levels.
+  ./boot/index.js:27:// TODO: Add support for switchable background music.
+  ./level-hub/level-template.html:1:<!-- TODO: Differentiate unlocked and completed levels. -->
+  ./level-meter/level-meter.js:5:// TODO: Use a flashy animation on each change.
+  ./power-list/power-list.js:16:  // TODO: Make choices respond to QWER keyboards keys.
+  ./repo-list/repo-list.js:28:  // TODO: Make choices respond to 1-4 keyboards keys.
+  ./timer/timer.js:8:// TODO: Pulsate the timer and label when time remaining <25%.
+  ./timer/timer.js:9:// TODO: Add timer tick sounds, louder when time remaining <25%.
+  ./grade.py:27:# TODO: Maybe switch to a whitelist instead?
+  Add level icons.
+
+Misc
+  ./boot/game.js:85:  // TODO: Show loading bar.
+  ./boot/game.js:67:  // TODO: Properly destroy widgets?
+  ./boot/game.js:131:      // TODO: Maybe move these into Power.use()?
+  ./boot/index.js:24:// TODO: Remove in non-debug builds.
+  ./boot/index.js:28:// TODO: Prevent accidental navigation away from the page.
+  ./commit-display/template.html:10:      <!-- TODO: Add commit message. -->
+  ./level-meter/level-meter.js:14:  // TODO: Re-render based on the full state of levelProgress.
+  ./models/level.js:29:  // TODO: Retry with exponential backoff on errors.
+  ./models/user_level_progress.js:4:// TODO: Rename file to user-level-progress.js for consistency.
+  ./score-card/score-card.js:22:// TODO: Factor out into a component.
+  ./score-card/score-card.js:26:    // TODO: Avoid this hack.
+  ./crawl.py:100:          # TODO(max99x): Log and skip errors.
+  ./model.py:34:    # TODO: Remove [file_contents] throughout the codebase.
+  Light anti-cheating protection.
