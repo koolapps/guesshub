@@ -1,2 +1,2 @@
 <!-- TODO: Differentiate unlocked and completed levels. -->
-<div class="level {{#is_unlocked}}unlocked{{/is_unlocked}}" data-id="{{id}}">{{name}}</div>
+<div class="level {{^is_unlocked}}locked{{/is_unlocked}}" data-id="{{id}}">{{name}}</div>
