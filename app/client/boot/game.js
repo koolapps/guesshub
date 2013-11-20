@@ -127,7 +127,7 @@ Game.prototype._onPower = function (mode, power) {
       this.user.addPower(power);
       this.user.subtractScore(power.price());
       break;
-    case 'buy':
+    case 'use':
       // TODO: Maybe move these into Power.use()?
       switch (power.id()) {
         case 'time':
