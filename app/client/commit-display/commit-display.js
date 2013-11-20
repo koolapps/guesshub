@@ -91,8 +91,8 @@ CommitDisplay.prototype.render = function() {
 };
 
 CommitDisplay.prototype._getCommitLanguage = function() {
-  var ext = /\.[^.]+$/.exec(this.model.filename());
-  ext = (ext ? ext[0] : '').toLowerCase().trim();
+  var ext = /\.([^.]+)$/.exec(this.model.filename());
+  ext = (ext ? ext[1] : '').toLowerCase().trim();
 
   var lang = {
         ''                  : null,
@@ -100,16 +100,21 @@ CommitDisplay.prototype._getCommitLanguage = function() {
         'h'                 : 'c',
         'cpp'               : 'cpp',
         'hpp'               : 'cpp',
+        'cxx'               : 'cpp',
+        'hxx'               : 'cpp',
         'cc'                : 'cpp',
         'vim'               : 'clike',
         'pbxproj'           : 'clike',
         'm'                 : 'clike',
         'go'                : 'clike',
+        'coffee'            : 'coffeescript',
         'coffeescript'      : 'coffeescript',
+        'litcoffee'         : 'coffeescript',
         'cs'                : 'csharp',
         'css'               : 'css',
         'less'              : 'css',
         'd'                 : 'd',
+        'hs'                : 'haskell',
         'lhs'               : 'haskell',
         'html'              : 'html',
         'xml'               : 'markup',
@@ -120,7 +125,9 @@ CommitDisplay.prototype._getCommitLanguage = function() {
         'ts'                : 'javascript',
         'lua'               : 'lua',
         'php'               : 'php',
+        'phtml'             : 'php',
         'py'                : 'python',
+        'pyw'               : 'python',
         'r'                 : 'r',
         'rb'                : 'ruby',
         'scm'               : 'scheme',
@@ -133,6 +140,9 @@ CommitDisplay.prototype._getCommitLanguage = function() {
         'gvy'               : 'groovy',
         'gy'                : 'groovy',
         'gsh'               : 'gsh',
+        'vsh'               : 'gsh',
+        'fsh'               : 'gsh',
+        'shader'            : 'gsh',
         'feature'           : 'gherkin'
   }[ext] || 'generic';
   console.log('CommitDisplay DEBUG: extension %s language %s', ext, lang);
