@@ -5,6 +5,7 @@
   display: inline-block;
   margin: auto;
   cursor: default;
+  -webkit-text-stroke: 0.7px rgba(0,0,0,0.5);
 }
 
 .score-card-container img {

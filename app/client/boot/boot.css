@@ -44,6 +44,7 @@ body {
   text-align: center;
   font-family: "Lucida Console", Consolas, monospace;
   font-size: 30px;
+  -webkit-text-stroke: 0.7px rgba(0,0,0,0.5);
 }
 
 #timer {
