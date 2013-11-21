@@ -16,7 +16,6 @@ var Level = plugins(model('Level'))
   .attr('timer')  // null: per-Round, based on grade.
   .attr('requires')
   ;
-// TODO: Switch grade to a normalized range (0-1?).
 
 Level.prototype.fetchRounds = function (callback) {
   var url = '/' + [
