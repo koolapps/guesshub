@@ -1,8 +1,8 @@
 {{#powers}}
-  <div class="power {{#available}}available{{/available}}"
+  <div class="power {{#available}}available{{/available}} columns large-6"
         data-power-type="{{type}}">
-    <img class="icon normal" src="/img/power-{{type}}-normal.png" />
-    <img class="icon active" src="/img/power-{{type}}-active.png" />
+    <!-- <img class="icon normal" src="/img/power-{{type}}-normal.png" /> -->
+    <i class="fa-{{icon}} fa icon"></i>
     <div class="count">
       {{#count}}
         {{count}}

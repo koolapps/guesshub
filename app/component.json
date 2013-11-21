@@ -11,6 +11,7 @@
   "remotes": [],
   "dependencies": {
     "enricomarino/css-reset": "*",
-    "jofan/foundation-grid": "*"
+    "jofan/foundation-grid": "*",
+    "FortAwesome/Font-Awesome": "*"
   }
 }

@@ -10,17 +10,22 @@
   "styles": [
     "boot.css"
   ],
+  "fonts": [
+    "zorque.ttf",
+    "zorque.otf"
+  ],
   "remotes": [],
   "local": [
     "timer",
-    "level-meter",
+    "level-stats",
     "models",
     "repo-list",
     "commit-display",
     "score-card",
     "power-list",
     "level-hub",
-    "finish-screen"
+    "finish-screen",
+    "hearts"
   ],
   "dependencies": {
     "component/jquery": "*"

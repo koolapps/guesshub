@@ -32,24 +32,11 @@
 }
 
 .power-list .power .icon {
-  display: inline-block;
-  width: 64px;
+   font-size: 50px;
 }
 
 .power-list .power .icon.active {
   display: none;
-}
-
-.power-list .power.available:hover .icon.normal,
-.power-list .power.available:focus .icon.normal,
-.power-list .power.available:active .icon.normal {
-  display: none;
-}
-
-.power-list .power.available:hover .icon.active,
-.power-list .power.available:focus .icon.active,
-.power-list .power.available:active .icon.active {
-  display: inline-block;
 }
 
 .power-list .tooltip {

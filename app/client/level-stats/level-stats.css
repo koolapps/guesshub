@@ -1,0 +1,24 @@
+#level-stats {
+  font-size: 30px;
+}
+
+#level-stats .fa {
+  font-size: 40px;
+  margin: 0 auto;
+  display: block;
+  width: 40px;
+}
+#level-stats .fa-minus {
+  color: red;
+}
+
+#level-stats .fa-plus {
+  color: green;
+}
+
+#level-stats .number {
+  margin-left: 4px;
+  width: 26px;
+  display: block;
+  margin: 0 auto;
+}

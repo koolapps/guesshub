@@ -17,6 +17,8 @@
       </div>
       {{#diff_lines}}
       <div class="line {{cls}}">
+        <div class="gradient left"></div>
+        <div class="gradient right"></div>
         <span class="old-num">{{{old_num}}}</span><span class="new-num">{{{new_num}}}</span><span class="op">{{{op}}}</span><code class="content">{{{content}}}</code>
       </div>
       {{/diff_lines}}

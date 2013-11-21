@@ -7,9 +7,10 @@ var Power = models.Power;
 
 var scoreCard = require('score-card');
 var powerList = require('power-list');
-var levelMeter = require('level-meter');
+var levelStats = require('level-stats');
 var levelHub = require('level-hub');
 var finishScreen = require('finish-screen');
+var hearts = require('hearts');
 
 var CommitDisplay = require('commit-display');
 var Timer = require('timer');
@@ -36,10 +37,11 @@ function Game (options) {
   this.$repos = options.$repos;
   this.$timer = options.$timer;
   this.$scoreCard = options.$scoreCard;
-  this.$levelMeter = options.$levelMeter;
+  this.$levelStats = options.$levelStats;
   this.$commitDisplay = options.$commitDisplay;
   this.$powerList = options.$powerList;
   this.$levelHub = options.$levelHub;
+  this.$hearts = options.$hearts;
 
   // Widget references.
   this.commitDisplay = null;
@@ -58,7 +60,7 @@ Game.prototype.clear = function () {
   this.$repos.empty().hide();
   this.$timer.empty().hide();
   this.$scoreCard.empty().hide();
-  this.$levelMeter.empty().hide();
+  this.$levelStats.empty().hide();
   this.$commitDisplay.empty().hide();
   this.$powerList.empty().hide();
   this.$levelHub.empty().hide();
@@ -89,7 +91,8 @@ Game.prototype.showLevel = function (level) {
 
     this._renderScoreCard();
     this._renderPowers('use');
-    this._renderLevelMeter();
+    this._renderLevelStats();
+    this._renderHearts();
 
     this.startRound();
   }.bind(this));
@@ -99,7 +102,8 @@ Game.prototype.showFinishScreen = function () {
   this.clear();
 
   this._renderScoreCard();
-  this._renderLevelMeter();
+  this._renderLevelStats();
+  this._renderHearts();
   this._renderPowers('inactive');
   this._renderFinishScreen();
 };
@@ -196,13 +200,18 @@ Game.prototype._finishRound = function (won) {
 
 /**** Rendering ****/
 
-Game.prototype._renderLevelMeter = function () {
-  this.$levelMeter.empty().append(levelMeter(this.levelProgress));
-  this.$levelMeter.show();
+Game.prototype._renderLevelStats = function () {
+  this.$levelStats.empty().append(levelStats(this.levelProgress));
+  this.$levelStats.show();
 };
 
 Game.prototype._renderTimer = function (seconds) {
-  this.timer = new Timer(seconds, this._finishRound.bind(this, false));
+  this.timer = new Timer({
+    interval: seconds,
+    outerRadius: this.$timer.outerHeight() / 2,
+    progressWidth: 10,
+    onComplete: this._finishRound.bind(this, false)
+  });
   this.$timer.empty().append(this.timer.$el);
   this.$timer.show();
 };
@@ -244,4 +253,9 @@ Game.prototype._renderFinishScreen = function() {
                    this.showHub.bind(this),
                    this.showLevel.bind(this, this.level)));
   this.$finishScreen.show();
+};
+
+Game.prototype._renderHearts = function () {
+  this.$hearts.empty().append(hearts(this.levelProgress));
+  this.$hearts.show();
 };

@@ -1,3 +1,8 @@
+@font-face{
+  font-family: Zorque;
+  src: url('zorque.ttf');
+}
+
 html, body, #container {
   height: 100%;
 }
@@ -19,22 +24,12 @@ body {
   position: relative;
 }
 
-#sidebar {
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  width: 120px;
-  padding-right: 20px;
-  text-align: center;
-}
-
 #trophies-icon {
   width: 60px;
 }
 
 #content {
-  position: absolute;
-  left: 140px;
+  margin: 0 auto;
   width: 900px;
 }
 
@@ -42,7 +37,7 @@ body {
   margin: auto;
   display: block;
   text-align: center;
-  font-family: "Lucida Console", Consolas, monospace;
+  font-family: Zorque, "Lucida Console", Consolas, monospace;
   font-size: 30px;
   -webkit-text-stroke: 0.7px rgba(0,0,0,0.5);
 }
@@ -50,10 +45,6 @@ body {
 #timer {
   margin-bottom: 20px;
   margin-top: 40px;
+  height: 150px;
 }
 
-#level-meter {
-  position: absolute;
-  left: 1100px;
-  height: calc(100% - 50px);
-}

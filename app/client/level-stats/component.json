@@ -1,0 +1,17 @@
+{
+  "name": "level-stats",
+  "description": "Misses & Guesses",
+  "dependencies": {
+    "component/jquery": "*",
+    "twitter/hogan.js": "*"
+  },
+  "development": {},
+  "main": "level-stats.js",
+  "scripts": [
+    "level-stats.js",
+    "template.js"
+  ],
+  "styles": [
+    "level-stats.css"
+  ]
+}

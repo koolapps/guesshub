@@ -1,0 +1,17 @@
+{
+  "name": "hearts",
+  "description": "How many mistakes left",
+  "dependencies": {
+    "component/jquery": "*",
+    "twitter/hogan.js": "*"
+  },
+  "development": {},
+  "main": "hearts.js",
+  "scripts": [
+    "hearts.js",
+    "template.js"
+  ],
+  "styles": [
+    "hearts.css"
+  ]
+}

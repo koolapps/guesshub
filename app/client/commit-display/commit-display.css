@@ -114,30 +114,37 @@
   border-bottom: 1px #28283D solid;
 }
 
-#commit-display .del {
-  background-image: linear-gradient(to right, rgba(173, 0, 0, 0.5) 90%, transparent);
-}
-
-#commit-display .ins {
-  background-image: linear-gradient(to left, rgba(0, 173, 0, 0.5) 90%, transparent);
-}
-
-#commit-display .line.del:before {
-  content: "";
-  border-right: 24px solid rgba(173, 0, 0, 0.54);
-  border-top: 12px solid transparent;
-  border-bottom: 12px solid transparent;
+#commit-display .gradient {
   position: absolute;
-  left: -24px;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: -1;
 }
 
-#commit-display .line.ins:after {
-  content: "";
-  border-left: 24px solid rgba(0, 173, 0, 0.5);
-  border-top: 12px solid transparent;
-  border-bottom: 12px solid transparent;
-  position: absolute;
-  right: -24px;
+#commit-display .gradient.left {
+  right: 450px;
+}
+
+#commit-display .gradient.right {
+  left: 450px;
+}
+
+#commit-display .del .gradient.right {
+  background-image: linear-gradient(to right, #B24436 80%, transparent);
+}
+
+#commit-display .del .gradient.left {
+  background-image: linear-gradient(to left, #B24436 80%, transparent);
+}
+
+#commit-display .ins .gradient.left {
+  background-image: linear-gradient(to left, #577C27 80%, transparent);
+}
+
+#commit-display .ins .gradient.right {
+  background-image: linear-gradient(to right, #577C27 80%, transparent);
 }
 
 #commit-display .old-num,

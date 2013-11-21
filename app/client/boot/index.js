@@ -12,11 +12,12 @@ var game = new Game({
   $timer: $('#timer'),
   $repos: $('#repo-selector'),
   $scoreCard: $('#score-card'),
-  $levelMeter: $('#level-meter'),
+  $levelStats: $('#level-stats'),
   $commitDisplay: $('#commit-display'),
   $powerList: $('#power-list'),
   $levelHub: $('#level-hub'),
   $finishScreen: $('#finish-screen'),
+  $hearts: $('#hearts')
 });
 
 game.start();

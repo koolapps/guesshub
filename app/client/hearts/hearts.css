@@ -1,0 +1,15 @@
+
+.hearts {
+  font-size: 18px;
+  color: red;
+  margin-top: 15px;
+  margin-left: 7px;
+}
+
+.hearts .fa-heart {
+  margin-left: 3px;
+}
+
+.hearts .fa-heart:first-child {
+  margin-left: 0;
+}

@@ -1,27 +1,18 @@
-#timer>div {
-  padding: 0px 20px;
-  height: 15px;
+.timer {
+  margin: 0 auto;
+  width: 150px;
 }
 
-#timer .tick,
-#timer .spacer {
-  height: 100%;
-  display: inline-block;
+.timer circle {
+  fill: black;
 }
 
-#timer .tick {
-  background: #fff;
-  border: 2px #ccc solid;
+.timer path {
+  fill: white;
 }
 
-#timer .tick.expired {
-  display: none;
-}
-
-#timer.panic .tick {
-  background: #fa0000;
-}
-
-#timer.panic .text {
-  color: #fa0000;
+.timer text {
+  fill: red;
+  font-family: Zorque;
+  font-size: 50px;
 }
