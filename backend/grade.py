@@ -3,6 +3,7 @@ import collections
 import math
 import json
 import re
+import sys
 import MySQLdb as mysql
 import MySQLdb.cursors as mysql_cursors
 from os import path
@@ -75,6 +76,13 @@ STOP_WORDS = {
   "would", "wouldn\'t", "you", "you\'d", "you\'ll", "you\'re", "you\'ve",
   "your", "yours", "yourself", "yourselves"
 }
+
+DB = mysql.connect(
+    host=config.DB_HOST,
+    user=config.DB_USER,
+    passwd=config.DB_PASSWORD,
+    db=config.DB_NAME,
+    cursorclass=mysql_cursors.DictCursor)
 
 
 class Model(object):
@@ -293,18 +301,11 @@ def extract_words(*strings):
 
 def fetch_commits():
   """Yields batches of commits from the DB."""
-  db = mysql.connect(
-      host=config.DB_HOST,
-      user=config.DB_USER,
-      passwd=config.DB_PASSWORD,
-      db=config.DB_NAME,
-      cursorclass=mysql_cursors.DictCursor)
-
-  count_cursor = db.cursor()
+  count_cursor = DB.cursor()
   count_cursor.execute(COUNT_SQL)
   count = count_cursor.fetchone()['MAX(order_id)']
 
-  read_cursor = db.cursor()
+  read_cursor = DB.cursor()
   for start in range(0, count + BATCH_SIZE, BATCH_SIZE):
     print 'Starting at', start
     read_cursor.execute(BATCH_SQL, (start, start + BATCH_SIZE))
@@ -313,9 +314,10 @@ def fetch_commits():
 
 def update_grades(classifier):
   """Updates all commits with newly-computed grades."""
+  write_cursor = DB.cursor()
   for batch in fetch_commits():
-    ids = [c['order_id'] for c in commits]
-    grades = map(lambda c: compute_grade(c, classifier), commits)
+    ids = [c['order_id'] for c in batch]
+    grades = map(lambda c: compute_grade(c, classifier), batch)
     write_cursor.executemany(UPDATE_SQL, zip(grades, ids))
     pos_grades = [i for i in grades if i >= 0]
     print '  invalid=%d, min=%s, max=%s, mean=%s, median=%s' % (
@@ -328,12 +330,7 @@ def update_grades(classifier):
 
 def show_grade_histogram():
   """Prints a histogram of positive grades."""
-  db = mysql.connect(
-      host=config.DB_HOST,
-      user=config.DB_USER,
-      passwd=config.DB_PASSWORD,
-      db=config.DB_NAME)
-  read_cursor = db.cursor()
+  read_cursor = DB.cursor()
   read_cursor.execute('SELECT grade, COUNT(grade) FROM commit '
                       'WHERE grade >= 0 GROUP BY grade')
   histogram = dict(read_cursor.fetchall())
@@ -346,7 +343,7 @@ def show_grade_histogram():
 if __name__ == '__main__':
   mode = sys.argv[1]
   if mode == 'build':
-    m = build_model()
+    m = Model.build()
     m.dump('model.json')
   elif mode == 'grade':
     m = Model.load('model.json')
