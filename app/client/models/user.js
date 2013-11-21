@@ -5,7 +5,8 @@ var plugins = require('./plugins');
 var User = plugins(model('User'))
   .attr('score', { default: 50000 })
   .attr('powers', { default: {time: 5, repo: 1, commit: 1, half: 1} })
-  .attr('completed_level_ids', { default: [] });
+  .attr('completed_level_ids', { default: [1,2,3,8,9] })
+  ;
 
 User.MAX_POWERS = 5;
 
