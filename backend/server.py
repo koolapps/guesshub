@@ -4,10 +4,12 @@ import flask
 import json
 import bisect
 import random
+import os
+import mimetypes
 import MySQLdb as mysql
 import MySQLdb.cursors
 
-APP = flask.Flask(__name__, static_folder='../app', static_url_path='')
+APP = flask.Flask(__name__)
 
 def connect_to_db():
   return mysql.connect(
@@ -16,6 +18,7 @@ def connect_to_db():
       passwd=config.DB_PASSWORD,
       db=config.DB_NAME,
       cursorclass=MySQLdb.cursors.DictCursor).cursor()
+
 
 def initialize():
   cursor = connect_to_db()
@@ -42,6 +45,7 @@ def initialize():
   commit_index = index_class(tuple(grades), tuple(ids))
 
   return repos, commit_index
+
 
 # Assume we have enough memory to keep all repositories and a commit index loaded.
 REPOS, COMMIT_INDEX = initialize()
@@ -77,6 +81,15 @@ def level(length, min_grade, max_grade):
     levels.append({'commit': commit, 'repos': repos})
 
   return flask.Response(json.dumps({'rounds': levels}), mimetype='text/json')
+
+@APP.route('/<path:path>')
+def custom_static(path):
+  fs_path = os.path.join('../app', path)
+  if os.path.exists(fs_path):
+    mime = mimetypes.guess_type(fs_path)[0]
+    return flask.Response(open(fs_path, 'rb'), mimetype=mime)
+  else:
+    return 'Not Found', 404
 
 
 if __name__ == "__main__":
