@@ -141,7 +141,7 @@ Campaign.MAIN = new Campaign({
   hard_levels: [
     new Level({
       id: 8,
-      name: '3h. TODO',
+      name: '3h. reset hard',
       min_grade: 35,
       max_grade: 50,
       num_mistakes_allowed: 2,
@@ -150,7 +150,7 @@ Campaign.MAIN = new Campaign({
     }),
     new Level({
       id: 9,
-      name: '4h. TODO',
+      name: '4h. checking in',
       min_grade: 50,
       max_grade: 65,
       num_mistakes_allowed: 2,
