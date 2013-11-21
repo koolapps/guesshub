@@ -8,11 +8,6 @@ Can't launch without
     Scale down icon.
     Clean up commit list.
     Make commit list scrollable.
-  Finalize difficulty/grade calculation.
-    ./grade.py:38:  # TODO: Make grade correlate with difficulty instead.
-    ./grade.py:95:  # TODO: Find a better model controlled by these factors.
-    ./models/level.js:19:// TODO: Switch grade to a normalized range (0-1?).
-    Limit choices by owner/language at higher difficulties?
   ./models/power.js:11:// TODO: Tweak prices to match score.
   ./models/round.js:18:    // TODO: Decide on a formula to match grade to time.
   ./models/user.js:4:// TODO: Revert to empty powers and 0 score once we're done debugging.
@@ -39,6 +34,7 @@ Shouldn't launch without
   ./boot/index.js:6:// TODO: Support storing user state [whole User model].
 
 Nice to have
+  Limit choices by owner/language at higher difficulties?
   Add animation on score change.
   Add animation on level unlock.
   Add animation on power purchase.
