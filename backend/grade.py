@@ -333,7 +333,8 @@ def show_grade_histogram():
   read_cursor = DB.cursor()
   read_cursor.execute('SELECT grade, COUNT(grade) FROM commit '
                       'WHERE grade >= 0 GROUP BY grade')
-  histogram = dict(read_cursor.fetchall())
+  histogram = dict([(i['grade'], i['COUNT(grade)'])
+                    for i in read_cursor.fetchall()])
   print 'Histogram:'
   for n in range(0, max(histogram.keys()) + 1):
     print '%-2d: %d' % (n, histogram.get(n, 0))
