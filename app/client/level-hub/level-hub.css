@@ -25,8 +25,10 @@
   width: 180px;
   margin: auto;
   padding-left: 40px;
+  white-space: nowrap;
 }
 
+/* TODO: Replace with an fa-lock character. */
 .level-hub .locked {
   color: grey;
   cursor: default;
