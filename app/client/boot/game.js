@@ -42,6 +42,7 @@ function Game (options) {
   this.$powerList = options.$powerList;
   this.$levelHub = options.$levelHub;
   this.$hearts = options.$hearts;
+  this.$logo = options.$logo;
 
   // Widget references.
   this.commitDisplay = null;
@@ -66,6 +67,8 @@ Game.prototype.clear = function () {
   this.$levelHub.empty().hide();
   this.$finishScreen.empty().hide();
 
+  this.$logo.hide();
+
   // TODO: Properly destroy widgets?
   this.commitDisplay = null;
   this.timer = null;
@@ -73,6 +76,7 @@ Game.prototype.clear = function () {
 
 Game.prototype.showHub = function () {
   this.clear();
+  this.$logo.show();
 
   // TODO: Add achievements UI.
   this._renderScoreCard();

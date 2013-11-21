@@ -43,13 +43,13 @@ body {
   display: block;
   text-align: center;
   font-family: Zorque, "Lucida Console", Consolas, monospace;
-  font-size: 30px;
+  font-size: 55px;
   -webkit-text-stroke: 0.7px rgba(0,0,0,0.5);
+  margin-top: 43px;
 }
 
 #timer {
   margin-bottom: 20px;
-  margin-top: 40px;
   height: 150px;
 }
 
