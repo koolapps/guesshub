@@ -23,7 +23,6 @@ CREATE TABLE `commit`(
   PRIMARY KEY (`sha`,`patch_number`),
   UNIQUE KEY `order_id_UNIQUE` (`order_id`),
   KEY `grade_index` (`grade`),
-  KEY `grade_order_index` (`grade`,`order_id`)
 ) ENGINE = MyISAM;
 
 CREATE TABLE `repository`(
