@@ -2,10 +2,8 @@ var $ = require('jquery');
 var d3 = require('d3');
 var template = require('./template');
 
-// TODO: Add comments to this code.
-// TODO: Center the timer label.
-// TODO: Color timer red when time remaining <25%.
-// TODO: Pulsate the timer label when time remaining <25%.
+STROKE_WIDTH = 3
+
 // TODO: Add timer tick sounds, louder when time remaining <25%.
 function Timer (options) {
   if (!options.interval) {
@@ -19,30 +17,29 @@ function Timer (options) {
   this.outerRadius = options.outerRadius || this.$el.height() / 2;
   this.innerRadius = this.outerRadius - this.progressWidth;
   this.d3Container = d3.select(this.$el[0]);
-  this.svg = this.d3Container.append('svg').style('width', this.outerRadius * 2);
+  this.svg = this.d3Container.append('svg')
+      .style('width', (this.outerRadius + STROKE_WIDTH) * 2 + );
   this._completeCallback = options.onComplete || function () {};
 
   this._initialDraw();
 }
 
 Timer.prototype._initialDraw = function () {
+  var offset = this.outerRadius + STROKE_WIDTH;
   this.group = this.svg.append('g').attr(
     'transform',
-    'translate(' + this.outerRadius + ',' + this.outerRadius +')'
+    'translate(' + offset + ',' + offset +')'
   );
 
-  this.group.append('path').attr('fill', 'black');
+  this.group.append('path');
   this._updatePath(1);
 
   this.group.append('circle')
-    .attr('r', this.innerRadius)
-    .attr('fill', 'white')
-    .attr('stroke', 'grey');
+    .attr('r', this.innerRadius);
 
 
   this.group.append('text')
     .text(this.timeLeft)
-    .attr('text-anchor', 'middle')
     .attr('y', '15px');
 };
 
@@ -61,6 +58,9 @@ Timer.prototype.stop = function () {
 
 Timer.prototype._decrementTime = function() {
   this.timeLeft--;
+  if (this.timeLeft <= this.interval * 0.25) {
+    this.$el.addClass('panic');
+  }
   this.group.select('text').text(this.timeLeft);
   if (this.timeLeft === 0) {
     this._completeCallback();

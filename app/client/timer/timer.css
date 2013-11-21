@@ -1,18 +1,60 @@
 .timer {
   margin: 0 auto;
-  width: 150px;
+  width: 160px;
+  height: 160px;
 }
 
 .timer circle {
-  fill: black;
+  fill: transparent;
+  stroke: #CCC;
+  stroke-width: 1.5px;
 }
 
 .timer path {
   fill: white;
+  stroke: white;
+  stroke-width: 0px;
+}
+
+.timer.panic path {
+  fill: red;
+  stroke: red;
+  stroke-width: 0px;
+  -webkit-animation: timer-path-pulsate 1s ease-out;
+  -webkit-animation-iteration-count: infinite;
 }
 
 .timer text {
-  fill: red;
+  fill: white;
   font-family: Zorque;
   font-size: 50px;
+  text-anchor: middle;
+}
+
+.timer.panic text {
+  fill: red;
+  -webkit-animation: timer-text-pulsate 1s ease-out;
+  -webkit-animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes timer-text-pulsate {
+    0% {
+      font-size: 45px;
+      opacity: 0.4;
+    }
+    100% {
+      font-size: 55px;
+      opacity: 1.0;
+    }
+}
+
+@-webkit-keyframes timer-path-pulsate {
+    0% {
+      stroke-width: 0px;
+      opacity: 0.4;
+    }
+    100% {
+      stroke-width: 3px;
+      opacity: 1;
+    }
 }
