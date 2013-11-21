@@ -103,7 +103,7 @@ Campaign.MAIN = new Campaign({
   fast_levels: [
     new Level({
       id: 4,
-      name: '3f. pull a fast one',
+      name: '3f. the fast lane',
       min_grade: 5,
       max_grade: 20,
       num_mistakes_allowed: 2,
@@ -112,7 +112,7 @@ Campaign.MAIN = new Campaign({
     }),
     new Level({
       id: 5,
-      name: '4f. TODO',
+      name: '4f. pull a fast one',
       min_grade: 5,
       max_grade: 20,
       num_mistakes_allowed: 2,
@@ -121,7 +121,7 @@ Campaign.MAIN = new Campaign({
     }),
     new Level({
       id: 6,
-      name: '5f. TODO',
+      name: '5f. checking in',
       min_grade: 5,
       max_grade: 20,
       num_mistakes_allowed: 1,
@@ -130,7 +130,7 @@ Campaign.MAIN = new Campaign({
     }),
     new Level({
       id: 7,
-      name: '6f. TODO',
+      name: '6f. head to head',
       min_grade: 5,
       max_grade: 20,
       num_mistakes_allowed: 1,
@@ -141,7 +141,7 @@ Campaign.MAIN = new Campaign({
   hard_levels: [
     new Level({
       id: 8,
-      name: '3h. reset hard',
+      name: '3h. git-to-work',
       min_grade: 35,
       max_grade: 50,
       num_mistakes_allowed: 2,
@@ -150,7 +150,7 @@ Campaign.MAIN = new Campaign({
     }),
     new Level({
       id: 9,
-      name: '4h. checking in',
+      name: '4h. up a tree',
       min_grade: 50,
       max_grade: 65,
       num_mistakes_allowed: 2,
@@ -159,7 +159,7 @@ Campaign.MAIN = new Campaign({
     }),
     new Level({
       id: 10,
-      name: '5h. TODO',
+      name: '5h. reset hard',
       min_grade: 65,
       max_grade: 80,
       num_mistakes_allowed: 1,
@@ -168,7 +168,7 @@ Campaign.MAIN = new Campaign({
     }),
     new Level({
       id: 11,
-      name: '6h. TODO',
+      name: '6h. the tough git going',
       min_grade: 80,
       max_grade: 95,
       num_mistakes_allowed: 1,
