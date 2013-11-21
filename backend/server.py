@@ -82,6 +82,7 @@ def level(length, min_grade, max_grade):
 
   return flask.Response(json.dumps({'rounds': levels}), mimetype='text/json')
 
+# TODO: Support caching or go back to Flask's native static serving.
 @APP.route('/<path:path>')
 def custom_static(path):
   fs_path = os.path.join('../app', path)
