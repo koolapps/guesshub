@@ -56,8 +56,12 @@
   display: block;
 }
 
-.power-list .price img {
-  height: 14px;
-  position: relative;
-  top: 1px;
+.power-list .price {
+  font-family: Zorque;
+  -webkit-text-stroke: 1.0px rgba(0,0,0,1);
 }
+
+.power-list .price .currency {
+  color: #F1CE2A;
+}
+
