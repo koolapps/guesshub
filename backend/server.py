@@ -9,7 +9,7 @@ import MySQLdb.cursors
 
 RANDOM_COMMIT_SQL = '''
 SELECT *
-FROM commit
+FROM commit USE INDEX (grade_order_index)
   JOIN (SELECT (RAND() * (
       SELECT MAX(order_id) FROM commit)) AS value) AS random
 WHERE commit.order_id %s random.value
