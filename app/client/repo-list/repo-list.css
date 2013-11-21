@@ -8,9 +8,14 @@
 .repo-list .repo-item {
   display: inline-block;
   width: 190px;
-  margin-right: 30px;
+  margin-right: 38px;
 }
 
+.repo-list .repo-item:nth-child(4) {
+  margin-right: 0;
+}
+
+/* TODO: Handle labels that are too long (some are 60+ characters!). */
 .repo-list .repo-item .repo-button {
   display: inline-block;
   width: 190px;
@@ -25,21 +30,13 @@
   color: white;
 }
 
-.repo-list .repo-item:nth-child(3) {
-  margin-left: 21px;
-}
-
-.repo-list .repo-item:nth-child(4) {
-  margin-right: 0;
-}
-
 .repo-list .label {
   white-space: nowrap;
 }
 
 
 /* Colors */
-/* TODO Hover colors have been half-assed */
+/* TODO: Whole-ass hover colors. */
 .repo-list .repo-item:nth-child(1) .repo-button {
   background: #DA3A14;
 }
@@ -49,11 +46,11 @@
 }
 
 .repo-list .repo-item:nth-child(2) .repo-button {
-  background: #F1CE2A;
+  background: #F1B12A;
 }
 .repo-list .repo-item:nth-child(2) .repo-button:hover,
 .repo-list .repo-item:nth-child(2) .repo-button:focus {
-  background: #FFE66F;
+  background: #F1CE2A;
 }
 
 .repo-list .repo-item:nth-child(3) .repo-button {
@@ -71,20 +68,3 @@
 .repo-list .repo-item:nth-child(4) .repo-button:focus {
   background: #5E7AE0;
 }
-
-/* Animation */
-
-@-webkit-keyframes repo-item-pulse {
-  0% {
-    border-color: rgba(255,255,255,0.3);
-  }
-  100% {
-    border-color: rgba(255,255,255,0.6);
-  }
-}
-
-.repo-list .repo-item  .repo-button {
-  -webkit-animation: repo-item-pulse 1s infinite alternate;
-}
-
-/* TODO: Make sure the animation does not cause flicker on all OSs. */
