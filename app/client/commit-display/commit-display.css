@@ -88,8 +88,8 @@
 }
 
 #commit-display .diff {
-  font-family: Consolas, 'Liberation Mono', Courier, monospace;
-  font-size: 13px;
+  font-family: UbuntuMono;
+  font-size: 16px;
 }
 
 #commit-display .diff:before, #commit-display .diff:after {
