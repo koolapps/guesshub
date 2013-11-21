@@ -139,6 +139,7 @@ Game.prototype._onPower = function (mode, power) {
       // TODO: Maybe move these into Power.use()?
       switch (power.id()) {
         case 'time':
+          // TODO: Fix timer power.
           this.timer.addPercentTime(25);
           break;
         case 'commit':
@@ -150,6 +151,7 @@ Game.prototype._onPower = function (mode, power) {
         case 'half':
           var hidden = 0;
           var correctRepoName = this.round.commit().repository();
+          // TODO: Fix the breakage caused by sorting in-place.
           this.repoList.hideRepos(
             this.round.repos().sort(function () {
               return 0.5 - Math.random();
