@@ -1,5 +1,4 @@
 Can't launch without
-  Show mistakes left.
   Implement repo power.
   Finalize the score calculation formula.
   Decide on app name.
@@ -11,12 +10,11 @@ Can't launch without
   ./models/power.js:11:// TODO: Tweak prices to match score.
   ./models/round.js:18:    // TODO: Decide on a formula to match grade to time.
   ./models/user.js:4:// TODO: Revert to empty powers and 0 score once we're done debugging.
-  Make repo public (non-trivial).
+  Make repo public (not trivial!)
   ./config.py:1:# TODO(max99x): Disable the account with the checked-in credentials.
   Get a domain.
-  Set up server.
-    ./server.py:21:# TODO: Figure out when the connection should be reinitialized.
-    Ensure server can handle reasonable traffic.
+  Set up a final server open to the public.
+  Ensure server can handle reasonable traffic.
   Update readme and repo metadata with description, links, etc.
   Ensure we can build minified JS cleanly.
   Figure out license and add icon credits.
@@ -26,11 +24,12 @@ Shouldn't launch without
   Add sound effect on win/loss.
   Add sound effect on guess/miss.
   Add animation on guess/miss.
+  ./server.py:88:# TODO: Support caching or go back to Flask's native static serving.
   ./boot/game.js:179:    // TODO: Don't add score to the user until the level is done.
   ./finish-screen/finish-screen.js:58:    // TODO: Track guessed state of each commit and set it in is_guessed.
   ./power-list/power-list.js:7:// TODO: Resize icons to be the same size.
   ./repo-list/repo-list.css:117:/* TODO: Make sure the animation does not cause flicker on all OSs. */
-  Get at least 100K valid commit records.
+  Get at least 100K valid commit records, perhaps re-splitting existing ones.
   ./boot/index.js:6:// TODO: Support storing user state [whole User model].
 
 Nice to have
@@ -53,9 +52,7 @@ Nice to have
   ./level-meter/level-meter.js:5:// TODO: Use a flashy animation on each change.
   ./power-list/power-list.js:16:  // TODO: Make choices respond to QWER keyboards keys.
   ./repo-list/repo-list.js:28:  // TODO: Make choices respond to 1-4 keyboards keys.
-  ./timer/timer.js:8:// TODO: Pulsate the timer and label when time remaining <25%.
   ./timer/timer.js:9:// TODO: Add timer tick sounds, louder when time remaining <25%.
-  ./grade.py:27:# TODO: Maybe switch to a whitelist instead?
   Add level icons.
 
 Misc
