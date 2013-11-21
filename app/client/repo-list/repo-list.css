@@ -15,6 +15,10 @@
   margin-right: 0;
 }
 
+.repo-list .repo-item.hide {
+  visibility: hidden;
+}
+
 /* TODO: Handle labels that are too long (some are 60+ characters!). */
 .repo-list .repo-item .repo-button {
   display: inline-block;
@@ -33,7 +37,6 @@
 .repo-list .label {
   white-space: nowrap;
 }
-
 
 /* Colors */
 /* TODO: Whole-ass hover colors. */

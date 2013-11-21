@@ -179,3 +179,7 @@
 #commit-display .content {
   padding-left: 10px;
 }
+
+#commit-display .hide {
+  display: none !important;
+}
