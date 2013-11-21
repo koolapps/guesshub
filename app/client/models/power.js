@@ -14,25 +14,25 @@ Power.ALL = {
   time: new Power({
     id: 'time',
     price: 300,
-    tooltip: 'Buy 25% of your time back',
+    tooltip: 'Rewind \xa0the timer',  // \xa0 to force wrapping
     icon: 'clock-o'
   }),
   commit: new Power({
     id: 'commit',
     price: 2000,
-    tooltip: 'Reveal commit metadata',
+    tooltip: 'Reveal commit details',
     icon: 'user'
   }),
   repo: new Power({
     id: 'repo',
     price: 5000,
-    tooltip: 'Reveal repository details',
+    tooltip: 'Reveal repo details',
     icon: 'info-circle'
   }),
   half: new Power({
     id: 'half',
     price: 42000,
-    tooltip: 'Remove two wrong choices',
+    tooltip: 'Remove 2 wrong choices',
     icon: 'adjust'
   })
 };
