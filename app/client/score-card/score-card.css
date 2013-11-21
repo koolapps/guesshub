@@ -6,13 +6,14 @@
   margin: auto;
   cursor: default;
   -webkit-text-stroke: 0.7px rgba(0,0,0,0.5);
-}
-
-.score-card-container img {
-  position: relative;
-  width: 16px;
+  text-align: center;
+  font-family: Zorque;
 }
 
 .fa-money {
   font-size: 70px;
+}
+
+.score-card-container .currency {
+  color: #F1CE2A;
 }
