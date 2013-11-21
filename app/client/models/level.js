@@ -14,7 +14,7 @@ var Level = plugins(model('Level'))
   .attr('max_grade')
   .attr('num_mistakes_allowed')
   .attr('timer')  // null: per-Round, based on grade.
-  .attr('unlocks')
+  .attr('requires')
   ;
 // TODO: Switch grade to a normalized range (0-1?).
 
