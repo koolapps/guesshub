@@ -21,7 +21,7 @@
 .power-list .power.available:hover,
 .power-list .power.available:focus,
 .power-list .power.available:active {
-  color: yellow;
+  color: yellow !important;
 }
 
 .power-list .power .count {
@@ -65,3 +65,8 @@
   color: #F1CE2A;
 }
 
+.power-list .power.available:hover .currency,
+.power-list .power.available:focus .currency,
+.power-list .power.available:active .currency {
+  color: yellow !important;
+}

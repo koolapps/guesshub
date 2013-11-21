@@ -32,7 +32,7 @@ Power.ALL = {
   half: new Power({
     id: 'half',
     price: 42000,
-    tooltip: 'Remove 2 wrong choices',
+    tooltip: 'Reduce wrong choices',
     icon: 'adjust'
   })
 };
