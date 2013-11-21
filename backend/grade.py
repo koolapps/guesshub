@@ -87,7 +87,7 @@ DB = mysql.connect(
 
 class Model(object):
   """A naive Bayesian text classifier."""
-  
+
   def __init__(self):
     self.samples = collections.defaultdict(
         lambda: collections.defaultdict(lambda: 1))
@@ -253,8 +253,8 @@ def compute_grade(commit, classifier):
   # Calculate the grade, starting from perfectly hard.
   if keywords_count > 0:
     # Has repo keywords. Difficulty <= 50.
-    grade = 50
-    grade -= min(keywords_count, 6.25) * 8
+    grade = 42 - min(keywords_count, 6) * 7
+    grade += min(len(lines) - MIN_LINE_COUNT, 8)
   else:
     # No repo keywords. Difficulty > 50.
     grade = 100
