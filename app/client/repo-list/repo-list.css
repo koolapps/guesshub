@@ -40,19 +40,19 @@
 /* Colors */
 /* TODO: Whole-ass hover colors. */
 .repo-list .repo-item:nth-child(1) .repo-button {
-  background: #DA3A14;
+  background: #F1B12A;
 }
 .repo-list .repo-item:nth-child(1) .repo-button:hover,
 .repo-list .repo-item:nth-child(1) .repo-button:focus {
-  background: #E27D66;
+  background: #F1CE2A;
 }
 
 .repo-list .repo-item:nth-child(2) .repo-button {
-  background: #F1B12A;
+  background: #AF4127;
 }
 .repo-list .repo-item:nth-child(2) .repo-button:hover,
 .repo-list .repo-item:nth-child(2) .repo-button:focus {
-  background: #F1CE2A;
+  background: #DA3A14;
 }
 
 .repo-list .repo-item:nth-child(3) .repo-button {
@@ -64,9 +64,9 @@
 }
 
 .repo-list .repo-item:nth-child(4) .repo-button {
-  background: #3C65FC;
+  background: #2451B1;
 }
 .repo-list .repo-item:nth-child(4) .repo-button:hover,
 .repo-list .repo-item:nth-child(4) .repo-button:focus {
-  background: #5E7AE0;
+  background: #3C65FC;
 }
