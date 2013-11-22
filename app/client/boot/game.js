@@ -190,6 +190,7 @@ Game.prototype._finishRound = function (won) {
   progress.completed_round(progress.completed_round() + 1);
   if (won) {
     // TODO: Finalize the score calculation formula.
+    // TODO: Bonus for remaining mistakes.
     // Assuming grade is between 0 and 50 we rescale to 50 - 100.
     var grade = 50 + this.round.commit().grade();
     var secondsTaken = Math.floor((Date.now() - this.startTime) /  1000);
