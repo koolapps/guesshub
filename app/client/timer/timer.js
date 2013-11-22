@@ -47,13 +47,15 @@ var SEC = 1000;
 
 Timer.prototype.start = function() {
   this.timeout = setTimeout(function () {
-    if (this.$el.is('.panic')) {
-      audio.play('timer-beep');
-    } else {
-      audio.play('timer-tick');
-    }
     this._decrementTime();
     this._update();
+    if (this.timeLeft > 0) {
+      if (this.$el.is('.panic')) {
+        audio.play('timer-beep');
+      } else {
+        audio.play('timer-tick');
+      }
+    }
   }.bind(this), SEC);
 };
 

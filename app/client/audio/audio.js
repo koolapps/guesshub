@@ -1,8 +1,8 @@
 var AudioPlayer = {};
 
 var FILES = {
-  'timer-tick': '/audio/timer-tick.wav',
-  'timer-beep': '',
+  'timer-tick': '/audio/timer-tick.mp3',
+  'timer-beep': '/audio/timer-beep.mp3',
 };
 
 var context;
