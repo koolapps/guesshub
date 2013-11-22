@@ -158,9 +158,10 @@ Game.prototype._onPower = function (mode, power) {
         case 'half':
           var hidden = 0;
           var correctRepoName = this.round.commit().repository();
-          // TODO: Fix the breakage caused by sorting in-place.
+          // TODO: Fix the power sometimes not working a second time
+          //       (trying to hide a previously hidden repo).
           this.repoList.hideRepos(
-            this.round.repos().sort(function () {
+            this.round.repos().slice().sort(function () {
               return 0.5 - Math.random();
             }).filter(function (repo) {
               if (hidden < 2 && repo.name() != correctRepoName) {

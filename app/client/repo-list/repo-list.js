@@ -29,7 +29,7 @@ RepoList.prototype.render = function() {
   var callback = this.onSelect;
   this.$el = $(template.render(model))
     .on('click', '.repo-button', function () {
-      callback(repos[$(this).closest('li').index()]);
+      callback(repos[$(this).closest('.repo-item').index()]);
     });
 };
 

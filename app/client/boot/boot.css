@@ -49,7 +49,8 @@ body {
 }
 
 #score-card {
-  width: 150px;
+  width: 50%;
+  height: 50%;
   position: absolute;
   right: 0;
   top: 0;
@@ -58,19 +59,20 @@ body {
 
 #level-stats {
   position: absolute;
-  width: 150px;
+  width: 50%;
+  height: 100%;
   text-align: center;
   top: 0;
   left: 0;
 }
 
 #hearts {
+  width: 50%;
+  height: 50%;
   position: absolute;
-  width: 150px;
   text-align: center;
   bottom: 0;
   right: 0;
-  height: 50%;
 }
 
 .header-left,
