@@ -54,7 +54,7 @@ function Game (options) {
       this.$finishIcon,
       this.$finishScreen,
       this.showHub.bind(this),
-      this.showLevel.bind(this, this.level));
+      function() { this.showLevel(this.level); }.bind(this));
 }
 
 /**** State Control ****/
