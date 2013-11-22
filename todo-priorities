@@ -1,5 +1,6 @@
 Can't launch without
   (Amjad) Switch amasad/prism to a theme that fits the new style.
+  TODO: Add a way to turn off sound.
   Implement repo power.
   Fix 50:50 power.
   Fix score card sometimes rendering twice on retry.

@@ -1,5 +1,7 @@
 var AudioPlayer = {};
 
+// TODO: Add a way to turn off sound.
+
 var FILES = {
   'timer-tick': '/audio/timer-tick.mp3',
   'timer-beep': '/audio/timer-beep.mp3',
