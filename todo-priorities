@@ -6,9 +6,9 @@ Can't launch without
   Decide on app name.
   Decide on level names.
   Finalize finish screen UI.
-    Scale down icon.
     Clean up commit list.
     Make commit list scrollable.
+    Make score calculation UI.
   ./models/power.js:11:// TODO: Tweak prices to match score.
   ./models/round.js:18:    // TODO: Decide on a formula to match grade to time.
   ./models/user.js:4:// TODO: Revert to empty powers and 0 score once we're done debugging.
