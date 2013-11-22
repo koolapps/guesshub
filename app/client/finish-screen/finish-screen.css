@@ -1,17 +1,22 @@
-.finish-screen {
+#finish-screen {
   text-align: center;
   line-height: 30px;
   margin-top: 50px;
 }
 
-.finish-screen .commit {
+#finish-screen .commit {
   text-align: left;
 }
 
-.finish-screen .commit * {
+#finish-screen .commit * {
   vertical-align: middle;
 }
 
-.finish-screen .commit .author.icon {
+#finish-screen .commit .author.icon {
   width: 32px;
+}
+
+#finish-icon {
+  text-align: center;
+  font-size: 120px;
 }

@@ -1,11 +1,9 @@
-.power-list {
-  margin-top: 115px;
-}
-
 .power-list .power {
   text-align: center;
   font-weight: bold;
-  margin-bottom: 25px;
+  width: 148px;
+  height: 92px;
+  display: inline-block;
   position: relative;
 }
 
@@ -49,7 +47,6 @@
   width: 75px;
   z-index: 200;
   letter-spacing: 1px;
-
 }
 
 .power-list .power:hover .tooltip {

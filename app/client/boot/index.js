@@ -17,6 +17,7 @@ var game = new Game({
   $powerList: $('#power-list'),
   $levelHub: $('#level-hub'),
   $finishScreen: $('#finish-screen'),
+  $finishIcon: $('#finish-icon'),
   $hearts: $('#hearts'),
   $logo: $('#logo')
 });

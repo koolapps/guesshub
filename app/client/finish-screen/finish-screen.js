@@ -2,64 +2,93 @@ var $ = require('jquery');
 var Hogan = require('hogan.js');
 var template = Hogan.compile(require('./template'));
 
-// Shows the results of a level.
-module.exports = function (user, level, commits, levelProgress,
-                           hubCallback, retryCallback) {
-  // Render the template.
-  var $el = $('<div/>', { class: 'finish-screen' });
-  $el.html(template.render(templateArgs(user, level, commits, levelProgress)));
+module.exports = FinishScreen;
 
-  // Listen to clicks.
-  $el.on('click', '.button.to-hub', hubCallback);
-  $el.on('click', '.button.retry', retryCallback);
+function FinishScreen (user, $finishIcon, $finishScreen, onHub, onRetry) {
+  this.user = user;
+  this.$finishIcon = $finishIcon;
+  this.$finishScreen = $finishScreen;
+  this.onHub = onHub;
+  this.onRetry = onRetry;
+}
 
-  return $el;
+FinishScreen.prototype.render = function (level, commits, levelProgress) {
+  var outcome = this.outcome(level.name() == 'survival', levelProgress);
+  this.renderIcon(outcome);
+  this.renderDetails(
+      outcome,
+      levelProgress.score_earned(),
+      this.commitsArg(commits, levelProgress));
 };
 
-function templateArgs (user, level, commits, levelProgress) {
-  var args = {};
-
-  // The main outcome.
-  if (levelProgress.mistakes_left() >= 0) {
-    if (levelProgress.missed() == 0) {
-      args.outcome = 'Flawless Victory';
-      args.outcome_id = 'flawless-victory';
-    }  else {
-      args.outcome = 'Victory';
-      args.outcome_id = 'victory';
-    }
-  } else {
-    if (level.name() == 'survival') {
-      // Special case: the survival level has no defeat.
-      args.outcome = 'The End';
-      args.outcome_id = 'end';
-    } else {
-      args.outcome = 'Defeat';
-      args.outcome_id = 'defeat';
-    }
+FinishScreen.prototype.renderIcon = function (outcome) {
+  var glyph;
+  switch (outcome) {
+    case 'Flawless Victory':
+      glyph = 'fa-TODO';
+      break;
+    case 'Victory':
+      glyph = 'fa-thumbs-up';
+      break;
+    case 'The End':
+      glyph = 'fa-TODO';
+      break;
+    case 'Defeat':
+      glyph = 'fa-thumbs-down';
+      break;
+    default:
+      throw Error('Unknown outcome: ' + outcome);
   }
 
-  // Outcome flags.
-  args.is_defeat = args.outcome_id == 'defeat';
-  args.is_victory = args.outcome_id != 'defeat';
+  this.$finishIcon.empty().append($('<i/>', { class: 'fa ' + glyph }));
+};
 
-  // Score.
-  args.score_previous = user.score() - levelProgress.score_earned();
-  args.score_delta = levelProgress.score_earned();
-  args.score_new = user.score();
+FinishScreen.prototype.renderDetails =
+    function (outcome, scoreEarned, commits) {
+  // Set up args.
+  var args = {
+    outcome: outcome,
+    is_defeat: outcome == 'Defeat',
+    is_victory: outcome != 'Defeat',
+    score_previous: this.user.score() - scoreEarned,
+    score_delta: scoreEarned,
+    score_new: this.user.score(),
+    achievements: [],
+    commits: commits
+  };
 
-  // TODO: Achievements.
-  args.achievements = [];
+  // Render the template.
+  this.$finishScreen.empty().html(template.render(args));
 
-  args.commits = commits.map(function (commit) {
+  // Listen to clicks.
+  this.$finishScreen.on('click', '.button.to-hub', this.onHub);
+  this.$finishScreen.on('click', '.button.retry', this.onRetry);
+};
+
+FinishScreen.prototype.outcome = function (isSurvival, levelProgress) {
+  if (levelProgress.mistakes_left() >= 0) {
+    if (levelProgress.missed() == 0) {
+      return 'Flawless Victory';
+    }  else {
+      return 'Victory';
+    }
+  } else {
+    if (isSurvival) {
+      // Special case: the survival level has no defeat.
+      return 'The End';
+    } else {
+      return 'Defeat';
+    }
+  }
+};
+
+FinishScreen.prototype.commitsArg = function (commits, levelProgress) {
+  var commitsArg = commits.map(function (commit) {
     var json = commit.toJSON();
     json.sha_abbreviation = json.sha.slice(0, 10);
     // TODO: Track guessed state of each commit and set it in is_guessed.
     return json;
   });
   // Remove commits which the player hadn't reached.
-  args.commits = args.commits.slice(0, levelProgress.completed_round() + 1);
-
-  console.log(args);
-  return args;
+  return commitsArg.slice(0, levelProgress.completed_round() + 1);
 };

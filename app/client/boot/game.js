@@ -9,12 +9,12 @@ var scoreCard = require('score-card');
 var powerList = require('power-list');
 var levelStats = require('level-stats');
 var levelHub = require('level-hub');
-var finishScreen = require('finish-screen');
 var hearts = require('hearts');
 
 var CommitDisplay = require('commit-display');
 var Timer = require('timer');
 var RepoList = require('repo-list');
+var FinishScreen = require('finish-screen');
 
 module.exports = Game;
 
@@ -34,6 +34,7 @@ function Game (options) {
 
   // DOM references.
   this.$finishScreen = options.$finishScreen;
+  this.$finishIcon = options.$finishIcon;
   this.$repos = options.$repos;
   this.$timer = options.$timer;
   this.$scoreCard = options.$scoreCard;
@@ -48,6 +49,12 @@ function Game (options) {
   this.commitDisplay = null;
   this.timer = null;
   this.repoList = null;
+  this.finishScreen = new FinishScreen(
+      this.user,
+      this.$finishIcon,
+      this.$finishScreen,
+      this.showHub.bind(this),
+      this.showLevel.bind(this, this.level));
 }
 
 /**** State Control ****/
@@ -66,6 +73,7 @@ Game.prototype.clear = function () {
   this.$powerList.empty().hide();
   this.$levelHub.empty().hide();
   this.$finishScreen.empty().hide();
+  this.$finishIcon.empty().hide();
 
   this.$logo.hide();
 
@@ -251,14 +259,10 @@ Game.prototype._renderHub = function() {
 };
 
 Game.prototype._renderFinishScreen = function() {
-  this.$finishScreen.append(
-      finishScreen(this.user,
-                   this.level,
-                   this.levelRounds.map(function(r) { return r.commit(); }),
-                   this.levelProgress,
-                   this.showHub.bind(this),
-                   this.showLevel.bind(this, this.level)));
+  var rounds = this.levelRounds.map(function(r) { return r.commit(); });
+  this.finishScreen.render(this.level, rounds, this.levelProgress);
   this.$finishScreen.show();
+  this.$finishIcon.show();
 };
 
 Game.prototype._renderHearts = function () {
