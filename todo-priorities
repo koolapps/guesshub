@@ -1,6 +1,6 @@
 Can't launch without
+  (Amjad) Switch amasad/prism to a theme that fits the new style.
   Implement repo power.
-  Fix timer power.
   Fix 50:50 power.
   Finalize the score calculation formula.
   Decide on app name.
@@ -12,16 +12,19 @@ Can't launch without
   ./models/power.js:11:// TODO: Tweak prices to match score.
   ./models/round.js:18:    // TODO: Decide on a formula to match grade to time.
   ./models/user.js:4:// TODO: Revert to empty powers and 0 score once we're done debugging.
-  Make repo public (not trivial!)
-  ./config.py:1:# TODO(max99x): Disable the account with the checked-in credentials.
-  Get a domain.
-  Set up a final server open to the public.
-  Ensure server can handle reasonable traffic.
-  Update readme and repo metadata with description, links, etc.
-  Ensure we can build minified JS cleanly.
-  Figure out license and add icon credits.
+  Non-code
+    Make repo public (not trivial!)
+    ./config.py:1:# TODO(max99x): Disable the account with the checked-in credentials.
+    Get a domain.
+    Set up a final server open to the public.
+    Ensure server can handle reasonable traffic.
+    Update readme and repo metadata with description, links, etc.
+    Ensure we can build minified JS cleanly.
+    Figure out license and add icon credits.
 
 Shouldn't launch without
+  Make the diff a box with rounded corners to fit the new style.
+  Ensure diff can accommodate long lines.
   Add tutorial (outlined in doc).
   Add sound effect on win/loss.
   Add sound effect on guess/miss.
