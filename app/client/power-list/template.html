@@ -1,11 +1,11 @@
 {{#powers}}
-  <div class="power {{#available}}available{{/available}}"
-        data-power-type="{{type}}">
+  <div class="power
+              {{#available}}available{{/available}}
+              {{^visible}}hidden{{/visible}}"
+       data-power-type="{{type}}">
     <i class="fa-{{icon}} fa icon"></i>
     <div class="count">
-      {{#count}}
-        {{count}}
-      {{/count}}
+      {{#count}}{{count}}{{/count}}
     </div>
     {{#price}}
       <div class="price">

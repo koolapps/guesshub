@@ -1,10 +1,30 @@
 .power-list .power {
   text-align: center;
   font-weight: bold;
-  width: 148px;
+  width: 150px;
   height: 92px;
   display: inline-block;
-  position: relative;
+  position: absolute;
+}
+
+.power-list .power:nth-child(1) {
+  left: 0;
+  top: 0;
+}
+
+.power-list .power:nth-child(2) {
+  right: 0;
+  top: 0;
+}
+
+.power-list .power:nth-child(3) {
+  left: 0;
+  bottom: 0;
+}
+
+.power-list .power:nth-child(4) {
+  right: 0;
+  bottom: 0;
 }
 
 .power-list .power.available {
@@ -16,10 +36,14 @@
   opacity: 0.3;
 }
 
+.power-list .power.hidden {
+  visibility: hidden;
+}
+
 .power-list .power.available:hover,
 .power-list .power.available:focus,
 .power-list .power.available:active {
-  color: yellow !important;
+  color: yellow;
 }
 
 .power-list .power .count {
@@ -51,6 +75,10 @@
 
 .power-list .power:hover .tooltip {
   display: block;
+}
+
+.power-list .power.available:hover .tooltip {
+  color: yellow;
 }
 
 .power-list .price {
