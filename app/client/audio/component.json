@@ -1,0 +1,8 @@
+{
+  "name": "audio",
+  "description": "Sound effect list and playback.",
+  "dependencies": {},
+  "development": {},
+  "main": "audio.js",
+  "scripts": ["audio.js"]
+}
