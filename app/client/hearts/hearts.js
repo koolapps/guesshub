@@ -5,7 +5,6 @@ module.exports = function (levelProgress) {
   var $el = $('<div/>', { class: 'hearts' });
 
   function update (mistakesLeft) {
-    console.log(mistakesLeft)
     $el.empty();
     while (mistakesLeft-- > 0) {
       $el.append(template);
