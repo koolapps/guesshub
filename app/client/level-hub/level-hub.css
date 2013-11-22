@@ -22,20 +22,10 @@
   clear: both;
   font-weight: bold;
   cursor: pointer;
-  height: 40px;
-  width: 180px;
+  height: 45px;
+  width: 280px;
   margin: auto;
-  padding-left: 40px;
   white-space: nowrap;
-}
-
-/* TODO: Replace with an fa-lock character. */
-.level-hub .locked {
-  color: grey;
-  cursor: default;
-  background: url(/img/lock.png);
-  background-size: 36px 36px;
-  background-repeat: no-repeat;
 }
 
 .level-hub .level:not(.locked):hover,
@@ -44,3 +34,13 @@
   color: yellow;
 }
 
+.level-hub .level.locked .fa-lock {
+  font-size: 26px;
+  vertical-align: middle;
+  float: left;
+}
+
+.level-hub .level.locked {
+  cursor: default;
+  color: grey;
+}
