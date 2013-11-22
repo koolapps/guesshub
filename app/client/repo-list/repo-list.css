@@ -38,13 +38,12 @@
 }
 
 /* Colors */
-/* TODO: Whole-ass hover colors. */
 .repo-list .repo-item:nth-child(1) .repo-button {
-  background: #F1B12A;
+  background: #D69201;
 }
 .repo-list .repo-item:nth-child(1) .repo-button:hover,
 .repo-list .repo-item:nth-child(1) .repo-button:focus {
-  background: #F1CE2A;
+  background: #E4B703;
 }
 
 .repo-list .repo-item:nth-child(2) .repo-button {
@@ -52,15 +51,15 @@
 }
 .repo-list .repo-item:nth-child(2) .repo-button:hover,
 .repo-list .repo-item:nth-child(2) .repo-button:focus {
-  background: #DA3A14;
+  background: #D14929;
 }
 
 .repo-list .repo-item:nth-child(3) .repo-button {
-  background: #8CC840;
+  background: #6BA81D;
 }
 .repo-list .repo-item:nth-child(3) .repo-button:hover,
 .repo-list .repo-item:nth-child(3) .repo-button:focus {
-  background: #ADF750;
+  background: #7ECC1B;
 }
 
 .repo-list .repo-item:nth-child(4) .repo-button {
