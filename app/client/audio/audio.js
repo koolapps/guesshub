@@ -1,7 +1,8 @@
 var AudioPlayer = {};
 
 var FILES = {
-  // TODO: Add effects.
+  'timer-tick': '/audio/timer-tick.wav',
+  'timer-beep': '',
 };
 
 var context;

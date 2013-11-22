@@ -1,5 +1,6 @@
 var $ = require('jquery');
 var d3 = require('d3');
+var audio = require('audio');
 var template = require('./template');
 
 STROKE_WIDTH = 3
@@ -46,6 +47,11 @@ var SEC = 1000;
 
 Timer.prototype.start = function() {
   this.timeout = setTimeout(function () {
+    if (this.$el.is('.panic')) {
+      audio.play('timer-beep');
+    } else {
+      audio.play('timer-tick');
+    }
     this._decrementTime();
     this._update();
   }.bind(this), SEC);
