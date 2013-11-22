@@ -6,8 +6,6 @@
 
 .timer circle {
   fill: transparent;
-  stroke: #CCC;
-  stroke-width: 1.5px;
 }
 
 .timer path {

@@ -37,7 +37,6 @@ Timer.prototype._initialDraw = function () {
   this.group.append('circle')
     .attr('r', this.innerRadius);
 
-
   this.group.append('text')
     .text(this.timeLeft)
     .attr('y', '15px');
