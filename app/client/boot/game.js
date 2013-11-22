@@ -244,6 +244,7 @@ Game.prototype._renderCommitDisplay = function (commit) {
 };
 
 Game.prototype._renderScoreCard = function() {
+  // TODO: Fix score card sometimes rendering twice on retry.
   this.$scoreCard.append(scoreCard(this.user));
   this.$scoreCard.show();
 };
