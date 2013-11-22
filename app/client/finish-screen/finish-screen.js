@@ -25,13 +25,13 @@ FinishScreen.prototype.renderIcon = function (outcome) {
   var glyph;
   switch (outcome) {
     case 'Flawless Victory':
-      glyph = 'fa-TODO';
+      glyph = 'fa-star';
       break;
     case 'Victory':
       glyph = 'fa-thumbs-up';
       break;
     case 'The End':
-      glyph = 'fa-TODO';
+      glyph = 'fa-bell';
       break;
     case 'Defeat':
       glyph = 'fa-thumbs-down';
