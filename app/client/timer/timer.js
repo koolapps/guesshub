@@ -47,7 +47,7 @@ var SEC = 1000;
 Timer.prototype.start = function() {
   this.timeout = setTimeout(function () {
     this._decrementTime();
-    this._updatePath(this.timeLeft / this.interval);
+    this._update();
   }.bind(this), SEC);
 };
 
@@ -55,12 +55,14 @@ Timer.prototype.stop = function () {
   if (this.timeout) clearTimeout(this.timeout);
 };
 
+Timer.prototype._update = function() {
+  this.$el.toggleClass('panic', this.timeLeft <= this.interval * 0.25);
+  this.group.select('text').text(this.timeLeft);
+  this._updatePath(this.timeLeft / this.interval);
+};
+
 Timer.prototype._decrementTime = function() {
   this.timeLeft--;
-  if (this.timeLeft <= this.interval * 0.25) {
-    this.$el.addClass('panic');
-  }
-  this.group.select('text').text(this.timeLeft);
   if (this.timeLeft === 0) {
     this._completeCallback();
   } else {
@@ -79,6 +81,18 @@ Timer.prototype._updatePath = function (ratioLeft) {
       .innerRadius(this.innerRadius)
       .outerRadius(this.outerRadius)
   );
+};
+
+Timer.prototype.rewind = function (fraction) {
+  this.stop();
+
+  var bonusTime = fraction * this.interval;
+  this.timeLeft = Math.round(
+    Math.min(this.interval, this.timeLeft + bonusTime)
+  );
+
+  this._update();
+  this.start();
 };
 
 module.exports = Timer;

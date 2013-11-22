@@ -147,8 +147,7 @@ Game.prototype._onPower = function (mode, power) {
       // TODO: Maybe move these into Power.use()?
       switch (power.id()) {
         case 'time':
-          // TODO: Fix timer power.
-          this.timer.addPercentTime(25);
+          this.timer.rewind(0.25);
           break;
         case 'commit':
           this.commitDisplay.setVisibility({ metadata: true });
