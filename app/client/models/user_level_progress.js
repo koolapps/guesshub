@@ -26,6 +26,7 @@ UserLevelProgress.prototype.completed_round = function () {
 
 UserLevelProgress.prototype.recordRoundMissed = function () {
   this.missed(this.missed() + 1);
+  this.mistakes_left(this.mistakes_left() - 1);
   this.score_earned().push(0);
 };
 

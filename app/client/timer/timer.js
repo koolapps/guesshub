@@ -3,9 +3,8 @@ var d3 = require('d3');
 var audio = require('audio');
 var template = require('./template');
 
-STROKE_WIDTH = 3
+var STROKE_WIDTH = 3;
 
-// TODO: Add timer tick sounds, louder when time remaining <25%.
 function Timer (options) {
   if (!options.interval) {
     throw new Error('Please set an interval');
@@ -47,7 +46,12 @@ var SEC = 1000;
 
 Timer.prototype.start = function() {
   this.timeout = setTimeout(function () {
-    this._decrementTime();
+    this.timeLeft--;
+    if (this.timeLeft === 0) {
+      this._completeCallback();
+    } else {
+      this.start();
+    }
     this._update();
     if (this.timeLeft > 0) {
       if (this.$el.is('.panic')) {
@@ -67,15 +71,6 @@ Timer.prototype._update = function() {
   this.$el.toggleClass('panic', this.timeLeft <= this.interval * 0.25);
   this.group.select('text').text(this.timeLeft);
   this._updatePath(this.timeLeft / this.interval);
-};
-
-Timer.prototype._decrementTime = function() {
-  this.timeLeft--;
-  if (this.timeLeft === 0) {
-    this._completeCallback();
-  } else {
-    this.start();
-  }
 };
 
 var TWOPI = 2 * Math.PI;

@@ -1,13 +1,12 @@
 Can't launch without
   (Amjad) Switch amasad/prism to a theme that fits the new style.
-  TODO: Add a way to turn off sound.
+  Add a way to turn off sound.
   Implement repo power.
   Fix 50:50 power.
-  ./boot/game.js:67:  // TODO: Properly destroy widgets!
-    Fix timer sometimes remaining alive on retry.
-  Decide on app name.
-  Decide on level names.
-  ./models/user.js:4:// TODO: Revert to empty powers and 0 score once we're done debugging.
+  Non-implementation
+    Decide on app name.
+    Decide on level names.
+    ./models/user.js:4:// TODO: Revert to empty powers and 0 score once we're done debugging.
   Non-code
     Make repo public (not trivial!)
     ./config.py:1:# TODO(max99x): Disable the account with the checked-in credentials.
@@ -59,4 +58,6 @@ Misc
   ./models/user_level_progress.js:4:// TODO: Rename file to user-level-progress.js for consistency.
   ./crawl.py:100:          # TODO(max99x): Log and skip errors.
   ./model.py:34:    # TODO: Remove [file_contents] throughout the codebase.
+  ./boot/game.js:67:  // TODO: Properly destroy widgets?
+  ./boot/game.js:228:  // TODO: Find and fix the race condition that causes this in the first place.
   Light anti-cheating protection.

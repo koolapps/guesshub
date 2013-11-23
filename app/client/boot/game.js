@@ -188,11 +188,9 @@ Game.prototype._onPower = function (mode, power) {
 Game.prototype._finishRound = function (won) {
   this.timer.stop();
   var progress = this.levelProgress;
-  progress.completed_round(progress.completed_round() + 1);
-  var wonLevel = progress.completed_round() === progress.rounds();
-  var lostLevel = progress.mistakes_left() < 0;
+
+  // Record round win.
   if (won) {
-    if (!wonLevel) audio.play('guess');
     // Assuming grade is between 0 and 50 we rescale to 50 - 100.
     var grade = 50 + this.round.commit().grade();
     var secondsTaken = Math.floor((Date.now() - this.startTime) /  1000);
@@ -200,10 +198,20 @@ Game.prototype._finishRound = function (won) {
     progress.recordRoundGuessed(pointsEarned);
     this._renderScoreCard(progress.commmitScore());
   } else {
-    if (!lostLevel) audio.play('miss');
-    progress.mistakes_left(progress.mistakes_left() - 1);
     progress.recordRoundMissed();
   }
+
+  // Find out the final outcome.
+  var wonLevel = progress.completed_round() === progress.rounds();
+  var lostLevel = progress.mistakes_left() < 0;
+
+  // Play audio, making sure not to overlap the level-end effect.
+  if (won && !wonLevel) {
+    audio.play('guess');
+  } else if (!won && !lostLevel) {
+    audio.play('miss');
+  }
+
   if (lostLevel) {
     this.showFinishScreen();
   } else if (wonLevel) {
@@ -223,6 +231,10 @@ Game.prototype._renderLevelStats = function () {
 };
 
 Game.prototype._renderTimer = function (seconds) {
+  // Sometimes we end up replacing the timer before calling stop on it.
+  // For now, stop it manually here just in case.
+  // TODO: Find and fix the race condition that causes this in the first place.
+  this.timer && this.timer.stop();
   this.timer = new Timer({
     interval: seconds,
     outerRadius: this.$timer.outerHeight() / 2,
