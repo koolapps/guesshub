@@ -13,7 +13,7 @@ var FILES = {
   'guess': '/audio/guess.mp3',
   'achievement': '/audio/achievement.mp3',
   'defeat': '/audio/defeat.mp3',
-  'end': null,  // TODO: Add survival-end sound.
+  'end': '/audio/victory.mp3',  // TODO: Add survival-end sound.
   'victory': '/audio/victory.mp3',
   'flawless-victory': '/audio/flawless-victory.mp3',
   'power-time': '/audio/power-time.mp3',
