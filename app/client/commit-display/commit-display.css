@@ -7,7 +7,6 @@
   margin-bottom: inherit;
   font-family: inherit;
   border-radius: inherit;
-  overflow: inherit;
   margin: 0;
   white-space: pre;
   background: none !important;
@@ -80,6 +79,7 @@
   position: relative;
   height: 24px;
   line-height: 12px;
+  white-space: nowrap;
 }
 
 .commit-display .diff .line.ins {
