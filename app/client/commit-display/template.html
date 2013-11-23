@@ -15,12 +15,12 @@
 
   <div class="diff prism-theme-okaidia">
     <div class="line context block-name">
-      <span class="old-num">...</span><span class="new-num">...</span><span class="op">&nbsp;</span><code class="content">{{block_name}}</code>
+      <span class="old-num">&nbsp;</span><span class="new-num">&nbsp;</span><span class="op">&nbsp;</span><code class="content">{{block_name}}</code>
     </div>
     {{#diff_lines}}
-    <div class="line {{cls}}">
-      <div class="gradient left"></div>
-      <div class="gradient right"></div>
+    <div class="line {{cls}}
+                {{#first_in_run}}first-in-run{{/first_in_run}}
+                {{#last_in_run}}last-in-run{{/last_in_run}}">
       <span class="old-num">{{{old_num}}}</span><span class="new-num">{{{new_num}}}</span><span class="op">{{{op}}}</span><code class="content">{{{content}}}</code>
     </div>
     {{/diff_lines}}

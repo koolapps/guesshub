@@ -34,6 +34,8 @@ CommitDisplay.prototype.render = function() {
   var model = this.model.toJSON();
   var code = [];
 
+  var lastLineObj;
+  var lastOp;
   model.diff_lines = this.model.diff_lines().split('\n').map(function (line) {
     var ret = {};
     ret.op = line[0];
@@ -65,6 +67,13 @@ CommitDisplay.prototype.render = function() {
       ret.cls = 'context';
     }
     code.push(ret.content);
+
+
+    if (lastLineObj) {
+      lastLineObj.last_in_run = ret.first_in_run = (ret.op != lastOp);
+    }
+    lastLineObj = ret;
+    lastOp = ret.op;
 
     return ret;
   });

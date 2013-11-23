@@ -98,6 +98,25 @@
   display: block;
   position: relative;
   height: 24px;
+  line-height: 12px;
+}
+
+.commit-display .diff .line.ins {
+  background: #274204;
+}
+
+.commit-display .diff .line.del {
+  background: #470A03;
+}
+
+.commit-display .diff .line.first-in-run {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.commit-display .diff .line.last-in-run {
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
 
 .commit-display .diff .line > * {
@@ -108,63 +127,26 @@
 
 .commit-display .diff .block-name {
   color: #969696 !important;
-  border-bottom: 1px #28283D solid;
-}
-
-.commit-display .diff .gradient {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  z-index: -1;
-}
-
-.commit-display .diff .gradient.left {
-  right: 450px;
-}
-
-.commit-display .diff .gradient.right {
-  left: 450px;
-}
-
-.commit-display .diff .del .gradient.right {
-  background-image: linear-gradient(to right, #B24436 80%, transparent);
-}
-
-.commit-display .diff .del .gradient.left {
-  background-image: linear-gradient(to left, #B24436 80%, transparent);
-}
-
-.commit-display .diff .ins .gradient.left {
-  background-image: linear-gradient(to left, #577C27 80%, transparent);
-}
-
-.commit-display .diff .ins .gradient.right {
-  background-image: linear-gradient(to right, #577C27 80%, transparent);
+  border-bottom: 1px #333 solid;
 }
 
 .commit-display .diff .old-num,
 .commit-display .diff .new-num {
-  border-right: 1px solid #333;
+  border-right: 1px #333 solid;
   color: #aaa;
   text-align: center;
   width: 45px;
   height: 24px;
 }
 
-.commit-display .del .old-num,
-.commit-display .del .new-num {
-  border-color: #6B2F2F;
-  background-color: rgba(173, 0, 0, 0.1);
+.commit-display .diff .del .old-num,
+.commit-display .diff .del .new-num {
+  border-color: #4D1A1A;
 }
 
-.commit-display .diff .ins .old-num {
-  border-color: #273B27;
-}
-
+.commit-display .diff .ins .old-num,
 .commit-display .diff .ins .new-num {
-  border-color: #286928;
+  border-color: #2C381F;
 }
 
 .commit-display .diff .op {
