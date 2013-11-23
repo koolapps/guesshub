@@ -146,6 +146,7 @@ Game.prototype._onPower = function (mode, power) {
       this._renderScoreCard(this.user.score());
       break;
     case 'use':
+      audio.play('power-' + power.id());
       // TODO: Maybe move these into Power.use()?
       switch (power.id()) {
         case 'time':
