@@ -139,12 +139,13 @@
   width: 75px;
   color: #7ECC1B;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 22px;
 }
 
 #finish-screen .buttons {
   text-align: right;
   margin-right: -10px;
+  clear: both;
 }
 
 #finish-screen .button {
