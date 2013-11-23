@@ -18,10 +18,3 @@
 #level-stats .fa-plus {
   color: green;
 }
-
-#level-stats .number {
-  margin-left: 4px;
-  width: 26px;
-  display: block;
-  margin: 0 auto;
-}
