@@ -24,6 +24,7 @@ var FILES = {
 
 var context;
 var buffers;
+var volumeController;
 var initialized = false;
 
 AudioPlayer.initialize = function () {
@@ -33,6 +34,8 @@ AudioPlayer.initialize = function () {
     for (var effectName in FILES) {
       AudioPlayer.loadSound(effectName);
     }
+    volumeController = context.createGainNode();
+    volumeController.connect(context.destination);
     initialized = true;
   }
 };
@@ -59,10 +62,18 @@ AudioPlayer.play = function (effectName, onEnd) {
   if (buffer) {
     var source = context.createBufferSource();
     source.buffer = buffer;
-    source.connect(context.destination);
+    source.connect(volumeController);
     if (onEnd) source.onended = onEnd;
     source.start(0);
   }
+};
+
+AudioPlayer.stopAllSounds = function () {
+  volumeController.disconnect();
+  var oldGain = volumeController.gain;
+  volumeController = context.createGainNode();
+  volumeController.gain = oldGain;
+  volumeController.connect(context.destination);
 };
 
 AudioPlayer.initialize();

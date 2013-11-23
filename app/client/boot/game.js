@@ -82,6 +82,8 @@ Game.prototype.clear = function () {
   // TODO: Properly destroy widgets?
   this.commitDisplay = null;
   this.timer = null;
+
+  audio.stopAllSounds();
 };
 
 Game.prototype.showHub = function () {
