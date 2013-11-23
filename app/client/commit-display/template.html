@@ -1,32 +1,28 @@
 <div class="commit-display">
-  <div class="row">
-    <div class="metadata">
-    <div class="cover"></div>
-      <div class="columns large-3 author">
-        {{#author_avatar_url}}
-          <img src="{{author_avatar_url}}" />
-        {{/author_avatar_url}}
-        {{^author_avatar_url}}
-          <i class="fa fa-question-circle" />
-        {{/author_avatar_url}}
-        <span class="name">{{author_login}}</span>
-      </div>
-      <div class="columns large-9 filename"><label>Filename:&nbsp;</label>{{filename}}</div>
-      <!-- TODO: Add commit message. -->
-    </div>
+  <div class="metadata">
+    <span class="author">
+      {{#author_avatar_url}}
+        <img src="{{author_avatar_url}}" />
+      {{/author_avatar_url}}
+      {{^author_avatar_url}}
+        <i class="fa fa-question-circle" />
+      {{/author_avatar_url}}
+      <span class="name">{{author_login}}</span>
+    </span>
+    <span class="filename" title="{{filename}}">{{filename}}</span>
+    <span class="message" title="{{message}}">{{message}}</span>
   </div>
-  <div class="row">
-    <div class="diff prism-theme-okaidia">
-      <div class="line context block-name">
-        <span class="old-num">...</span><span class="new-num">...</span><span class="op">&nbsp;</span><code class="content">{{block_name}}</code>
-      </div>
-      {{#diff_lines}}
-      <div class="line {{cls}}">
-        <div class="gradient left"></div>
-        <div class="gradient right"></div>
-        <span class="old-num">{{{old_num}}}</span><span class="new-num">{{{new_num}}}</span><span class="op">{{{op}}}</span><code class="content">{{{content}}}</code>
-      </div>
-      {{/diff_lines}}
+
+  <div class="diff prism-theme-okaidia">
+    <div class="line context block-name">
+      <span class="old-num">...</span><span class="new-num">...</span><span class="op">&nbsp;</span><code class="content">{{block_name}}</code>
     </div>
+    {{#diff_lines}}
+    <div class="line {{cls}}">
+      <div class="gradient left"></div>
+      <div class="gradient right"></div>
+      <span class="old-num">{{{old_num}}}</span><span class="new-num">{{{new_num}}}</span><span class="op">{{{op}}}</span><code class="content">{{{content}}}</code>
+    </div>
+    {{/diff_lines}}
   </div>
 </div>

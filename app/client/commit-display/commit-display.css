@@ -14,73 +14,60 @@
 }
 
 .commit-display .metadata {
-  border-bottom: 1px solid #28283D;
-  height: 50px;
-  padding-top:15px;
-}
-
-.commit-display .metadata.blurred {
-  color: transparent;
-  text-shadow: 0 0 9px rgba(0, 0, 0, 0.35);
-  position: relative;
-  border: none;
-  border-top: 1px solid #F0F0F0;
-  border-radius: 3px;
-}
-
-.commit-display .metadata .cover {
-  display: none;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  background: white;
-  z-index: 1;
-  opacity: 0.7;
-  background: -webkit-gradient(
-    linear, left top, left bottom,
-    from(rgba(245, 245, 245, 1)),
-    to(rgba(255, 255, 255, 1)));
-}
-
-.commit-display .metadata.blurred .cover {
+  border-radius: 20px;
   display: block;
+  color: white;
+  text-decoration: none;
+  text-align: left;
+  line-height: 29px;
+  height: 32px;
+  background: #36362C;
+  margin-bottom: 15px;
 }
 
-.commit-display .metadata.blurred .author img {
-  opacity: 0.1;
+.commit-display .metadata .author {
+  display: inline-block;
+  float: left;
+  line-height: 32px;
 }
 
-.metadata .author img {
-  height: 24px;
-  width: 24px;
-  border-radius: 3px;
-  vertical-align: middle;
-  margin-top: -4px;
+.commit-display .metadata .author img {
+  border-radius: 20px;
+  height: 32px;
+  width: 32px;
+}
+
+.commit-display .metadata .author .fa {
+  font-size: 36px;
 }
 
 .commit-display .metadata .author .name {
-  text-overflow: ellipsis;
-  width: calc(100% - 25px - 0.9375em);
-  white-space: nowrap;
-  overflow: hidden;
   display: inline-block;
+  padding-left: 5px;
+  vertical-align: top;
+  line-height: 31px;
+}
+
+.commit-display .metadata .message {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  display: block;
+  padding: 0px 20px;
+  line-height: 32px;
 }
 
 .commit-display .metadata .filename {
-  text-overflow:ellipsis;
+  float: right;
+  margin-right: 12px;
   white-space: nowrap;
-  overflow: hidden;
-  height: 100%;
+  text-align: right;
+  line-height: 32px;
 }
 
-.commit-display .metadata.blurred .filename label {
-  color: inherit;
-}
-
-.commit-display .metadata .filename label {
-  color: #999;
+.commit-display .metadata.hide,
+.commit-display .metadata .hide {
+  display: none;
 }
 
 .commit-display .diff {
@@ -107,24 +94,24 @@
   color: #A8B6C3
 }
 
-.commit-display .line {
+.commit-display .diff .line {
   display: block;
   position: relative;
   height: 24px;
 }
 
-.commit-display .line > * {
+.commit-display .diff .line > * {
   padding-top: 5px;
   display: inline-block;
   padding-bottom: 5px;
 }
 
-.commit-display .block-name {
+.commit-display .diff .block-name {
   color: #969696 !important;
   border-bottom: 1px #28283D solid;
 }
 
-.commit-display .gradient {
+.commit-display .diff .gradient {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -133,32 +120,32 @@
   z-index: -1;
 }
 
-.commit-display .gradient.left {
+.commit-display .diff .gradient.left {
   right: 450px;
 }
 
-.commit-display .gradient.right {
+.commit-display .diff .gradient.right {
   left: 450px;
 }
 
-.commit-display .del .gradient.right {
+.commit-display .diff .del .gradient.right {
   background-image: linear-gradient(to right, #B24436 80%, transparent);
 }
 
-.commit-display .del .gradient.left {
+.commit-display .diff .del .gradient.left {
   background-image: linear-gradient(to left, #B24436 80%, transparent);
 }
 
-.commit-display .ins .gradient.left {
+.commit-display .diff .ins .gradient.left {
   background-image: linear-gradient(to left, #577C27 80%, transparent);
 }
 
-.commit-display .ins .gradient.right {
+.commit-display .diff .ins .gradient.right {
   background-image: linear-gradient(to right, #577C27 80%, transparent);
 }
 
-.commit-display .old-num,
-.commit-display .new-num {
+.commit-display .diff .old-num,
+.commit-display .diff .new-num {
   border-right: 1px solid #333;
   color: #aaa;
   text-align: center;
@@ -172,24 +159,20 @@
   background-color: rgba(173, 0, 0, 0.1);
 }
 
-.commit-display .ins .old-num {
+.commit-display .diff .ins .old-num {
   border-color: #273B27;
 }
 
-.commit-display .ins .new-num {
+.commit-display .diff .ins .new-num {
   border-color: #286928;
 }
 
-.commit-display .op {
+.commit-display .diff .op {
   color: #ccc;
   text-align: center;
   width: 20px;
 }
 
-.commit-display .content {
+.commit-display .diff .content {
   padding-left: 10px;
-}
-
-.commit-display .hide {
-  display: none !important;
 }
