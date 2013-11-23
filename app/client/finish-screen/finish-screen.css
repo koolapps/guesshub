@@ -46,8 +46,10 @@
   color: white;
   text-decoration: none;
   text-align: left;
-  width: 845px;
+  width: 825px;
   line-height: 29px;
+  position: relative;
+  height: 30px;
 }
 
 #finish-screen .commit.missed {
@@ -71,19 +73,20 @@
 }
 
 #finish-screen .commit .icon {
-  width: 32px;
+  width: 30px;
   border-radius: 16px;
+  float: left;
+  margin-right: 8px;
 }
 
 #finish-screen .commit .fa {
-  font-size: 36px;
-  line-height: 28px;
+  font-size: 35px;
+  line-height: 32px;
 }
 
 #finish-screen .commit .message {
-  max-width: 545px;
-  display: inline-block;
-  overflow-x: hidden;
+  display: block;
+  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -91,21 +94,19 @@
 #finish-screen .commit .repo {
   float: right;
   margin-right: 12px;
-  max-width: 245px;
-  text-overflow: ellipsis;
-  overflow-x: hidden;
-  white-space: nowrap;
+  margin-left: 12px;
   text-align: right;
   line-height: 31px;
 }
 
 #finish-screen .commit .score {
   position: absolute;
-  right: 0;
+  right: -75px;
   font-weight: bold;
   font-size: 20px;
   line-height: 33px;
   text-align: right;
+  top: 0;
 }
 
 #finish-screen .commit.guessed .score {
@@ -135,7 +136,7 @@
 
 .lives .score {
   display: inline-block;
-  width: 55px;
+  width: 75px;
   color: #7ECC1B;
   font-weight: bold;
   font-size: 20px;
@@ -178,4 +179,10 @@
 #finish-screen .button.to-hub:hover,
 #finish-screen .button.to-hub:focus {
   background: #3C65FC;
+}
+
+#finish-screen .currency {
+  color: #F1CE2A;
+  font-family: Zorque;
+  -webkit-text-stroke: 0.7px rgba(0,0,0,0.5);
 }
