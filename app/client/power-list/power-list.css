@@ -82,8 +82,7 @@
 }
 
 .power-list .price {
-  font-family: Zorque;
-  -webkit-text-stroke: 1.0px rgba(0,0,0,1);
+  font-family: Ubuntu;
 }
 
 .power-list .price .currency {

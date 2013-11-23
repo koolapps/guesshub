@@ -3,9 +3,8 @@
 }
 
 .score-card-container .score {
-  font-family: Zorque;
+  font-family: UbuntuBold;
   font-size: 20px;
-  -webkit-text-stroke: 0.7px rgba(0,0,0,0.5);
   white-space: nowrap;
   text-align: center;
 }

@@ -12,7 +12,7 @@
   font-size: 35px;
   margin-top: 10px;
   font-weight: bold;
-  font-family: Zorque;
+  font-family: UbuntuBold;
 }
 
 #finish-screen {
@@ -183,6 +183,5 @@
 
 #finish-screen .currency {
   color: #F1CE2A;
-  font-family: Zorque;
-  -webkit-text-stroke: 0.7px rgba(0,0,0,0.5);
+  font-family: UbuntuBold;
 }

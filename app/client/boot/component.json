@@ -10,11 +10,6 @@
   "styles": [
     "boot.css"
   ],
-  "fonts": [
-    "zorque.ttf",
-    "zorque.otf",
-    "UbuntuMono-R.ttf"
-  ],
   "remotes": [],
   "local": [
     "timer",
