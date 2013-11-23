@@ -75,25 +75,6 @@
   font-size: 16px;
 }
 
-.commit-display .diff:before, .commit-display .diff:after {
-  /* Fuck you, foundation grid! */
-  content: none;
-}
-
-.commit-display .prism-theme-okaidia .token.property,
-.commit-display .prism-theme-okaidia .token.tag,
-.commit-display .prism-theme-okaidia .token.constant,
-.commit-display .prism-theme-okaidia .token.symbol  {
-  color: #FF77A8;
-}
-
-.commit-display .prism-theme-okaidia .token.comment,
-.commit-display .prism-theme-okaidia .token.prolog,
-.commit-display .prism-theme-okaidia .token.doctype,
-.commit-display .prism-theme-okaidia .token.cdata {
-  color: #A8B6C3
-}
-
 .commit-display .diff .line {
   display: block;
   position: relative;
