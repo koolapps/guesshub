@@ -37,9 +37,18 @@ RepoList.prototype.render = function() {
     });
 };
 
-RepoList.prototype.hideRepos = function(repos) {
-  repos.forEach(function (repo) {
-    this.$el.find('[data-id=' + repo.id() + ']').addClass('hide');
+RepoList.prototype.hideRepos = function(repoToLeave) {
+  var hidden = 0;
+  this.repos.slice().sort(function () {
+    return 0.5 - Math.random();
+  }).forEach(function (repo) {
+    if (hidden < 2 && repo.name() != repoToLeave) {
+      var $repo =  this.$el.find('[data-id=' + repo.id() + ']');
+      if (!$repo.hasClass('hide')) {
+        this.$el.find('[data-id=' + repo.id() + ']').addClass('hide');
+        hidden++;
+      }
+    }
   }, this);
 };
 
