@@ -28,9 +28,7 @@ Shouldn't launch without
   Make the diff a box with rounded corners to fit the new style.
   Ensure diff can accommodate long lines.
   Add tutorial (outlined in doc).
-  Add sound effect on win/loss.
-  Add sound effect on guess/miss.
-  Add animation on guess/miss.
+  Add animation on guess/miss/win/loss.
   ./server.py:88:# TODO: Support caching or go back to Flask's native static serving.
   ./boot/game.js:179:    // TODO: Don't add score to the user until the level is done.
   ./finish-screen/finish-screen.js:58:    // TODO: Track guessed state of each commit and set it in is_guessed.

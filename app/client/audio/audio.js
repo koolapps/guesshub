@@ -3,8 +3,23 @@ var AudioPlayer = {};
 // TODO: Add a way to turn off sound.
 
 var FILES = {
+  'click': '/audio/click.mp3',
   'timer-tick': '/audio/timer-tick.mp3',
-  'timer-beep': '/audio/timer-beep.mp3',
+  'timer-beep': '/audio/timer-beep-2.mp3',
+  'coin-1': '/audio/coin-1.mp3',
+  'coin-2': '/audio/coin-2.mp3',
+  'coin-3': '/audio/coin-3.mp3',
+  'miss': '/audio/miss.mp3',
+  'guess': '/audio/guess.mp3',
+  'achievement': '/audio/achievement.mp3',
+  'defeat': '/audio/defeat.mp3',
+  'end': null,  // TODO: Add survival-end sound.
+  'victory': '/audio/victory.mp3',
+  'flawless-victory': '/audio/flawless-victory.mp3',
+  'power-time': '/audio/power-time.mp3',
+  'power-commit': '/audio/power-commit.mp3',
+  'power-half': '/audio/power-half.mp3',
+  'power-repo': null,  // TODO: Add repo power sound.
 };
 
 var context;
@@ -39,12 +54,13 @@ AudioPlayer.loadSound = function (effectName) {
   }
 };
 
-AudioPlayer.play = function (effectName) {
+AudioPlayer.play = function (effectName, onEnd) {
   var buffer = buffers[effectName];
   if (buffer) {
     var source = context.createBufferSource();
     source.buffer = buffer;
     source.connect(context.destination);
+    if (onEnd) source.onended = onEnd;
     source.start(0);
   }
 };

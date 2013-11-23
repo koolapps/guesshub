@@ -1,4 +1,5 @@
 var $ = require('jquery');
+var audio = require('audio');
 var Hogan = require('hogan.js');
 var template = Hogan.compile(require('./template'));
 var levelTemplate = Hogan.compile(require('./level-template'));
@@ -18,6 +19,8 @@ module.exports = function (campaign, user, callback) {
     if (campaign.isUnlocked(id, user.completed_level_ids())) {
       callback(campaign.getLevelById(id));
     }
+  }).on('mouseenter', '.level.unlocked', function () {
+    audio.play('click');
   });
 
   return $el;

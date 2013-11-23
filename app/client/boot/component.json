@@ -26,7 +26,8 @@
     "power-list",
     "level-hub",
     "finish-screen",
-    "hearts"
+    "hearts",
+    "audio"
   ],
   "dependencies": {
     "component/jquery": "*"

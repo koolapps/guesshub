@@ -13,6 +13,7 @@
     "template.js"
   ],
   "local": [
+    "audio"
   ],
   "styles": [
     "repo-list.css"

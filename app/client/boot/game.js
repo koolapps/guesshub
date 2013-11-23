@@ -5,6 +5,7 @@ var Level = models.Level;
 var UserLevelProgress = models.UserLevelProgress;
 var Power = models.Power;
 
+var audio = require('audio');
 var scoreCard = require('score-card');
 var powerList = require('power-list');
 var levelStats = require('level-stats');
@@ -186,9 +187,9 @@ Game.prototype._onPower = function (mode, power) {
 Game.prototype._finishRound = function (won) {
   this.timer.stop();
   var progress = this.levelProgress;
-  // TODO: Add sound effects on win/loss.
   progress.completed_round(progress.completed_round() + 1);
   if (won) {
+    audio.play('guess');
     // TODO: Finalize the score calculation formula.
     // TODO: Bonus for remaining mistakes.
     // Assuming grade is between 0 and 50 we rescale to 50 - 100.
@@ -200,6 +201,7 @@ Game.prototype._finishRound = function (won) {
     progress.guessed(progress.guessed() + 1);
     progress.score_earned(progress.score_earned() + pointsEarned);
   } else {
+    audio.play('miss');
     progress.mistakes_left(progress.mistakes_left() - 1);
     progress.missed(progress.missed() + 1);
   }

@@ -1,4 +1,5 @@
 var $ = require('jquery');
+var audio = require('audio');
 var Hogan = require('hogan.js');
 var template = Hogan.compile(require('./template'));
 
@@ -19,6 +20,24 @@ FinishScreen.prototype.render = function (level, commits, levelProgress) {
       outcome,
       levelProgress.score_earned(),
       this.commitsArg(commits, levelProgress));
+
+  // TODO: Add a spinning animation to the icon in time with the audio.
+  switch (outcome) {
+    case 'Flawless Victory':
+      audio.play('flawless-victory');
+      break;
+    case 'Victory':
+      audio.play('victory');
+      break;
+    case 'The End':
+      audio.play('end');
+      break;
+    case 'Defeat':
+      audio.play('defeat');
+      break;
+    default:
+      throw Error('Unknown outcome: ' + outcome);
+  }
 };
 
 FinishScreen.prototype.renderIcon = function (outcome) {

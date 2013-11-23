@@ -12,6 +12,9 @@
     "power-list.js",
     "template.js"
   ],
+  "local": [
+    "audio"
+  ],
   "styles": [
     "power-list.css"
   ]

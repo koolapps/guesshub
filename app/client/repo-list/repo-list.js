@@ -1,4 +1,5 @@
 var $ = require('jquery');
+var audio = require('audio');
 var Hogan = require('hogan.js');
 var template = Hogan.compile(require('./template'));
 
@@ -30,6 +31,9 @@ RepoList.prototype.render = function() {
   this.$el = $(template.render(model))
     .on('click', '.repo-button', function () {
       callback(repos[$(this).closest('.repo-item').index()]);
+    })
+    .on('mouseenter', '.repo-button', function () {
+      audio.play('click');
     });
 };
 
