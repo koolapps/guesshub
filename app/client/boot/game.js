@@ -75,6 +75,7 @@ Game.prototype.clear = function () {
   this.$levelHub.empty().hide();
   this.$finishScreen.empty().hide();
   this.$finishIcon.empty().hide();
+  this.$hearts.empty().hide();
 
   this.$logo.hide();
 
