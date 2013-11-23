@@ -5,10 +5,10 @@
       <div class="columns large-3 author">
         {#author_avatar_url}}
           <img src="{{author_avatar_url}}" />
-        {/author_avatar_url}}
-        {^author_avatar_url}}
+        {{/author_avatar_url}}
+        {{^author_avatar_url}}
           <i class="fa fa-question-circle" />
-        {/author_avatar_url}}
+        {{/author_avatar_url}}
         <span class="name">{{author_login}}</span>
       </div>
       <div class="columns large-9 filename"><label>Filename:&nbsp;</label>{{filename}}</div>
