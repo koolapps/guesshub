@@ -21,16 +21,15 @@
 .level-hub .level {
   clear: both;
   font-weight: bold;
-  cursor: pointer;
   height: 45px;
   width: 280px;
   margin: auto;
   white-space: nowrap;
 }
 
-.level-hub .level:not(.locked):hover,
-.level-hub .level:not(.locked):focus,
-.level-hub .level:not(.locked):active {
+.level-hub .level.unlocked:hover,
+.level-hub .level.unlocked:focus,
+.level-hub .level.unlocked:active {
   color: yellow;
 }
 
@@ -41,6 +40,10 @@
 }
 
 .level-hub .level.locked {
-  cursor: default;
   color: grey;
+}
+
+.level-hub .level.unlocked {
+  cursor: pointer;
+  padding-left: 17px;  /* Make up for the lock icon. */
 }
