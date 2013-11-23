@@ -145,7 +145,6 @@ CommitDisplay.prototype._getCommitLanguage = function() {
         'shader'            : 'gsh',
         'feature'           : 'gherkin'
   }[ext] || 'generic';
-  console.log('CommitDisplay DEBUG: extension %s language %s', ext, lang);
   return lang;
 };
 

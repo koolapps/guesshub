@@ -3,18 +3,21 @@
   "description": "a level results screen",
   "dependencies": {
     "component/jquery": "*",
-    "twitter/hogan.js": "*"
+    "twitter/hogan.js": "*",
+    "component/humanize-number": "*"
   },
   "development": {},
   "main": "finish-screen.js",
   "scripts": [
     "finish-screen.js",
-    "template.js"
+    "template.js",
+    "header-template.js"
   ],
   "styles": [
     "finish-screen.css"
   ],
   "local": [
-    "audio"
+    "audio",
+    "models"
   ]
 }

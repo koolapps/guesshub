@@ -1,13 +1,16 @@
 var $ = require('jquery');
 var audio = require('audio');
 var Hogan = require('hogan.js');
+var humanize = require('humanize-number');
 var template = Hogan.compile(require('./template'));
+var headerTemplate = Hogan.compile(require('./header-template'));
+var UserLevelProgress = require('models').UserLevelProgress;
 
 module.exports = FinishScreen;
 
-function FinishScreen (user, $finishIcon, $finishScreen, onHub, onRetry) {
+function FinishScreen (user, $finishHeader, $finishScreen, onHub, onRetry) {
   this.user = user;
-  this.$finishIcon = $finishIcon;
+  this.$finishHeader = $finishHeader;
   this.$finishScreen = $finishScreen;
   this.onHub = onHub;
   this.onRetry = onRetry;
@@ -15,15 +18,16 @@ function FinishScreen (user, $finishIcon, $finishScreen, onHub, onRetry) {
 
 FinishScreen.prototype.render = function (level, commits, levelProgress) {
   var outcome = this.outcome(level.name() == 'survival', levelProgress);
-  this.renderIcon(outcome);
+  this.renderHead(outcome);
   this.renderDetails(
       outcome,
-      levelProgress.score_earned(),
+      level.num_mistakes_allowed(),
+      levelProgress,
       this.commitsArg(commits, levelProgress));
 
   // TODO: Add a spinning animation to the icon in time with the audio.
   switch (outcome) {
-    case 'Flawless Victory':
+    case 'Flawless':
       audio.play('flawless-victory');
       break;
     case 'Victory':
@@ -40,40 +44,55 @@ FinishScreen.prototype.render = function (level, commits, levelProgress) {
   }
 };
 
-FinishScreen.prototype.renderIcon = function (outcome) {
-  var glyph;
+FinishScreen.prototype.renderHead = function (outcome) {
   switch (outcome) {
-    case 'Flawless Victory':
-      glyph = 'fa-star';
+    case 'Flawless':
+      glyph = 'star';
       break;
     case 'Victory':
-      glyph = 'fa-thumbs-up';
+      glyph = 'thumbs-up';
       break;
     case 'The End':
-      glyph = 'fa-bell';
+      glyph = 'bell';
       break;
     case 'Defeat':
-      glyph = 'fa-thumbs-down';
+      glyph = 'thumbs-down';
       break;
     default:
       throw Error('Unknown outcome: ' + outcome);
   }
 
-  this.$finishIcon.empty().append($('<i/>', { class: 'fa ' + glyph }));
+  // Render the template.
+  var args = {outcome: outcome, glyph: glyph};
+  this.$finishHeader.empty().html(headerTemplate.render(args));
 };
 
 FinishScreen.prototype.renderDetails =
-    function (outcome, scoreEarned, commits) {
+    function (outcome, maxLives, progress, commits) {
+  var isVictory = outcome != 'Defeat';
+
+  // Count lives.
+  var lives = [];
+  for (var i = 0; i < maxLives; i++) {
+    lives.push({is_left: (maxLives - i) <= progress.mistakes_left()});
+  }
+  var livesScore = Math.max(0, progress.mistakes_left())
+                 * UserLevelProgress.SCORE_PER_LIFE;
+
+  // Sum up the score.
+  var prevScore = this.user.score() - progress.totalScore();
+  var newScore = isVictory ? this.user.score() : prevScore;
+
   // Set up args.
   var args = {
     outcome: outcome,
-    is_defeat: outcome == 'Defeat',
-    is_victory: outcome != 'Defeat',
-    score_previous: this.user.score() - scoreEarned,
-    score_delta: scoreEarned,
-    score_new: this.user.score(),
+    is_victory: isVictory,
+    score_previous: humanize(prevScore),
+    score_new: humanize(newScore),
     achievements: [],
-    commits: commits
+    commits: commits,
+    lives: lives,
+    lives_score: livesScore
   };
 
   // Render the template.
@@ -87,7 +106,7 @@ FinishScreen.prototype.renderDetails =
 FinishScreen.prototype.outcome = function (isSurvival, levelProgress) {
   if (levelProgress.mistakes_left() >= 0) {
     if (levelProgress.missed() == 0) {
-      return 'Flawless Victory';
+      return 'Flawless';
     }  else {
       return 'Victory';
     }
@@ -102,12 +121,15 @@ FinishScreen.prototype.outcome = function (isSurvival, levelProgress) {
 };
 
 FinishScreen.prototype.commitsArg = function (commits, levelProgress) {
-  var commitsArg = commits.map(function (commit) {
+  var scores = levelProgress.score_earned();
+  var commitArgs = [];
+  for (var i = 0; i < scores.length; i++) {
+    var commit = commits[i];
+    var score = scores[i];
     var json = commit.toJSON();
-    json.sha_abbreviation = json.sha.slice(0, 10);
-    // TODO: Track guessed state of each commit and set it in is_guessed.
-    return json;
-  });
-  // Remove commits which the player hadn't reached.
-  return commitsArg.slice(0, levelProgress.completed_round() + 1);
+    json.score_earned = humanize(score);
+    json.is_guessed = score > 0;
+    commitArgs.push(json);
+  }
+  return commitArgs;
 };

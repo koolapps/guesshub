@@ -35,11 +35,13 @@
 
 .repo-list .label {
   white-space: nowrap;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Colors */
 .repo-list .repo-item:nth-child(1) .repo-button {
-  background: #D69201;
+  background: #D69201;  /* Yellow */
 }
 .repo-list .repo-item:nth-child(1) .repo-button:hover,
 .repo-list .repo-item:nth-child(1) .repo-button:focus {
@@ -47,7 +49,7 @@
 }
 
 .repo-list .repo-item:nth-child(2) .repo-button {
-  background: #AF4127;
+  background: #AF4127;  /* Red */
 }
 .repo-list .repo-item:nth-child(2) .repo-button:hover,
 .repo-list .repo-item:nth-child(2) .repo-button:focus {
@@ -55,7 +57,7 @@
 }
 
 .repo-list .repo-item:nth-child(3) .repo-button {
-  background: #6BA81D;
+  background: #6BA81D;  /* Green */
 }
 .repo-list .repo-item:nth-child(3) .repo-button:hover,
 .repo-list .repo-item:nth-child(3) .repo-button:focus {
@@ -63,7 +65,7 @@
 }
 
 .repo-list .repo-item:nth-child(4) .repo-button {
-  background: #2451B1;
+  background: #2451B1;  /* Blue */
 }
 .repo-list .repo-item:nth-child(4) .repo-button:hover,
 .repo-list .repo-item:nth-child(4) .repo-button:focus {

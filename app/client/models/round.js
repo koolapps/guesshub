@@ -15,8 +15,7 @@ Round.prototype.timer = function () {
     return this.constant_timer();
   } else {
     // Based on grade.
-    // TODO: Decide on a formula to match grade to time.
-    return 5 + this.commit().grade();
+    return parseInt(5 + this.commit().grade() / 2);
   }
 };
 

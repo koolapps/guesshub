@@ -1,22 +1,183 @@
+#finish-header {
+  text-align: center;
+}
+
+#finish-header .icon {
+  font-size: 90px;
+  position: relative;
+  top: -10px;
+}
+
+#finish-header .outcome {
+  font-size: 35px;
+  margin-top: 10px;
+  font-weight: bold;
+  font-family: Zorque;
+}
+
 #finish-screen {
   text-align: center;
   line-height: 30px;
-  margin-top: 50px;
+  margin-top: 16px;
+}
+
+#finish-screen .score-previous {
+  font-weight: bold;
+  font-size: 20px;
+  width: 100%;
+  text-align: right;
+  height: 33px;
+}
+
+#finish-screen .score-new {
+  font-weight: bold;
+  font-size: 30px;
+  width: 100%;
+  text-align: right;
+  color: #66FF00;
+  border-top: 1px #777 solid;
+  padding-top: 10px;
 }
 
 #finish-screen .commit {
+  border-radius: 20px;
+  display: block;
+  margin-top: 10px;
+  color: white;
+  text-decoration: none;
   text-align: left;
+  width: 845px;
+  line-height: 29px;
+}
+
+#finish-screen .commit.missed {
+  background: #AF4127;
+}
+
+#finish-screen .commit.missed:hover {
+  background: #D14929;
+}
+
+#finish-screen .commit.guessed {
+  background: #6BA81D;
+}
+
+#finish-screen .commit.guessed:hover {
+  background: #7ECC1B;
 }
 
 #finish-screen .commit * {
   vertical-align: middle;
 }
 
-#finish-screen .commit .author.icon {
+#finish-screen .commit .icon {
   width: 32px;
+  border-radius: 16px;
 }
 
-#finish-icon {
+#finish-screen .commit .fa {
+  font-size: 36px;
+  line-height: 28px;
+}
+
+#finish-screen .commit .message {
+  max-width: 545px;
+  display: inline-block;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#finish-screen .commit .repo {
+  float: right;
+  margin-right: 12px;
+  max-width: 245px;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+  white-space: nowrap;
+  text-align: right;
+  line-height: 31px;
+}
+
+#finish-screen .commit .score {
+  position: absolute;
+  right: 0;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 33px;
+  text-align: right;
+}
+
+#finish-screen .commit.guessed .score {
+  color: #7ECC1B;
+}
+
+#finish-screen .commit.missed .score,
+#finish-screen .commits.Defeat .commit.guessed .score {
+  color: #777;
+}
+
+.lives {
+  text-align: right;
+  height: 38px;
+  line-height: 36px;
+  padding-top: 2px;
+}
+
+.lives .fa {
+  color: #777;
+  font-size: 22px;
+}
+
+.lives .fa.is-left {
+  color: #CA1C04;
+}
+
+.lives .score {
+  display: inline-block;
+  width: 55px;
+  color: #7ECC1B;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+#finish-screen .buttons {
+  text-align: right;
+  margin-right: -20px;
+}
+
+#finish-screen .button {
+  display: inline-block;
+  width: 190px;
+  height: 60px;
+  padding: 10px;
+  cursor: pointer;
   text-align: center;
-  font-size: 120px;
+  border-top-width: 4px;
+  border-radius: 10px;
+  color: white;
+  margin: 20px;
+  font-family: Helvetica;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 42px;
+  letter-spacing: 2px;
+}
+
+#finish-screen .button.retry {
+  background: #D69201;
+}
+
+#finish-screen .button.retry:hover,
+#finish-screen .button.retry:focus {
+  background: #E4B703;
+}
+
+#finish-screen .button.to-hub {
+  background: #2451B1;
+}
+
+#finish-screen .button.to-hub:hover,
+#finish-screen .button.to-hub:focus {
+  background: #3C65FC;
 }

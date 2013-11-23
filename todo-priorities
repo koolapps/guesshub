@@ -3,16 +3,11 @@ Can't launch without
   TODO: Add a way to turn off sound.
   Implement repo power.
   Fix 50:50 power.
-  Fix score card sometimes rendering twice on retry.
-  Finalize the score calculation formula.
+  ./boot/game.js:67:  // TODO: Properly destroy widgets!
+    Fix score card sometimes rendering twice on retry.
+    Fix timer sometimes remaining alive on retry.
   Decide on app name.
   Decide on level names.
-  Finalize finish screen UI.
-    Clean up commit list.
-    Make commit list scrollable.
-    Make score calculation UI.
-  ./models/power.js:11:// TODO: Tweak prices to match score.
-  ./models/round.js:18:    // TODO: Decide on a formula to match grade to time.
   ./models/user.js:4:// TODO: Revert to empty powers and 0 score once we're done debugging.
   Non-code
     Make repo public (not trivial!)
@@ -30,12 +25,9 @@ Shouldn't launch without
   Add tutorial (outlined in doc).
   Add animation on guess/miss/win/loss.
   ./server.py:88:# TODO: Support caching or go back to Flask's native static serving.
-  ./boot/game.js:179:    // TODO: Don't add score to the user until the level is done.
-  ./finish-screen/finish-screen.js:58:    // TODO: Track guessed state of each commit and set it in is_guessed.
-  ./power-list/power-list.js:7:// TODO: Resize icons to be the same size.
-  ./repo-list/repo-list.css:117:/* TODO: Make sure the animation does not cause flicker on all OSs. */
   Get at least 100K valid commit records, perhaps re-splitting existing ones.
   ./boot/index.js:6:// TODO: Support storing user state [whole User model].
+  Remove level stats.
 
 Nice to have
   Limit choices by owner/language at higher difficulties?
@@ -54,24 +46,18 @@ Nice to have
   ./models/campaign.js:7:// TODO: Add bonus levels.
   ./boot/index.js:27:// TODO: Add support for switchable background music.
   ./level-hub/level-template.html:1:<!-- TODO: Differentiate unlocked and completed levels. -->
-  ./level-meter/level-meter.js:5:// TODO: Use a flashy animation on each change.
   ./power-list/power-list.js:16:  // TODO: Make choices respond to QWER keyboards keys.
   ./repo-list/repo-list.js:28:  // TODO: Make choices respond to 1-4 keyboards keys.
-  ./timer/timer.js:9:// TODO: Add timer tick sounds, louder when time remaining <25%.
   Add level icons.
 
 Misc
   ./boot/game.js:85:  // TODO: Show loading bar.
-  ./boot/game.js:67:  // TODO: Properly destroy widgets?
   ./boot/game.js:131:      // TODO: Maybe move these into Power.use()?
   ./boot/index.js:24:// TODO: Remove in non-debug builds.
   ./boot/index.js:28:// TODO: Prevent accidental navigation away from the page.
   ./commit-display/template.html:10:      <!-- TODO: Add commit message. -->
-  ./level-meter/level-meter.js:14:  // TODO: Re-render based on the full state of levelProgress.
   ./models/level.js:29:  // TODO: Retry with exponential backoff on errors.
   ./models/user_level_progress.js:4:// TODO: Rename file to user-level-progress.js for consistency.
-  ./score-card/score-card.js:22:// TODO: Factor out into a component.
-  ./score-card/score-card.js:26:    // TODO: Avoid this hack.
   ./crawl.py:100:          # TODO(max99x): Log and skip errors.
   ./model.py:34:    # TODO: Remove [file_contents] throughout the codebase.
   Light anti-cheating protection.

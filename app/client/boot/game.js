@@ -35,7 +35,7 @@ function Game (options) {
 
   // DOM references.
   this.$finishScreen = options.$finishScreen;
-  this.$finishIcon = options.$finishIcon;
+  this.$finishHeader = options.$finishHeader;
   this.$repos = options.$repos;
   this.$timer = options.$timer;
   this.$scoreCard = options.$scoreCard;
@@ -52,7 +52,7 @@ function Game (options) {
   this.repoList = null;
   this.finishScreen = new FinishScreen(
       this.user,
-      this.$finishIcon,
+      this.$finishHeader,
       this.$finishScreen,
       this.showHub.bind(this),
       function() { this.showLevel(this.level); }.bind(this));
@@ -74,7 +74,7 @@ Game.prototype.clear = function () {
   this.$powerList.empty().hide();
   this.$levelHub.empty().hide();
   this.$finishScreen.empty().hide();
-  this.$finishIcon.empty().hide();
+  this.$finishHeader.empty().hide();
   this.$hearts.empty().hide();
 
   this.$logo.hide();
@@ -191,24 +191,23 @@ Game.prototype._finishRound = function (won) {
   progress.completed_round(progress.completed_round() + 1);
   if (won) {
     audio.play('guess');
-    // TODO: Finalize the score calculation formula.
-    // TODO: Bonus for remaining mistakes.
     // Assuming grade is between 0 and 50 we rescale to 50 - 100.
     var grade = 50 + this.round.commit().grade();
     var secondsTaken = Math.floor((Date.now() - this.startTime) /  1000);
     var pointsEarned = Math.round(grade / Math.sqrt(1 + secondsTaken));
-    // TODO: Don't add score to the user until the level is done.
-    this.user.addScore(pointsEarned);
-    progress.guessed(progress.guessed() + 1);
-    progress.score_earned(progress.score_earned() + pointsEarned);
+    progress.recordRoundGuessed(pointsEarned);
   } else {
-    audio.play('miss');
+    if (progress.mistakes_left() > 0) {
+      // Don't play together with the loss audio.
+      audio.play('miss');
+    }
     progress.mistakes_left(progress.mistakes_left() - 1);
-    progress.missed(progress.missed() + 1);
+    progress.recordRoundMissed();
   }
   if (progress.mistakes_left() < 0) {
     this.showFinishScreen();
   } else if (progress.completed_round() === progress.rounds()) {
+    this.user.addScore(progress.totalScore());
     this.user.completeLevel(this.level);
     this.showFinishScreen();
   } else {
@@ -259,7 +258,8 @@ Game.prototype._renderPowers = function(mode) {
 };
 
 Game.prototype._renderHub = function() {
-  this.$levelHub.append(levelHub(this.campaign, this.user, this.showLevel.bind(this)));
+  this.$levelHub.append(
+      levelHub(this.campaign, this.user, this.showLevel.bind(this)));
   this.$levelHub.show();
 };
 
@@ -267,7 +267,7 @@ Game.prototype._renderFinishScreen = function() {
   var rounds = this.levelRounds.map(function(r) { return r.commit(); });
   this.finishScreen.render(this.level, rounds, this.levelProgress);
   this.$finishScreen.show();
-  this.$finishIcon.show();
+  this.$finishHeader.show();
 };
 
 Game.prototype._renderHearts = function () {

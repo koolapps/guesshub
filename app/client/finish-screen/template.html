@@ -1,12 +1,38 @@
-<div class="header">{{outcome}}</div>
+{{#is_victory}}
+  <div class="score-previous">{{score_previous}}</div>
+{{/is_victory}}
+
+<div class="commits {{outcome}}">
+  {{#commits}}
+    <a href="https://github.com/{{repository}}/commit/{{sha}}"
+       class="commit {{#is_guessed}}guessed{{/is_guessed}}
+                     {{^is_guessed}}missed{{/is_guessed}}"
+       target="_blank">
+      {{#author_avatar_url}}
+        <img class="icon" src="{{author_avatar_url}}" />
+      {{/author_avatar_url}}
+      {{^author_avatar_url}}
+        <i class="icon fa fa-question-circle" />
+      {{/author_avatar_url}}
+      <span class="repo">{{repository}}</span>
+      <span class="message">{{message}}</span>
+      <span class="score">+{{score_earned}}</span>
+    </a>
+  {{/commits}}
+</div>
 
 {{#is_victory}}
-  <div class="score">
-    <div class="score-previous">{{score_previous}}</div>
-    <div class="score-delta">{{score_delta}}</div>
-    <div class="score-new">{{score_new}}</div>
+  <div class="lives">
+    {{#lives}}
+      <i class="{{#is_left}}is-left{{/is_left}} fa fa-heart"></i>
+    {{/lives}}
+    <span class="score">+{{lives_score}}</span>
   </div>
 
+  <div class="score-new">{{score_new}}</div>
+{{/is_victory}}
+
+{{#is_victory}}
   <div class="achievements">
     {{#achievements}}
       <div class="achievement">
@@ -17,21 +43,7 @@
   </div>
 {{/is_victory}}
 
-<div class="commits">
-  {{#commits}}
-    <a href="https://github.com/{{repository}}/commit/{{sha}}"
-       class="commit {{#is_guessed}}guessed{{/is_guessed}}"
-       target="_blank">
-      <img class="author icon" src="{{author_avatar_url}}" />
-      <span class="repo">{{repository}}</span>
-      <span class="sha">{{sha_abbreviation}}</span>
-      <span class="message">{{message}}</span>
-    </a>
-  {{/commits}}
+<div class="buttons">
+  {{^is_victory}}<div class="button retry">Retry</div>{{/is_victory}}
+  <div class="button to-hub">Continue</div>
 </div>
-
-
-<div class="button to-hub">Continue</div>
-{{#is_defeat}}
-  <div class="button retry">Retry</div>
-{{/is_defeat}}

@@ -1,17 +1,13 @@
-.score-card-container {
-  font-weight: bold;
-  white-space: nowrap;
-  font-size: 20px;
-  display: inline-block;
-  margin: auto;
-  cursor: default;
-  -webkit-text-stroke: 0.7px rgba(0,0,0,0.5);
-  text-align: center;
-  font-family: Zorque;
+.score-card-container .score-icon {
+  font-size: 50px;
 }
 
-.score-icon {
-  font-size: 70px;
+.score-card-container .score {
+  font-family: Zorque;
+  font-size: 20px;
+  -webkit-text-stroke: 0.7px rgba(0,0,0,0.5);
+  white-space: nowrap;
+  text-align: center;
 }
 
 .score-card-container .currency {

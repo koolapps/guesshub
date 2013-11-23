@@ -17,6 +17,7 @@ body {
   color: #fff;
   padding-top: 25px;
   -webkit-user-select: none;
+  cursor: default;
 }
 
 #trophies-icon {

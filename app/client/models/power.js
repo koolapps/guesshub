@@ -9,11 +9,10 @@ var Power = plugins(model('Level'))
   .attr('icon')
   ;
 
-// TODO: Tweak prices to match score.
 Power.ALL = {
   time: new Power({
     id: 'time',
-    price: 300,
+    price: 500,
     tooltip: 'Rewind \xa0the timer',  // \xa0 to force wrapping
     icon: 'clock-o'
   }),
@@ -31,7 +30,7 @@ Power.ALL = {
   }),
   half: new Power({
     id: 'half',
-    price: 42000,
+    price: 10000,
     tooltip: 'Reduce wrong choices',
     icon: 'adjust'
   })
