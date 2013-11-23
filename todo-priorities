@@ -15,7 +15,6 @@ Can't launch without
     Figure out license and add icon credits.
 
 Shouldn't launch without
-  Make the diff a box with rounded corners to fit the new style.
   Ensure diff can accommodate long lines.
   Add tutorial (outlined in doc).
   Add animation on guess/miss/win/loss.
