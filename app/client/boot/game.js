@@ -134,9 +134,6 @@ Game.prototype.showLevel = function (level) {
 Game.prototype.showFinishScreen = function () {
   this.clear();
 
-  this._renderLevelStats();
-  this._renderHearts();
-  this._renderPowers('inactive');
   this._renderFinishScreen();
 };
 
