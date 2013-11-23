@@ -89,7 +89,7 @@ Game.prototype.showHub = function () {
   this.$logo.show();
 
   // TODO: Add achievements UI.
-  this._renderScoreCard();
+  this._renderScoreCard(this.user.score());
   this._renderPowers('buy');
   this._renderHub();
 };
@@ -103,7 +103,7 @@ Game.prototype.showLevel = function (level) {
     this.levelRounds = rounds;
     this.levelProgress = UserLevelProgress.create(level, this.user);
 
-    this._renderScoreCard();
+    this._renderScoreCard(0);
     this._renderPowers('use');
     this._renderLevelStats();
     this._renderHearts();
@@ -115,7 +115,6 @@ Game.prototype.showLevel = function (level) {
 Game.prototype.showFinishScreen = function () {
   this.clear();
 
-  this._renderScoreCard();
   this._renderLevelStats();
   this._renderHearts();
   this._renderPowers('inactive');
@@ -144,6 +143,7 @@ Game.prototype._onPower = function (mode, power) {
     case 'buy':
       this.user.addPower(power);
       this.user.subtractScore(power.price());
+      this._renderScoreCard(this.user.score());
       break;
     case 'use':
       // TODO: Maybe move these into Power.use()?
@@ -189,24 +189,24 @@ Game.prototype._finishRound = function (won) {
   this.timer.stop();
   var progress = this.levelProgress;
   progress.completed_round(progress.completed_round() + 1);
+  var wonLevel = progress.completed_round() === progress.rounds();
+  var lostLevel = progress.mistakes_left() < 0;
   if (won) {
-    audio.play('guess');
+    if (!wonLevel) audio.play('guess');
     // Assuming grade is between 0 and 50 we rescale to 50 - 100.
     var grade = 50 + this.round.commit().grade();
     var secondsTaken = Math.floor((Date.now() - this.startTime) /  1000);
     var pointsEarned = Math.round(grade / Math.sqrt(1 + secondsTaken));
     progress.recordRoundGuessed(pointsEarned);
+    this._renderScoreCard(progress.commmitScore());
   } else {
-    if (progress.mistakes_left() > 0) {
-      // Don't play together with the loss audio.
-      audio.play('miss');
-    }
+    if (!lostLevel) audio.play('miss');
     progress.mistakes_left(progress.mistakes_left() - 1);
     progress.recordRoundMissed();
   }
-  if (progress.mistakes_left() < 0) {
+  if (lostLevel) {
     this.showFinishScreen();
-  } else if (progress.completed_round() === progress.rounds()) {
+  } else if (wonLevel) {
     this.user.addScore(progress.totalScore());
     this.user.completeLevel(this.level);
     this.showFinishScreen();
@@ -245,9 +245,8 @@ Game.prototype._renderCommitDisplay = function (commit) {
   this.$commitDisplay.show();
 };
 
-Game.prototype._renderScoreCard = function() {
-  // TODO: Fix score card sometimes rendering twice on retry.
-  this.$scoreCard.append(scoreCard(this.user));
+Game.prototype._renderScoreCard = function(score) {
+  this.$scoreCard.empty().append(scoreCard(score));
   this.$scoreCard.show();
 };
 

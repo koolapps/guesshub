@@ -4,7 +4,6 @@ Can't launch without
   Implement repo power.
   Fix 50:50 power.
   ./boot/game.js:67:  // TODO: Properly destroy widgets!
-    Fix score card sometimes rendering twice on retry.
     Fix timer sometimes remaining alive on retry.
   Decide on app name.
   Decide on level names.

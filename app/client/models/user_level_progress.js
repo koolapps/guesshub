@@ -34,10 +34,15 @@ UserLevelProgress.prototype.recordRoundGuessed = function (scoreEarned) {
   this.score_earned().push(scoreEarned);
 };
 
-UserLevelProgress.prototype.totalScore = function () {
+UserLevelProgress.prototype.commmitScore = function () {
   return this.score_earned().reduce(function(left, right) {
     return left + right;
-  }) + this.mistakes_left() * UserLevelProgress.SCORE_PER_LIFE;
+  });
+};
+
+UserLevelProgress.prototype.totalScore = function () {
+  return this.commmitScore()
+       + this.mistakes_left() * UserLevelProgress.SCORE_PER_LIFE;
 };
 
 UserLevelProgress.SCORE_PER_LIFE = 50;
