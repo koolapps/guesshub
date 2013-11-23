@@ -56,6 +56,23 @@ function Game (options) {
       this.$finishScreen,
       this.showHub.bind(this),
       function() { this.showLevel(this.level); }.bind(this));
+
+  // Audio toggle.
+  options.$audioToggle.on('click', function() {
+    if (audio.isEnabled()) {
+      audio.disable();
+      options.$audioToggle.attr({
+        class: 'fa fa-volume-off',
+        title: 'Unmute'
+      });
+    } else {
+      audio.enable();
+      options.$audioToggle.attr({
+        class: 'fa fa-volume-up',
+        title: 'Mute'
+      });
+    }
+  });
 }
 
 /**** State Control ****/

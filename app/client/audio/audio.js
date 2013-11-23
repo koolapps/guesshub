@@ -1,7 +1,5 @@
 var AudioPlayer = {};
 
-// TODO: Add a way to turn off sound.
-
 var FILES = {
   'click': '/audio/click.mp3',
   'timer-tick': '/audio/timer-tick.mp3',
@@ -70,10 +68,22 @@ AudioPlayer.play = function (effectName, onEnd) {
 
 AudioPlayer.stopAllSounds = function () {
   volumeController.disconnect();
-  var oldGain = volumeController.gain;
+  var oldGain = volumeController.gain.value;
   volumeController = context.createGainNode();
-  volumeController.gain = oldGain;
+  volumeController.gain.value = oldGain;
   volumeController.connect(context.destination);
+};
+
+AudioPlayer.disable = function () {
+  volumeController.gain.value = 0;
+};
+
+AudioPlayer.enable = function () {
+  volumeController.gain.value = 1;
+};
+
+AudioPlayer.isEnabled = function () {
+  return volumeController.gain.value == 1;
 };
 
 AudioPlayer.initialize();

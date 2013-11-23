@@ -19,7 +19,8 @@ var game = new Game({
   $finishScreen: $('#finish-screen'),
   $finishHeader: $('#finish-header'),
   $hearts: $('#hearts'),
-  $logo: $('#logo')
+  $logo: $('#logo'),
+  $audioToggle: $('#audio-toggle')
 });
 
 game.start();
