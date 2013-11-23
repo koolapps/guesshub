@@ -142,6 +142,7 @@ Game.prototype.startRound = function () {
   this._renderTimer(this.round.timer())
   this._renderRepos(this.round.repos())
   this._renderCommitDisplay(this.round.commit());
+  this._renderLevelStats();
   this.timer.start();
   this.startTime = Date.now();
 

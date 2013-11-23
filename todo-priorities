@@ -22,7 +22,6 @@ Shouldn't launch without
   ./server.py:88:# TODO: Support caching or go back to Flask's native static serving.
   Get at least 100K valid commit records, perhaps re-splitting existing ones.
   ./boot/index.js:6:// TODO: Support storing user state [whole User model].
-  Remove level stats.
 
 Nice to have
   Limit choices by owner/language at higher difficulties?

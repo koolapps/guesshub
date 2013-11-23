@@ -1,20 +1,17 @@
-#level-stats .guesses,
-#level-stats .misses {
-  font-size: 30px;
+#level-stats .remaining,
+#level-stats .total {
+  font-size: 45px;
   height: 92px;
+  font-weight: bold;
+  font-family: Zorque;
 }
 
-#level-stats .fa {
-  font-size: 40px;
-  margin: 0 auto;
-  display: block;
-  width: 40px;
-}
-
-#level-stats .fa-minus {
-  color: red;
-}
-
-#level-stats .fa-plus {
-  color: green;
+#level-stats .bar {
+  width: 76px;
+  height: 8px;
+  position: absolute;
+  background: white;
+  border-radius: 4px;
+  top: 65px;
+  left: 38px;
 }
