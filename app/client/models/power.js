@@ -21,13 +21,13 @@ Power.ALL = {
     id: 'commit',
     price: 2000,
     tooltip: 'Reveal commit details',
-    icon: 'user'
+    icon: 'tags'
   }),
   repo: new Power({
     id: 'repo',
     price: 5000,
     tooltip: 'Reveal repo details',
-    icon: 'info-circle'
+    icon: 'folder-open'
   }),
   half: new Power({
     id: 'half',
