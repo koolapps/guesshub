@@ -13,7 +13,6 @@ Can't launch without
     Figure out license and add icon credits.
 
 Shouldn't launch without
-  Add tutorial (outlined in doc).
   Add animation on guess/miss/win/loss.
   ./server.py:88:# TODO: Support caching or go back to Flask's native static serving.
   Get at least 100K valid commit records, perhaps re-splitting existing ones.
