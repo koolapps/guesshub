@@ -3,8 +3,7 @@ var Game = require('./game');
 var User = require('models').User;
 var Campaign = require('models').Campaign;
 
-// TODO: Support storing user state.
-var user = new User();
+var user = User.loadOrCreate();
 
 var game = new Game({
   user: user,
@@ -24,6 +23,10 @@ var game = new Game({
 });
 
 game.start();
+
+window.onunload = function () {
+  user.persist();
+};
 
 // TODO: Remove in non-debug builds.
 window.game = game;

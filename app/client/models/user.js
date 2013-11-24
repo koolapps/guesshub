@@ -10,6 +10,11 @@ var User = plugins(model('User'))
 
 User.MAX_POWERS = 5;
 
+User.loadOrCreate = function () {
+  var user = localStorage.getItem('user');
+  return new User(user ? JSON.parse(user) : undefined);
+};
+
 User.prototype.addScore = function (points) {
   this.score(this.score() + points);
 };
@@ -63,6 +68,10 @@ User.prototype.completeLevel = function (level) {
 
 User.prototype.isLevelComplete = function (level) {
   return this.completed_level_ids().indexOf(level.id()) !== -1;
+};
+
+User.prototype.persist = function(first_argument) {
+  localStorage.setItem('user', JSON.stringify(this));
 };
 
 module.exports = User;
