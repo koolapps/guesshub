@@ -1,6 +1,7 @@
 var $ = require('jquery');
 var Hogan = require('hogan.js');
 var prism = require('prism');
+var animate = require('animate');
 
 var template = Hogan.compile(require('./template'));
 
@@ -9,20 +10,11 @@ function CommitDisplay (model) {
   this.render();
 }
 
-// @param options { filename: true/false, author: true/false, metadata: true/false }
-CommitDisplay.prototype.setVisibility = function (options) {
-  if (options.filename != null) {
-    this._setElementVisibility(this.$el.find('.filename'), options.filename);
-  }
-
-  if (options.author != null) {
-    this._setElementVisibility(this.$el.find('.author'), options.author);
-  }
-
-  if (options.metadata != null) {
-    this._setElementVisibility(this.$el.find('.metadata'), options.metadata);
-  }
-};
+CommitDisplay.prototype.showMetadata = function () {
+  var $metadata = this.$el.find('.metadata');
+  $metadata.show();
+  animate.in($metadata[0], 'bounce');
+}
 
 CommitDisplay.prototype._setElementVisibility = function ($el, show) {
   $el.toggleClass('hide', !show);
@@ -94,9 +86,6 @@ CommitDisplay.prototype.render = function() {
   });
 
   this.$el = $(template.render(model));
-
-  // By default, hide metadata.
-  this.setVisibility({ metadata: false });
 };
 
 CommitDisplay.prototype._getCommitLanguage = function() {

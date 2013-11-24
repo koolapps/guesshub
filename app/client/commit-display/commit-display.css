@@ -14,7 +14,7 @@
 
 .commit-display .metadata {
   border-radius: 20px;
-  display: block;
+  display: none;
   color: white;
   text-decoration: none;
   text-align: left;

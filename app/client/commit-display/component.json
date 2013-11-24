@@ -5,7 +5,8 @@
     "component/jquery": "*",
     "jofan/foundation-grid": "*",
     "twitter/hogan.js": "*",
-    "amasad/prism": "*"
+    "amasad/prism": "*",
+    "amasad/animate": "*"
   },
   "development": {},
   "main": "commit-display.js",

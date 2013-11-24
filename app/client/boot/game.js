@@ -176,7 +176,7 @@ Game.prototype._onPower = function (mode, power) {
           this.timer.rewind(0.25);
           break;
         case 'commit':
-          this.commitDisplay.setVisibility({ metadata: true });
+          this.commitDisplay.showMetadata();
           break;
         case 'repo':
           this.repoList.showDescription();
