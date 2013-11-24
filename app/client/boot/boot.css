@@ -95,18 +95,3 @@ body {
 .header-right {
   left: 600px;
 }
-
-#audio-toggle {
-  display: block;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  font-size: 40px;
-  padding: 20px;
-  color: #777;
-  cursor: pointer;
-}
-
-#audio-toggle:hover {
-  color: #999;
-}

@@ -1,3 +1,5 @@
+var $ = require('jquery');
+
 var AudioPlayer = {};
 
 var FILES = {
@@ -34,6 +36,30 @@ AudioPlayer.initialize = function () {
     }
     volumeController = context.createGainNode();
     volumeController.connect(context.destination);
+
+    // Audio toggle.
+    $('#audio-toggle').on('click', function() {
+      if (AudioPlayer.isEnabled()) {
+        AudioPlayer.disable();
+        $(this).attr({
+          class: 'fa fa-volume-off',
+          title: 'Unmute'
+        });
+        localStorage.setItem('audio', 'off');
+      } else {
+        AudioPlayer.enable();
+        $(this).attr({
+          class: 'fa fa-volume-up',
+          title: 'Mute'
+        });
+        localStorage.setItem('audio', 'on');
+      }
+    });
+
+    if (localStorage.getItem('audio') === 'off') {
+      $('#audio-toggle').click();
+    }
+
     initialized = true;
   }
 };

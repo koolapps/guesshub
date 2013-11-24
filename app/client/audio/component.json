@@ -1,8 +1,11 @@
 {
   "name": "audio",
   "description": "Sound effect list and playback.",
-  "dependencies": {},
+  "dependencies": {
+    "component/jquery": "*"
+  },
   "development": {},
   "main": "audio.js",
-  "scripts": ["audio.js"]
+  "scripts": ["audio.js"],
+  "styles": ["audio.css"]
 }
