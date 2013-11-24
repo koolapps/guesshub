@@ -1,4 +1,5 @@
 var $ = require('jquery');
+var Tip = require('tip');
 var audio = require('audio');
 var Hogan = require('hogan.js');
 var template = Hogan.compile(require('./template'));
@@ -37,13 +38,22 @@ RepoList.prototype.render = function() {
     });
 };
 
+RepoList.prototype.$getRepoElement = function(repo) {
+  return this.$el.find('[data-id=' + repo.id() + ']');
+};
+
 RepoList.prototype.hideRepos = function(repoToLeave) {
+  if (this._reposHidden) {
+    return;
+  }
+  this._reposHidden = true;
+
   var hidden = 0;
   this.repos.slice().sort(function () {
     return 0.5 - Math.random();
   }).forEach(function (repo) {
     if (hidden < 2 && repo.name() != repoToLeave) {
-      var $repo =  this.$el.find('[data-id=' + repo.id() + ']');
+      var $repo = this.$getRepoElement(repo);
       if (!$repo.hasClass('hide')) {
         this.$el.find('[data-id=' + repo.id() + ']').addClass('hide');
         hidden++;
@@ -52,3 +62,71 @@ RepoList.prototype.hideRepos = function(repoToLeave) {
   }, this);
 };
 
+var FADE_SPEED = 100;
+
+RepoList.prototype.showDescription = function() {
+  if (this._descShowed) {
+    this._animateIntro();
+    return false;
+  }
+  this._descShowed = true;
+
+  var $descs = this.$descs = this.repos.map(function (repo) {
+    var $repo = this.$getRepoElement(repo);
+    var $div = $('<div/>', { class: 'repo-description' })
+        .text(repo.description())
+        .hide()
+        .appendTo('body');
+    $div.css('margin-left', -1 * ($div.width() / 2));
+    return $div;
+  }, this);
+
+  // Bind events.
+  $descs.forEach(function ($desc, i) {
+    var $button = this.$getRepoElement(this.repos[i]).find('.repo-button');
+    $button.mouseenter(function () {
+      this._cancelAnimation = true;
+      $desc.fadeIn(FADE_SPEED);
+    }.bind(this)).mouseleave(function () {
+      $desc.fadeOut(FADE_SPEED);
+    });
+  }, this);
+
+  this._animateIntro();
+
+  return true;
+};
+
+RepoList.prototype._animateIntro = function () {
+  this._cancelAnimation = false;
+
+  var $descs = this.$descs;
+
+  var animateNext = function (i) {
+    if (i === $descs.length || this._cancelAnimation) {
+      return;
+    }
+
+    if (this.$getRepoElement(this.repos[i]).is('.hide')) {
+      animateNext(i + 1);
+      return;
+    }
+
+    var $button = this.$getRepoElement(this.repos[i]).find('.repo-button');
+    $button.addClass('hover');
+    $descs[i].fadeIn(FADE_SPEED, function () {
+      setTimeout(function () {
+        $button.removeClass('hover');
+        $descs[i].fadeOut(FADE_SPEED, animateNext.bind(null, i + 1));
+      }, 300);
+    });
+  }.bind(this);
+
+  animateNext(0);
+};
+
+RepoList.prototype.destroy = function () {
+  this.$descs.forEach(function ($d) {
+    $d.remove();
+  });
+};

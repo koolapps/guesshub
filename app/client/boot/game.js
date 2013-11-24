@@ -145,7 +145,7 @@ Game.prototype.startRound = function () {
   this._renderLevelStats();
   this.timer.start();
   this.startTime = Date.now();
-
+  this.powersUsed = [];
   console.log('ANSWER:', this.round.commit().repository());
 };
 
@@ -173,7 +173,7 @@ Game.prototype._onPower = function (mode, power) {
           this.commitDisplay.setVisibility({ metadata: true });
           break;
         case 'repo':
-          alert('TODO: Use repo power.');
+          this.repoList.showDescription();
           break;
         case 'half':
           this.repoList.hideRepos(this.round.commit().repository());
@@ -181,7 +181,13 @@ Game.prototype._onPower = function (mode, power) {
         default:
           throw new Error('Unexpected power: ' + power.id());
       }
-      this.user.removePower(power);
+      if (this.powersUsed.indexOf(power.id()) === -1) {
+        this.user.removePower(power);
+      }
+      // Only time powerup is allowed to be used more than once.
+      if (power.id() !== 'time') {
+        this.powersUsed.push(power.id());
+      }
       break;
     case 'inactive':
       // No interaction possible.
@@ -258,6 +264,9 @@ Game.prototype._renderTimer = function (seconds) {
 };
 
 Game.prototype._renderRepos = function (repos) {
+  if (this.repoList) {
+    this.repoList.destroy();
+  }
   this.repoList = new RepoList(repos, this._onGuess.bind(this));
   this.$repos.empty().append(this.repoList.$el);
   this.$repos.show();
