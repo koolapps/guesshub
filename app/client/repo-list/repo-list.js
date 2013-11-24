@@ -75,8 +75,8 @@ RepoList.prototype.showDescription = function() {
     var $div = $('<div/>', { class: 'repo-description' })
         .text(repo.description())
         .hide()
-        .appendTo('body');
-    $div.css('margin-left', -1 * ($div.width() / 2));
+        .appendTo('#content');
+    $div.css('margin-left', -1 * ($div.outerWidth() / 2));
     return $div;
   }, this);
 
