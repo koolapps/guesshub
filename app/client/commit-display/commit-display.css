@@ -38,6 +38,7 @@
 
 .commit-display .metadata .author .fa {
   font-size: 36px;
+  line-height: 32px;
 }
 
 .commit-display .metadata .author .name {
