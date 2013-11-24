@@ -3,7 +3,8 @@
   "description": "countdown with svg graphics",
   "dependencies": {
     "mbostock/d3": "*",
-    "component/jquery": "*"
+    "component/jquery": "*",
+    "amasad/animate": "*"
   },
   "development": {},
   "main": "timer.js",

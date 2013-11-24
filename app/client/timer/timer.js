@@ -2,6 +2,7 @@ var $ = require('jquery');
 var d3 = require('d3');
 var audio = require('audio');
 var template = require('./template');
+var animate = require('animate');
 
 var STROKE_WIDTH = 3;
 
@@ -87,6 +88,7 @@ Timer.prototype._updatePath = function (ratioLeft) {
 };
 
 Timer.prototype.rewind = function (fraction) {
+  animate(this.$el[0], 'pulse');
   this.stop();
 
   var bonusTime = fraction * this.interval;
