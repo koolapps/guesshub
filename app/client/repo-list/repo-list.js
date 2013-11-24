@@ -125,7 +125,9 @@ RepoList.prototype._animateIntro = function () {
 };
 
 RepoList.prototype.destroy = function () {
-  this.$descs.forEach(function ($d) {
-    $d.remove();
-  });
+  if (this.$descs) {
+    this.$descs.forEach(function ($d) {
+      $d.remove();
+    });
+  }
 };
