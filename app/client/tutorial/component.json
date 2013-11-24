@@ -1,0 +1,26 @@
+{
+  "name": "tutorial",
+  "description": "",
+  "dependencies": {
+    "component/jquery": "*",
+    "component/overlay": "*",
+    "amasad/animate": "*",
+    "component/tip": "*",
+    "component/dialog": "*",
+    "component/aurora-tip": "*"
+  },
+  "development": {},
+  "main": "tutorial.js",
+  "scripts": [
+    "tutorial.js",
+    "template.js"
+  ],
+  "styles": [
+    "tutorial.css"
+  ],
+  "remotes": [],
+  "local": [
+    "models",
+    "audio"
+  ]
+}
