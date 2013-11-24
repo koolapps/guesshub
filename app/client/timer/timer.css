@@ -24,7 +24,7 @@
 
 .timer text {
   fill: white;
-  font-family: UbuntuBold;
+  font-family: UbuntuBold, sans-serif;
   font-size: 50px;
   text-anchor: middle;
 }

@@ -82,7 +82,7 @@
 }
 
 .power-list .price {
-  font-family: Ubuntu;
+  font-family: Ubuntu, sans-serif;
 }
 
 .power-list .price .currency {

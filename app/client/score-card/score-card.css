@@ -4,7 +4,7 @@
 
 .score-card-container .score {
   font-weight: bold;
-  font-family: Ubuntu;
+  font-family: Ubuntu, sans-serif;
   font-size: 20px;
   white-space: nowrap;
   text-align: center;
