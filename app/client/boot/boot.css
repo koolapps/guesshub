@@ -8,9 +8,6 @@
   src: url('/fonts/UbuntuMono-R.ttf');
 }
 
-html, body, #container {
-  height: 100%;
-}
 
 body {
   background: url(/img/type.png);
