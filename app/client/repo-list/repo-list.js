@@ -55,7 +55,9 @@ RepoList.prototype.hideRepos = function(repoToLeave) {
     if (hidden < 2 && repo.name() != repoToLeave) {
       var $repo = this.$getRepoElement(repo);
       if (!$repo.hasClass('hide')) {
-        this.$el.find('[data-id=' + repo.id() + ']').addClass('hide');
+        animate.out($repo[0], 'bounce-down', false, function () {
+          $repo.addClass('hide');
+        });
         hidden++;
       }
     }
