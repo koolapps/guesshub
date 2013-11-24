@@ -1,7 +1,7 @@
 var model = require('model');
 var plugins = require('./plugins');
 
-module.exports = plugins(model('Repo'))
+var Repo = plugins(model('Repo'))
     .attr('id')
     .attr('name')
     .attr('author')
@@ -10,3 +10,11 @@ module.exports = plugins(model('Repo'))
     .attr('watcher_count')
     .attr('star_count')
     .attr('hidden');
+
+Repo.on('construct', function (m) {
+  if (!m.description()) {
+    m.description('No description :(');
+  }
+});
+
+module.exports = Repo;
