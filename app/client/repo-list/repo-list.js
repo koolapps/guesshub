@@ -1,5 +1,4 @@
 var $ = require('jquery');
-var Tip = require('tip');
 var audio = require('audio');
 var Hogan = require('hogan.js');
 var template = Hogan.compile(require('./template'));
