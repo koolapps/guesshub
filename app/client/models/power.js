@@ -12,25 +12,25 @@ var Power = plugins(model('Level'))
 Power.ALL = {
   time: new Power({
     id: 'time',
-    price: 500,
+    price: 400,
     tooltip: 'Rewind \xa0the timer',  // \xa0 to force wrapping
     icon: 'clock-o'
   }),
   commit: new Power({
     id: 'commit',
-    price: 2000,
+    price: 1300,
     tooltip: 'Reveal commit details',
     icon: 'tags'
   }),
   repo: new Power({
     id: 'repo',
-    price: 5000,
+    price: 4500,
     tooltip: 'Reveal repo details',
     icon: 'folder-open'
   }),
   half: new Power({
     id: 'half',
-    price: 10000,
+    price: 7000,
     tooltip: 'Reduce wrong choices',
     icon: 'adjust'
   })
