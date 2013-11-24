@@ -12,7 +12,7 @@
   font-size: 35px;
   margin-top: 10px;
   font-weight: bold;
-  font-family: UbuntuBold, sans-serif;
+  font-family: Ubuntu, sans-serif;
 }
 
 #finish-screen {
@@ -184,5 +184,6 @@
 
 #finish-screen .currency {
   color: #F1CE2A;
-  font-family: UbuntuBold, sans-serif;
+  font-weight: bold;
+  font-family: Ubuntu, sans-serif;
 }
