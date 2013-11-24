@@ -2,6 +2,7 @@ var $ = require('jquery');
 var audio = require('audio');
 var Hogan = require('hogan.js');
 var template = Hogan.compile(require('./template'));
+var animate = require('animate');
 
 module.exports = RepoList;
 
@@ -61,7 +62,7 @@ RepoList.prototype.hideRepos = function(repoToLeave) {
   }, this);
 };
 
-var FADE_SPEED = 100;
+var FADE_SPEED = 250;
 
 RepoList.prototype.showDescription = function() {
   if (this._descShowed) {
@@ -112,10 +113,9 @@ RepoList.prototype._animateIntro = function () {
     }
 
     var $button = this.$getRepoElement(this.repos[i]).find('.repo-button');
-    $button.addClass('hover');
+    animate($button[0], 'tada');
     $descs[i].fadeIn(FADE_SPEED, function () {
       setTimeout(function () {
-        $button.removeClass('hover');
         $descs[i].fadeOut(FADE_SPEED, animateNext.bind(null, i + 1));
       }, 300);
     });

@@ -4,7 +4,8 @@
   "dependencies": {
     "component/jquery": "*",
     "jofan/foundation-block-grid": "*",
-    "twitter/hogan.js": "*"
+    "twitter/hogan.js": "*",
+    "ianstormtaylor/animate": "*"
   },
   "development": {},
   "main": "repo-list.js",
