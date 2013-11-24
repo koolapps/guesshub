@@ -1,5 +1,5 @@
 .score-card-container .score-icon {
-  font-size: 50px;
+  font-size: 250%;
 }
 
 .score-card-container .score {
@@ -12,4 +12,28 @@
 
 .score-card-container .currency {
   color: #F1CE2A;
+}
+
+#score-card {
+  font-size: 20px;
+}
+
+#score-card.animate {
+  -webkit-animation: score-pulsate 0.5s ease-out;
+  -webkit-animation-iteration-count: 1;
+}
+
+@-webkit-keyframes score-pulsate {
+    0% {
+      font-size: 20px;
+      color: white;
+    }
+    50% {
+      font-size: 23px;
+      color: #F1CE2A;
+    }
+    100% {
+      font-size: 20px;
+      color: white;
+    }
 }

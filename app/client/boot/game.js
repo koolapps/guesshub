@@ -203,6 +203,7 @@ Game.prototype._finishRound = function (won) {
     var pointsEarned = Math.round(grade / Math.sqrt(1 + secondsTaken));
     progress.recordRoundGuessed(pointsEarned);
     this._renderScoreCard(progress.commmitScore());
+    this._triggerAnimation(this.$scoreCard);
   } else {
     progress.recordRoundMissed();
   }
@@ -230,6 +231,11 @@ Game.prototype._finishRound = function (won) {
 };
 
 /**** Rendering ****/
+
+Game.prototype._triggerAnimation = function (elem) {
+  elem.removeClass('animate');
+  setTimeout(elem.addClass.bind(elem, 'animate'), 0);
+};
 
 Game.prototype._renderLevelStats = function () {
   this.$levelStats.empty().append(levelStats(this.levelProgress));
