@@ -27,7 +27,7 @@ var buffers;
 var volumeController;
 var initialized = false;
 
-AudioPlayer.initialize = function () {
+AudioPlayer.initialize = function ($toggle) {
   if (!initialized) {
     context = new (window.AudioContext || window.webkitAudioContext)();
     buffers = {};
@@ -38,7 +38,7 @@ AudioPlayer.initialize = function () {
     volumeController.connect(context.destination);
 
     // Audio toggle.
-    $('#audio-toggle').on('click', function() {
+    $toggle.on('click', function() {
       if (AudioPlayer.isEnabled()) {
         AudioPlayer.disable();
         $(this).attr({
@@ -57,7 +57,7 @@ AudioPlayer.initialize = function () {
     });
 
     if (localStorage.getItem('audio') === 'off') {
-      $('#audio-toggle').click();
+      $toggle.click();
     }
 
     initialized = true;
@@ -111,7 +111,5 @@ AudioPlayer.enable = function () {
 AudioPlayer.isEnabled = function () {
   return volumeController.gain.value == 1;
 };
-
-AudioPlayer.initialize();
 
 module.exports = AudioPlayer;

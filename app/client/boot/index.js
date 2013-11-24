@@ -2,6 +2,9 @@ var $ = require('jquery');
 var Game = require('./game');
 var User = require('models').User;
 var Campaign = require('models').Campaign;
+var audio = require('audio');
+
+audio.initialize($('#audio-toggle'));
 
 var user = User.loadOrCreate();
 
