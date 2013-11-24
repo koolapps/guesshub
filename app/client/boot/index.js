@@ -11,6 +11,7 @@ var user = User.loadOrCreate();
 var game = new Game({
   user: user,
   campaign: Campaign.MAIN,
+  showTutorial: true,
   $timer: $('#timer'),
   $repos: $('#repo-selector'),
   $scoreCard: $('#score-card'),

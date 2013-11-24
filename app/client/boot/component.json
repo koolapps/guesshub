@@ -22,7 +22,8 @@
     "level-hub",
     "finish-screen",
     "hearts",
-    "audio"
+    "audio",
+    "tutorial"
   ],
   "dependencies": {
     "component/jquery": "*"
