@@ -65,14 +65,20 @@ function Game (options) {
         class: 'fa fa-volume-off',
         title: 'Unmute'
       });
+      localStorage.setItem('audio', 'off');
     } else {
       audio.enable();
       options.$audioToggle.attr({
         class: 'fa fa-volume-up',
         title: 'Mute'
       });
+      localStorage.setItem('audio', 'on');
     }
   });
+
+  if (localStorage.getItem('audio') === 'off') {
+    options.$audioToggle.click();
+  }
 }
 
 /**** State Control ****/
