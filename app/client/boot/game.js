@@ -199,6 +199,8 @@ Game.prototype._onPower = function (mode, power) {
 
 Game.prototype._finishRound = function (won) {
   this.timer.stop();
+  this.repoList.destroy();
+
   var progress = this.levelProgress;
 
   // Record round win.
@@ -264,9 +266,6 @@ Game.prototype._renderTimer = function (seconds) {
 };
 
 Game.prototype._renderRepos = function (repos) {
-  if (this.repoList) {
-    this.repoList.destroy();
-  }
   this.repoList = new RepoList(repos, this._onGuess.bind(this));
   this.$repos.empty().append(this.repoList.$el);
   this.$repos.show();
