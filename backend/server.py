@@ -86,6 +86,7 @@ def level(length, min_grade, max_grade):
 @APP.route('/<path:path>')
 def custom_static(path):
   fs_path = os.path.join('../app', path)
+  # TODO: Fix security bug allowing access to files outside the root folder.
   if os.path.exists(fs_path):
     mime = mimetypes.guess_type(fs_path)[0]
     return flask.Response(open(fs_path, 'rb'), mimetype=mime)

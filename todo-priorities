@@ -1,7 +1,6 @@
 Can't launch without
   Implement repo power.
   Non-implementation
-    Decide on app name.
     Decide on level names.
     ./models/user.js:4:// TODO: Revert to empty powers and 0 score once we're done debugging.
   Non-code
@@ -15,7 +14,6 @@ Can't launch without
     Figure out license and add icon credits.
 
 Shouldn't launch without
-  Ensure diff can accommodate long lines.
   Add tutorial (outlined in doc).
   Add animation on guess/miss/win/loss.
   ./server.py:88:# TODO: Support caching or go back to Flask's native static serving.
