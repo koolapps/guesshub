@@ -3,7 +3,8 @@
   "description": "How many mistakes left",
   "dependencies": {
     "component/jquery": "*",
-    "twitter/hogan.js": "*"
+    "twitter/hogan.js": "*",
+    "amasad/animate": "*"
   },
   "development": {},
   "main": "hearts.js",

@@ -5,7 +5,7 @@
     "component/jquery": "*",
     "jofan/foundation-block-grid": "*",
     "twitter/hogan.js": "*",
-    "ianstormtaylor/animate": "*"
+    "amasad/animate": "*"
   },
   "development": {},
   "main": "repo-list.js",
