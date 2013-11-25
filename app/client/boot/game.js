@@ -89,10 +89,7 @@ Game.prototype.clear = function () {
 
   // TODO: Properly destroy widgets?
   this.commitDisplay = null;
-  if (this.timer) {
-    this.timer.stop();
-    this.timer = null;
-  }
+  this.timer = null;
 
   audio.stopAllSounds();
 };
@@ -137,8 +134,8 @@ Game.prototype.showFinishScreen = function () {
 
 Game.prototype.startRound = function () {
   this.round = this.levelRounds[this.levelProgress.completed_round()];
-  this._renderTimer(this.round.timer())
-  this._renderRepos(this.round.repos())
+  this._renderTimer(this.round.timer());
+  this._renderRepos(this.round.repos());
   this._renderCommitDisplay(this.round.commit());
   this._renderLevelStats();
   this.timer.start();
@@ -249,10 +246,6 @@ Game.prototype._renderLevelStats = function () {
 };
 
 Game.prototype._renderTimer = function (seconds) {
-  // Sometimes we end up replacing the timer before calling stop on it.
-  // For now, stop it manually here just in case.
-  // TODO: Find and fix the race condition that causes this in the first place.
-  this.timer && this.timer.stop();
   this.timer = new Timer({
     interval: seconds,
     outerRadius: this.$timer.outerHeight() / 2,

@@ -92,6 +92,7 @@ Tutorial.prototype._showStartModal = function () {
     animate.out(tip.el, 'fade', function () {
       tip.hide();
       this._click_overlay.hide();
+      this.game.startTime = Date.now();
       this.game.timer.start();
     }.bind(this));
   }.bind(this));

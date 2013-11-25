@@ -21,6 +21,7 @@ function Timer (options) {
   this.svg = this.d3Container.append('svg')
       .style('width', (this.outerRadius + STROKE_WIDTH) * 2);
   this._completeCallback = options.onComplete || function () {};
+  this.timeout = null;
 
   this._initialDraw();
 }
@@ -46,6 +47,7 @@ Timer.prototype._initialDraw = function () {
 var SEC = 1000;
 
 Timer.prototype.start = function() {
+  this.stop();
   this.timeout = setTimeout(function () {
     this.timeLeft--;
     if (this.timeLeft === 0) {
@@ -65,7 +67,10 @@ Timer.prototype.start = function() {
 };
 
 Timer.prototype.stop = function () {
-  if (this.timeout) clearTimeout(this.timeout);
+  if (this.timeout !== null) {
+    clearTimeout(this.timeout);
+    this.timeout = null;
+  }
 };
 
 Timer.prototype._update = function() {

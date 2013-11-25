@@ -14,6 +14,10 @@ function FinishScreen (user, $finishHeader, $finishScreen, onHub, onRetry) {
   this.$finishScreen = $finishScreen;
   this.onHub = onHub;
   this.onRetry = onRetry;
+
+  // Listen to clicks.
+  this.$finishScreen.on('click', '.button.to-hub', this.onHub);
+  this.$finishScreen.on('click', '.button.retry', this.onRetry);
 }
 
 FinishScreen.prototype.render = function (level, commits, levelProgress) {
@@ -97,10 +101,6 @@ FinishScreen.prototype.renderDetails =
 
   // Render the template.
   this.$finishScreen.empty().html(template.render(args));
-
-  // Listen to clicks.
-  this.$finishScreen.on('click', '.button.to-hub', this.onHub);
-  this.$finishScreen.on('click', '.button.retry', this.onRetry);
 };
 
 FinishScreen.prototype.outcome = function (isSurvival, levelProgress) {
