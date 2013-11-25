@@ -34,4 +34,3 @@ window.onunload = function () {
 window.game = game;
 
 // TODO: Add support for switchable background music.
-// TODO: Prevent accidental navigation away from the page.

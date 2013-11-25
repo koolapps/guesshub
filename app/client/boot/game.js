@@ -92,6 +92,8 @@ Game.prototype.clear = function () {
   this.timer = null;
 
   audio.stopAllSounds();
+
+  window.onbeforeunload = null;
 };
 
 Game.prototype.showHub = function () {
@@ -113,6 +115,11 @@ Game.prototype.showLevel = function (level, callback) {
     this.startRound();
     if (callback) callback();
   }.bind(this));
+
+  window.onbeforeunload = function() {
+    return "Are you sure you want to leave the game?\n" +
+           "Level progress will be lost.";
+  };
 };
 
 Game.prototype._initLevel = function(level, rounds) {
