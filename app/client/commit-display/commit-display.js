@@ -69,6 +69,7 @@ CommitDisplay.prototype.render = function() {
 
     return ret;
   });
+  model.diff_lines[model.diff_lines.length - 1].last_in_run = true;
 
   // Syntax-highlight the code. Can't do that on the final DOM because it
   // includes line numbers and diff operators.
