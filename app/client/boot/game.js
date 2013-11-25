@@ -165,19 +165,22 @@ Game.prototype._onPower = function (mode, power) {
       this._renderScoreCard(this.user.score());
       break;
     case 'use':
-      audio.play('power-' + power.id());
       // TODO: Maybe move these into Power.use()?
       switch (power.id()) {
         case 'time':
+          audio.play('power-time');
           this.timer.rewind(0.25);
           break;
         case 'commit':
+          audio.play('power-time');
           this.commitDisplay.showMetadata();
           break;
         case 'repo':
+          // RepoList handles audio.
           this.repoList.showDescription();
           break;
         case 'half':
+          audio.play('power-time');
           this.repoList.hideRepos(this.round.commit().repository());
           break;
         default:

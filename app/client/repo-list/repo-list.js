@@ -115,7 +115,8 @@ RepoList.prototype._animateIntro = function () {
     }
 
     var $button = this.$getRepoElement(this.repos[i]).find('.repo-button');
-    animate($button[0], 'tada');
+    audio.play('power-repo');
+    animate($button[0], 'pulse');
     $descs[i].fadeIn(FADE_SPEED, function () {
       setTimeout(function () {
         $descs[i].fadeOut(FADE_SPEED, animateNext.bind(null, i + 1));
