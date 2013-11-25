@@ -1,9 +1,12 @@
 .tip {
   font-size: 18px;
 }
+
 .tip-inner {
   border: 1px solid white;
   border-radius: 5px;
+  padding: 15px;
+  background: black;
 }
 
 .tip-arrow {
