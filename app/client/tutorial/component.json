@@ -1,6 +1,6 @@
 {
   "name": "tutorial",
-  "description": "",
+  "description": "An intro tutorial to the game.",
   "dependencies": {
     "component/jquery": "*",
     "component/overlay": "*",
@@ -12,8 +12,7 @@
   "development": {},
   "main": "tutorial.js",
   "scripts": [
-    "tutorial.js",
-    "template.js"
+    "tutorial.js"
   ],
   "styles": [
     "tutorial.css"
