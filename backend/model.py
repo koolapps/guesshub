@@ -39,7 +39,7 @@ class Commit(object):
     self.old_start_line = patch_start_old
     self.new_start_line = patch_start_new
     self.block_name = patch_header or None
-    self.diff_lines = patch_lines
+    self.diff_lines = [i.replace('\t', '  ') for i in patch_lines]
 
   @staticmethod
   def split_from_json(json):
