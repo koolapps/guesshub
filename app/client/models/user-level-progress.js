@@ -1,7 +1,6 @@
 var model = require('model');
 var plugins = require('./plugins');
 
-// TODO: Rename file to user-level-progress.js for consistency.
 var UserLevelProgress = plugins(model('UserLevelProgress'))
   .attr('rounds')
   .attr('guessed')

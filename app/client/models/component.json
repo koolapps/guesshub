@@ -11,7 +11,7 @@
   "main": "models.js",
   "scripts": [
     "models.js",
-    "user_level_progress.js",
+    "user-level-progress.js",
     "repo.js",
     "commit.js",
     "plugins.js",
