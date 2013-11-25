@@ -12,6 +12,7 @@ import MySQLdb.cursors
 APP = flask.Flask(__name__)
 
 def connect_to_db():
+  # TODO: Close DB connection.
   return mysql.connect(
       host=config.DB_HOST,
       user=config.DB_USER,

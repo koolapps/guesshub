@@ -1,4 +1,5 @@
 Can't launch without
+  server.py: # TODO: Close DB connection.
   Non-implementation
     Decide on level names.
     ./models/user.js:4:// TODO: Revert to empty powers and 0 score once we're done debugging.
