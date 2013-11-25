@@ -1,6 +1,7 @@
-<!-- TODO: Differentiate unlocked and completed levels. -->
 <div class="level {{#is_unlocked}}unlocked{{/is_unlocked}}
-                  {{^is_unlocked}}locked{{/is_unlocked}}" data-id="{{id}}">
-  {{^is_unlocked}}<i class="fa fa-lock"></i>{{/is_unlocked}}
+                  {{^is_unlocked}}locked{{/is_unlocked}}
+                  {{#is_completed}}completed{{/is_completed}}" data-id="{{id}}">
+  {{#is_completed}}<i class="fa fa-check icon"></i>{{/is_completed}}
+  {{^is_unlocked}}<i class="fa fa-lock icon"></i>{{/is_unlocked}}
   {{name}}
 </div>

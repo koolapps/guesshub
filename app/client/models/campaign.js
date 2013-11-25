@@ -60,6 +60,7 @@ Campaign.prototype.toJSONWithUserProgress = function (user) {
   var completedLevelIds = user.completed_level_ids();
   var that = this;
   function computeIsUnlocked (levelJSON) {
+    levelJSON.is_completed = completedLevelIds.indexOf(levelJSON.id) != -1;
     levelJSON.is_unlocked = that.isUnlocked(levelJSON.id, completedLevelIds);
   }
   json.intro_levels.forEach(computeIsUnlocked);

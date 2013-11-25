@@ -32,17 +32,25 @@
   color: yellow;
 }
 
-.level-hub .level.locked .fa-lock {
+.level-hub .level .icon {
   font-size: 26px;
   vertical-align: middle;
   float: left;
+  line-height: 34px;
 }
 
 .level-hub .level.locked {
   color: grey;
 }
 
+.level-hub .level.completed {
+  color: #ccc;
+}
+
 .level-hub .level.unlocked {
   cursor: pointer;
-  padding-left: 17px;  /* Make up for the lock icon. */
+}
+
+.level-hub .level.unlocked:not(.completed) {
+  padding-left: 17px;  /* Make up for the icon. */
 }

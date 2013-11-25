@@ -30,7 +30,6 @@ Nice to have
     ./finish-screen/finish-screen.js:52:  // TODO: Achievements on the finish page.
   ./models/campaign.js:7:// TODO: Add bonus levels.
   ./boot/index.js:27:// TODO: Add support for switchable background music.
-  ./level-hub/level-template.html:1:<!-- TODO: Differentiate unlocked and completed levels. -->
   ./power-list/power-list.js:16:  // TODO: Make choices respond to QWER keyboards keys.
   ./repo-list/repo-list.js:28:  // TODO: Make choices respond to 1-4 keyboards keys.
   Add level icons.
