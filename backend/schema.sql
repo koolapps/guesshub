@@ -10,8 +10,6 @@ CREATE TABLE `commit`(
   `author_name` VARCHAR(255),
   `author_avatar_url` TEXT,
   `repository` VARCHAR(127) NOT NULL,
-  `file_contents_url` TEXT NOT NULL,
-  `file_contents` TEXT,
   `filename` VARCHAR(255) NOT NULL,
   `additions` INT UNSIGNED NOT NULL,
   `deletions` INT UNSIGNED NOT NULL,

@@ -12,8 +12,8 @@ PATCH_HEADER_REGEX = re.compile(
 class Commit(object):
   """A single patch hunk linked to a GitHub commit."""
 
-  def __init__(self, commit_json, patch_number,
-               contents_url, patch_filename,
+  def __init__(self, commit_json,
+               patch_number, patch_filename,
                patch_start_old, patch_start_new,
                patch_header, patch_lines):
     self.sha = commit_json['sha']
@@ -30,10 +30,6 @@ class Commit(object):
     repository_matches = REPOSITORY_REGEX.findall(commit_json['url'])
     assert repository_matches and len(repository_matches) == 1, commit_json
     self.repository = repository_matches[0]
-
-    # TODO: Remove these throughout the codebase.
-    self.file_contents_url = contents_url  # After the patch application.
-    self.file_contents = None
 
     self.filename = patch_filename
     self.additions = len([i for i in patch_lines if i.startswith('+')])
@@ -52,9 +48,10 @@ class Commit(object):
       for patch_json in json['files']:
         if 'patch' in patch_json:
           for patch_block in Commit.split_patch(patch_json['patch']):
-            yield Commit(json, patch_number,
-                         patch_json['raw_url'], patch_json['filename'],
-                         *patch_block)
+            yield Commit(json,
+                          patch_number,
+                          patch_json['filename'],
+                          *patch_block)
             patch_number += 1
 
   @staticmethod
