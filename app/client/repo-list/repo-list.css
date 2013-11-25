@@ -79,7 +79,6 @@
 .repo-description {
   position: absolute;
   background-color: #777;
-  min-height: 70px;
   max-width: 450px;
   top: 275px;
   padding: 20px;
