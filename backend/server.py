@@ -10,7 +10,7 @@ import mimetypes
 import MySQLdb as mysql
 import MySQLdb.cursors
 
-APP = flask.Flask(__name__)
+APP = flask.Flask(__name__, static_folder='../app', static_url_path='')
 
 def connect_to_db():
   # TODO: Close DB connection.
@@ -95,11 +95,13 @@ def level(length, min_grade, max_grade):
 
   return flask.Response(json.dumps({'rounds': levels}), mimetype='text/json')
 
-# TODO: Support caching or go back to Flask's native static serving.
-@APP.route('/<path:path>')
+# FontAwesome files cause a weird bug on Windows. Hack around it.
+@APP.route('/build/FortAwesome-Font-Awesome/fonts/<path:path>')
+@APP.route('/build//FortAwesome-Font-Awesome/fonts/<path:path>')
 def custom_static(path):
-  fs_path = os.path.join('../app', path)
-  # TODO: Fix security bug allowing access to files outside the root folder.
+  path = path.replace('../', '')  # Make sure we don't try to reach outside.
+  fs_path = os.path.join('../app/build/FortAwesome-Font-Awesome/fonts/', path)
+  print fs_path
   if os.path.exists(fs_path):
     mime = mimetypes.guess_type(fs_path)[0]
     return flask.Response(open(fs_path, 'rb'), mimetype=mime)
