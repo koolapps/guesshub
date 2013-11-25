@@ -3,7 +3,6 @@
   "description": "List of repos to guess from",
   "dependencies": {
     "component/jquery": "*",
-    "jofan/foundation-block-grid": "*",
     "twitter/hogan.js": "*",
     "amasad/animate": "*"
   },

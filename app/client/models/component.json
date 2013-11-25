@@ -4,7 +4,6 @@
   "dependencies": {
     "component/model": "*",
     "segmentio/model-defaults": "*",
-    "component/clone": "*",
     "component/jquery": "*"
   },
   "development": {},

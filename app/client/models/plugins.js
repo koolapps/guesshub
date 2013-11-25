@@ -1,5 +1,4 @@
 var $ = require('jquery');
-var clone = require('clone');
 var defaults = require('model-defaults');
 
 /** Patches Model.toJSON() to clone the object and recurse into arrays. */

@@ -3,7 +3,6 @@
   "description": "Displays commit info",
   "dependencies": {
     "component/jquery": "*",
-    "jofan/foundation-grid": "*",
     "twitter/hogan.js": "*",
     "amasad/prism": "*",
     "amasad/animate": "*"
