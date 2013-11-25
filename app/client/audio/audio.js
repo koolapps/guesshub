@@ -82,6 +82,8 @@ AudioPlayer.loadSound = function (effectName) {
 };
 
 AudioPlayer.play = function (effectName, onEnd) {
+  if (!initialized) return;
+
   var buffer = buffers[effectName];
   if (buffer) {
     var source = context.createBufferSource();
