@@ -33,3 +33,8 @@ guess which repository it comes from.
 #### Fonts
 * [Ubuntu Fonts](http://font.ubuntu.com/)
 * [Font-Awesome](https://github.com/FortAwesome/Font-Awesome)
+
+
+### License
+
+GuessHub is licensed under [the MIT license](http://opensource.org/licenses/MIT).
