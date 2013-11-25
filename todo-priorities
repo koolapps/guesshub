@@ -1,9 +1,7 @@
 Can't launch without
   Decide on level names.
   Make repo public (not trivial!)
-  Set up a domain: guesshub.io
   Ensure server can handle reasonable traffic.
-  Update repo metadata with final domain.
   Ensure we can build minified JS cleanly.
   Upload the final DB dump.
 
