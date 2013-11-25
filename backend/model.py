@@ -12,6 +12,8 @@ PATCH_HEADER_REGEX = re.compile(
 class Commit(object):
   """A single patch hunk linked to a GitHub commit."""
 
+  MAX_LINES_PER_PATCH = 25
+
   def __init__(self, commit_json,
                patch_number, patch_filename,
                patch_start_old, patch_start_new,
@@ -47,12 +49,13 @@ class Commit(object):
     if 'files' in json:
       for patch_json in json['files']:
         if 'patch' in patch_json:
-          for patch_block in Commit.split_patch(patch_json['patch']):
-            yield Commit(json,
-                          patch_number,
-                          patch_json['filename'],
-                          *patch_block)
-            patch_number += 1
+          for hunk in Commit.split_patch(patch_json['patch']):
+            for patch_block in Commit.split_hunk(hunk):
+              yield Commit(json,
+                           patch_number,
+                           patch_json['filename'],
+                           *patch_block)
+              patch_number += 1
 
   @staticmethod
   def split_patch(patch):
@@ -82,6 +85,48 @@ class Commit(object):
 
     assert current_header is not None, patch
     yield assemble()
+
+  @staticmethod
+  def split_hunk(input):
+    """Given a patch hunk, split it into pieces.
+
+    The yielded results are hunks in the same format as the input.
+    """
+    old_start_line, new_start_line, optional_header, lines = input
+    if len(lines) <= Commit.MAX_LINES_PER_PATCH:
+      yield input
+    else:
+      def is_context_line(i):
+        return lines[i].startswith(' ')
+
+      last = 0
+      cur_old_start_line = old_start_line
+      cur_new_start_line = new_start_line
+      seen_a_diff = False
+      for i in range(0, len(lines)):
+        if lines[i].startswith('-'):
+          cur_old_start_line += 1
+          seen_a_diff = True
+        elif lines[i].startswith('+'):
+          cur_new_start_line += 1
+          seen_a_diff = True
+        elif lines[i].startswith(' '):
+          cur_old_start_line += 1
+          cur_new_start_line += 1
+
+        if (i != len(lines) - 1 and
+            is_context_line(i - 1) and
+            is_context_line(i) and
+            is_context_line(i + 1) and
+            seen_a_diff):
+          yield old_start_line, new_start_line, optional_header, lines[last:i]
+          seen_a_diff = False
+          last = i
+          old_start_line = cur_old_start_line
+          new_start_line = cur_new_start_line
+
+      if last != i:
+        yield old_start_line, new_start_line, optional_header, lines[last:i]
 
 
 class Repository(object):
