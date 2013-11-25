@@ -47,7 +47,6 @@ Misc
   ./models/level.js:29:  // TODO: Retry with exponential backoff on errors.
   ./models/user_level_progress.js:4:// TODO: Rename file to user-level-progress.js for consistency.
   ./crawl.py:100:          # TODO(max99x): Log and skip errors.
-  ./model.py:34:    # TODO: Remove [file_contents] throughout the codebase.
   ./boot/game.js:67:  // TODO: Properly destroy widgets?
   ./boot/game.js:228:  // TODO: Find and fix the race condition that causes this in the first place.
   Light anti-cheating protection.
