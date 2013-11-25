@@ -98,20 +98,23 @@ class Model(object):
 
     The features a list of strings. The returned value is between 0 and 1.
     """
-    log_prob = self._scaled_log_probability(features, label)
-    total_log_prob = self._scaled_log_probability(features, label)
+    total_labels = sum(self.label_counts.values())
+    log_prob = self._scaled_log_probability(features, label, total_labels)
+    total_log_prob = log_prob
     for other_label in self.label_counts:
       if other_label != label:
-        other_log_prob = self._scaled_log_probability(features, other_label)
+        other_log_prob = self._scaled_log_probability(
+            features, other_label, total_labels)
         total_log_prob = self._log_add(total_log_prob, other_log_prob)
     return math.exp(log_prob - total_log_prob)
 
   def classify(self, features):
     """Returns the most likely label for a given feature set (string list)."""
+    total_labels = sum(self.label_counts.values())
     max_prob = -1
     max_val = None
     for label in self.label_counts:
-      prob = self._scaled_log_probability(features, label)
+      prob = self._scaled_log_probability(features, label, total_labels)
       if prob > max_prob:
         max_prob = prob
         max_val = label
@@ -158,7 +161,7 @@ class Model(object):
       self.samples[feature][label] += 1
     self.label_counts[label] += 1
 
-  def _scaled_log_probability(self, features, label):
+  def _scaled_log_probability(self, features, label, total_labels):
     """Returns the likelihood of features to be labeled with the given label.
 
     The returned value is scaled by the probability of the features, so
@@ -168,15 +171,19 @@ class Model(object):
     The value is in log space because it may exceed the range of a double
     precision floating point number.
     """
-    label_count = self.label_counts.get(label, 0)
-    total_labels = sum(self.label_counts.values())
-    class_probability = (label_count / float(total_labels))
+    label_count = float(self.label_counts[label])
+    log_class_probability = math.log(label_count / total_labels)
     log_correlation_probability = 0
+    default_log_prob = math.log(1 / label_count)
     for feature in features:
-      feature_counts = self.samples.get(feature, {})
-      c = feature_counts.get(label, 1) / float(label_count)
-      log_correlation_probability += math.log(c)
-    return math.log(class_probability) + log_correlation_probability
+      log_prob = default_log_prob
+      feature_counts = self.samples.get(feature)
+      if feature_counts is not None:
+        count = feature_counts.get(label, 1)
+        if count != 1:
+          log_prob = count / label_count
+      log_correlation_probability += log_prob
+    return log_class_probability + log_correlation_probability
 
   @staticmethod
   def _log_add(log_x, log_y):
