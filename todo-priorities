@@ -17,10 +17,10 @@ Shouldn't launch without
   Add animation on guess/miss/win/loss.
 
 Nice to have
+  Google Analytics
   Limit choices by owner/language at higher difficulties?
   Add animation on level unlock.
   Add animation on power purchase.
-  Add animation on power use.
   Add animation on start of round (e.g. diff lines flying in).
   Keep track of all players' statistics.
   Show the user's statistics in the achievements UI.
@@ -39,11 +39,7 @@ Misc
   ./boot/game.js:85:  // TODO: Show loading bar.
   ./boot/game.js:131:      // TODO: Maybe move these into Power.use()?
   ./boot/index.js:24:// TODO: Remove in non-debug builds.
-  ./boot/index.js:28:// TODO: Prevent accidental navigation away from the page.
-  ./commit-display/template.html:10:      <!-- TODO: Add commit message. -->
   ./models/level.js:29:  // TODO: Retry with exponential backoff on errors.
-  ./models/user_level_progress.js:4:// TODO: Rename file to user-level-progress.js for consistency.
   ./crawl.py:100:          # TODO(max99x): Log and skip errors.
   ./boot/game.js:67:  // TODO: Properly destroy widgets?
-  ./boot/game.js:228:  // TODO: Find and fix the race condition that causes this in the first place.
   Light anti-cheating protection.
