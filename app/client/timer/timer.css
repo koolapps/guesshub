@@ -19,7 +19,9 @@
   stroke: red;
   stroke-width: 0px;
   -webkit-animation: timer-path-pulsate 1s ease-out;
+  animation: timer-path-pulsate 1s ease-out;
   -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
 }
 
 .timer text {
@@ -33,7 +35,9 @@
 .timer.panic text {
   fill: red;
   -webkit-animation: timer-text-pulsate 1s ease-out;
+  animation: timer-text-pulsate 1s ease-out;
   -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
 }
 
 @-webkit-keyframes timer-text-pulsate {
@@ -47,7 +51,29 @@
     }
 }
 
+@keyframes timer-text-pulsate {
+    0% {
+      font-size: 45px;
+      opacity: 0.4;
+    }
+    100% {
+      font-size: 55px;
+      opacity: 1.0;
+    }
+}
+
 @-webkit-keyframes timer-path-pulsate {
+    0% {
+      stroke-width: 0px;
+      opacity: 0.4;
+    }
+    100% {
+      stroke-width: 3px;
+      opacity: 1;
+    }
+}
+
+@keyframes timer-path-pulsate {
     0% {
       stroke-width: 0px;
       opacity: 0.4;
