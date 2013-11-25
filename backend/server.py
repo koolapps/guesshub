@@ -2,7 +2,8 @@ import collections
 import config
 import flask
 import json
-import bisect
+import gc
+import array
 import random
 import os
 import mimetypes
@@ -22,6 +23,7 @@ def connect_to_db():
 
 
 def initialize():
+  print 'Initializing...'
   cursor = connect_to_db()
 
   # Get all repositories.
@@ -36,15 +38,25 @@ def initialize():
   # Get a commit index.
   cursor.execute('SELECT grade, order_id '
                  'FROM commit WHERE grade >= 0 '
-                 'ORDER BY GRADE')
+                 'ORDER BY grade ASC')
   grades = []
-  ids = []
-  for commit in cursor.fetchall():
-    grades.append(commit['grade'])
-    ids.append(commit['order_id'])
+  ids = array.array('i')
+  last_grade = -1
+  for _ in xrange(0, cursor.rowcount / 1000):
+    for commit in cursor.fetchmany(1000):
+      grade = commit['grade']
+      if last_grade != grade:
+        for _ in xrange(last_grade, grade):
+          grades.append(len(ids))
+        last_grade = grade
+      ids.append(commit['order_id'])
   index_class = collections.namedtuple('Index', 'grades ids')
   commit_index = index_class(tuple(grades), tuple(ids))
 
+  # Try to GC, since iterating over the table uses up a lot of RAM.
+  gc.collect()
+
+  print 'Initialization done.'
   return repos, commit_index
 
 
@@ -64,8 +76,8 @@ def level(length, min_grade, max_grade):
   max_grade = int(max_grade)
   min_grade = int(min_grade)
 
-  start = bisect.bisect_left(COMMIT_INDEX.grades, min_grade)
-  end = bisect.bisect_right(COMMIT_INDEX.grades, max_grade)
+  start = COMMIT_INDEX.grades[min_grade]
+  end = COMMIT_INDEX.grades[max_grade]
   ids = [COMMIT_INDEX.ids[i] for i in random.sample(xrange(start, end), length)]
 
   sql = 'SELECT * FROM commit WHERE order_id IN (%s)' % ','.join(map(str, ids))
