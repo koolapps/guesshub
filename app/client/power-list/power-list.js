@@ -5,7 +5,6 @@ var Hogan = require('hogan.js');
 var template = Hogan.compile(require('./template'));
 
 
-// TODO: Resize icons to be the same size.
 module.exports = function (powers, user, mode, callback) {
   var $el = $('<div/>', { class: 'power-list' });
   function update() {

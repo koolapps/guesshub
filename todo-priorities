@@ -1,45 +1,45 @@
 Can't launch without
-  Non-implementation
-    Decide on level names.
-    ./models/user.js:4:// TODO: Revert to empty powers and 0 score once we're done debugging.
-  Non-code
-    Make repo public (not trivial!)
-    ./config.py:1:# TODO(max99x): Disable the account with the checked-in credentials.
-    Get a domain.
-    Set up a final server open to the public.
-    Ensure server can handle reasonable traffic.
-    Update readme and repo metadata with description, links, etc.
-    Ensure we can build minified JS cleanly.
-    Figure out license and add icon credits.
+  Decide on level names.
+  Make repo public (not trivial!)
+  Set up a domain: guesshub.io
+  Ensure server can handle reasonable traffic.
+  Update repo metadata with final domain.
+  Ensure we can build minified JS cleanly.
+  Upload the final DB dump.
 
 Shouldn't launch without
   Add Twitter/FB/G+ share links.
-  Add animation on guess/miss/win/loss.
+  Add finish screen animation: score numbers counting up.
+    Use a radomized sequence of coin sounds (audio already commited).
 
 Nice to have
   Google Analytics
-  Limit choices by owner/language at higher difficulties?
   Add animation on level unlock.
   Add animation on power purchase.
   Add animation on start of round (e.g. diff lines flying in).
-  Keep track of all players' statistics.
-  Show the user's statistics in the achievements UI.
-  Show a graph comparison against other players on the finish screen.
-  Add achievements.
+  ./power-list/power-list.js:16:  // TODO: Make choices respond to QWER keyboards keys.
+  ./repo-list/repo-list.js:30:  // TODO: Make choices respond to 1-4 keyboards keys.
+  Add level icons.
+  Include commits from the game repository itself.
+
+Probably Post-launch
+  Achievements
     Keep track of achievements.
     Show a lists of achievements when the user clicks on the trophy icon.
-    ./finish-screen/finish-screen.js:52:  // TODO: Achievements on the finish page.
-  ./models/campaign.js:7:// TODO: Add bonus levels.
-  ./boot/index.js:27:// TODO: Add support for switchable background music.
-  ./power-list/power-list.js:16:  // TODO: Make choices respond to QWER keyboards keys.
-  ./repo-list/repo-list.js:28:  // TODO: Make choices respond to 1-4 keyboards keys.
-  Add level icons.
+    Show achievements on the finish page.
+  User Statistics
+    Keep track of all players' statistics.
+    Show the user's statistics in the achievements UI.
+    Show a graph comparison against other players on the finish screen.
+  Bonus levels.
+  Background music.
 
 Misc
   ./boot/game.js:85:  // TODO: Show loading bar.
   ./boot/game.js:131:      // TODO: Maybe move these into Power.use()?
   ./boot/index.js:24:// TODO: Remove in non-debug builds.
-  ./models/level.js:29:  // TODO: Retry with exponential backoff on errors.
-  ./crawl.py:100:          # TODO(max99x): Log and skip errors.
+  ./models/level.js:28:  // TODO: Retry with exponential backoff on errors.
+  ./crawl.py:98:          # TODO(max99x): Log and skip errors.
   ./boot/game.js:67:  // TODO: Properly destroy widgets?
   Light anti-cheating protection.
+  Limit choices by owner/language at higher difficulties?
