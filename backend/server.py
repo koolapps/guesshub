@@ -11,6 +11,8 @@ import MySQLdb as mysql
 import MySQLdb.cursors
 
 APP = flask.Flask(__name__, static_folder='../app', static_url_path='')
+ROOT = os.path.dirname(os.path.realpath(__file__))
+
 
 def connect_to_db():
   return mysql.connect(
@@ -36,8 +38,8 @@ def initialize():
 
     # Get a commit index.
     cursor.execute('SELECT grade, order_id '
-                  'FROM commit WHERE grade >= 0 '
-                  'ORDER BY grade ASC')
+                   'FROM commit WHERE grade >= 0 '
+                   'ORDER BY grade ASC')
     grades = []
     ids = array.array('i')
     last_grade = -1
@@ -66,7 +68,7 @@ REPO_NAMES = REPOS.keys()
 
 @APP.route("/")
 def homepage():
-  return open('../app/index.html', 'r').read();
+  return open(os.path.join(ROOT, '../app/index.html'), 'r').read()
 
 
 @APP.route("/level/<length>/<min_grade>/<max_grade>")
@@ -100,7 +102,8 @@ def level(length, min_grade, max_grade):
 @APP.route('/build//FortAwesome-Font-Awesome/fonts/<path:path>')
 def custom_static(path):
   path = path.replace('../', '')  # Make sure we don't try to reach outside.
-  fs_path = os.path.join('../app/build/FortAwesome-Font-Awesome/fonts/', path)
+  fs_path = os.path.join(
+      ROOT, '../app/build/FortAwesome-Font-Awesome/fonts/', path)
   print fs_path
   if os.path.exists(fs_path):
     mime = mimetypes.guess_type(fs_path)[0]
