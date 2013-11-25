@@ -1,5 +1,4 @@
 Can't launch without
-  server.py: # TODO: Close DB connection.
   Non-implementation
     Decide on level names.
     ./models/user.js:4:// TODO: Revert to empty powers and 0 score once we're done debugging.
@@ -15,7 +14,6 @@ Can't launch without
 
 Shouldn't launch without
   Add animation on guess/miss/win/loss.
-  ./server.py:88:# TODO: Support caching or go back to Flask's native static serving.
 
 Nice to have
   Limit choices by owner/language at higher difficulties?
