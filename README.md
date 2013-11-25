@@ -3,7 +3,7 @@
 
 ![Screenshot](screenshot.png?raw=true)
 
-A simple game for coders - given a code patch taken from a GitHub commit,
+A simple coding game - given a patch taken from a GitHub commit,
 guess which repository it comes from.
 
 ### Open Source Projects Used
