@@ -94,6 +94,7 @@ Tutorial.prototype._showStartModal = function () {
       this._click_overlay.hide();
       this.game.startTime = Date.now();
       this.game.timer.start();
+      this.game.user.seen_tutorial(true);
     }.bind(this));
   }.bind(this));
 

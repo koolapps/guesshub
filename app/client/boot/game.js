@@ -68,7 +68,6 @@ Game.prototype.start = function () {
   if (this.user.seen_tutorial()) {
     this.showHub();
   } else {
-    // TODO: Set seen_tutorial = true once the user is through the tutorial.
     new Tutorial(this).start();
   }
 };
