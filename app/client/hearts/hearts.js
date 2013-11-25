@@ -18,7 +18,7 @@ module.exports = function (levelProgress) {
       while (hearts.length > mistakesLeft) {
         var heart = hearts.pop();
         animate.out(heart, 'rotate-up-right', false, function () {
-          $(heart).remove();
+          $(heart).css('visibility', 'hidden');
         });
       }
     }
