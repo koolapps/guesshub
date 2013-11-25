@@ -10,38 +10,16 @@
   border-color: white;
 }
 
-.tip-inner .icon-container {
-  text-align: right;
-}
-
-.tip-inner .next {
-  color: #0c6;
-  margin: 7px 0 3px 0;
-  font-size: 21px;
-  cursor: pointer;
-}
-
-#dialog.start-game-modal {
-  background-color: rgba(0,0,0,.75);
-  color: white;
-  border-radius: 5px;
-  font-size: 18px;
-  font-family: inherit;
-}
-
-#dialog.start-game-modal .content {
-  padding: 30px 20px 15px 20px;
-  text-align: center;
-}
-
-#dialog .next {
-  color: #0c6;
-  margin: 15px 0 3px 0;
-  font-size: 30px;
-  cursor: pointer;
+.tip.no-arrow .tip-arrow {
+  border: none !important;
 }
 
 .unshade {
   z-index: 501;
   position: relative;
+}
+
+.click-overlay {
+  z-index: 1001 !important;
+  opacity: 0 !important;
 }

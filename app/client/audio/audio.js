@@ -20,6 +20,7 @@ var FILES = {
   'power-commit': '/audio/power-commit.mp3',
   'power-half': '/audio/power-half.mp3',
   'power-repo': null,  // TODO: Add repo power sound.
+  'tutorial-tip': '/audio/click.mp3',
 };
 
 var context;

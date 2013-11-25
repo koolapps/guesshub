@@ -18,8 +18,6 @@ var Level = plugins(model('Level'))
   ;
 
 Level.prototype.fetchRounds = function (callback) {
-  callback = callback || function () {};
-
   var url = '/' + [
     'level',
     this.num_rounds(),
@@ -28,19 +26,16 @@ Level.prototype.fetchRounds = function (callback) {
   ].join('/');
   var defaultTimer = this.timer();
   // TODO: Retry with exponential backoff on errors.
-  var dfd = $.Deferred();
-  dfd.done(callback);
   var level = this;
   $.getJSON(url, function (commits_json) {
-    dfd.resolveWith(level, [commits_json.rounds.map(function(c) {
+    callback(commits_json.rounds.map(function(c) {
       return new Round({
         commit: new Commit(c.commit),
         repos: c.repos.map(Repo),
         constant_timer: defaultTimer
       });
-    })]);
+    }));
   });
-  return dfd;
 };
 
 module.exports = Level;

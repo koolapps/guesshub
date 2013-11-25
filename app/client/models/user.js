@@ -3,6 +3,7 @@ var plugins = require('./plugins');
 
 // TODO: Revert to empty powers and 0 score once we're done debugging.
 var User = plugins(model('User'))
+  .attr('seen_tutorial', { default: false })
   .attr('score', { default: 50000 })
   .attr('powers', { default: {time: 5, repo: 5, commit: 5, half: 1} })
   .attr('completed_level_ids', { default: [1,2,3,8,9] })

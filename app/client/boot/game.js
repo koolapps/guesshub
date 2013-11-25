@@ -11,19 +11,16 @@ var powerList = require('power-list');
 var levelStats = require('level-stats');
 var levelHub = require('level-hub');
 var hearts = require('hearts');
-var tutorial = require('tutorial');
 
 var CommitDisplay = require('commit-display');
 var Timer = require('timer');
 var RepoList = require('repo-list');
 var FinishScreen = require('finish-screen');
+var Tutorial = require('tutorial');
 
 module.exports = Game;
 
 function Game (options) {
-  // Settings.
-  this.showTutorial = options.showTutorial;
-
   // Game state.
   this.user = options.user;
   this.campaign = options.campaign;
@@ -68,11 +65,11 @@ Game.prototype.start = function () {
   var Commit = models.Commit;
   var Repo = models.Repo;
   var Round = models.Round;
-  // TODO: Start from a tutorial skipping the hub for new users.
-  if (this.showTutorial) {
-    tutorial(this);
-  } else {
+  if (this.user.seen_tutorial()) {
     this.showHub();
+  } else {
+    // TODO: Set seen_tutorial = true once the user is through the tutorial.
+    new Tutorial(this).start();
   }
 };
 
@@ -107,13 +104,14 @@ Game.prototype.showHub = function () {
   this._renderHub();
 };
 
-Game.prototype.showLevel = function (level) {
+Game.prototype.showLevel = function (level, callback) {
   this.clear();
 
   // TODO: Show loading bar.
   level.fetchRounds(function (rounds) {
     this._initLevel(level, rounds);
     this.startRound();
+    if (callback) callback();
   }.bind(this));
 };
 
@@ -149,7 +147,7 @@ Game.prototype.startRound = function () {
 /**** Event Handling ****/
 
 Game.prototype._onGuess = function (repo) {
-  this.onFinishRound(repo.name() === this.round.commit().repository());
+  this._finishRound(repo.name() === this.round.commit().repository());
 };
 
 Game.prototype._onPower = function (mode, power) {
@@ -191,22 +189,6 @@ Game.prototype._onPower = function (mode, power) {
       break;
     default:
       throw Error('Invalid mode: ' + mode);
-  }
-};
-
-Game.prototype.interceptOnFinshRound = function (fn) {
-  this._finishRoundIntercept = fn;
-};
-
-Game.prototype.disableFinishRoundInterception = function () {
-  this._finishRoundIntercept = false;
-};
-
-Game.prototype.onFinishRound = function () {
-  if (typeof this._finishRoundIntercept === 'function') {
-    this._finishRoundIntercept.apply(this, arguments);
-  } else {
-    this._finishRound.apply(this, arguments);
   }
 };
 
@@ -272,7 +254,7 @@ Game.prototype._renderTimer = function (seconds) {
     interval: seconds,
     outerRadius: this.$timer.outerHeight() / 2,
     progressWidth: 10,
-    onComplete: this.onFinishRound.bind(this, false)
+    onComplete: this._finishRound.bind(this, false)
   });
   this.$timer.empty().append(this.timer.$el);
   this.$timer.show();

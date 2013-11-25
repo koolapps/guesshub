@@ -6,7 +6,6 @@
     "component/overlay": "*",
     "amasad/animate": "*",
     "component/tip": "*",
-    "component/dialog": "*",
     "component/aurora-tip": "*"
   },
   "development": {},
