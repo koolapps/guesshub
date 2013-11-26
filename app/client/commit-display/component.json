@@ -5,7 +5,7 @@
     "component/jquery": "*",
     "twitter/hogan.js": "*",
     "amasad/prism": "*",
-    "amasad/animate": "*"
+    "ianstormtaylor/animate": "*"
   },
   "development": {},
   "main": "commit-display.js",

@@ -4,7 +4,7 @@
   "dependencies": {
     "component/jquery": "*",
     "component/overlay": "*",
-    "amasad/animate": "*",
+    "ianstormtaylor/animate": "*",
     "component/tip": "*",
     "component/aurora-tip": "*"
   },
