@@ -9,9 +9,12 @@ import os
 import mimetypes
 import MySQLdb as mysql
 import MySQLdb.cursors
+import pickle
+
 
 APP = flask.Flask(__name__, static_folder='../app', static_url_path='')
 ROOT = os.path.dirname(os.path.realpath(__file__))
+INDEX_CACHE_FILENAME = 'commit_index.pickle'
 
 
 def connect_to_db():
@@ -37,22 +40,35 @@ def initialize():
       repos[row['name']] = repo_class(**row)
 
     # Get a commit index.
-    cursor.execute('SELECT grade, order_id '
-                   'FROM commit WHERE grade >= 0 '
-                   'ORDER BY grade ASC')
-    grades = []
-    ids = array.array('i')
-    last_grade = -1
-    for _ in xrange(0, cursor.rowcount / 1000):
-      for commit in cursor.fetchmany(1000):
-        grade = commit['grade']
-        if last_grade != grade:
-          for _ in xrange(last_grade, grade):
-            grades.append(len(ids))
-          last_grade = grade
-        ids.append(commit['order_id'])
     index_class = collections.namedtuple('Index', 'grades ids')
-    commit_index = index_class(tuple(grades), tuple(ids))
+    cache_path = os.path.join(ROOT, INDEX_CACHE_FILENAME)
+    if os.path.exists(cache_path):
+      print '  ...from cache.'
+      cache_file = open(cache_path, 'r')
+      commit_index_raw = pickle.load(cache_file)
+      commit_index = index_class(*commit_index_raw)
+      cache_file.close()
+    else:
+      print '  ...from DB.'
+      cursor.execute('SELECT grade, order_id '
+                    'FROM commit WHERE grade >= 0 '
+                    'ORDER BY grade ASC')
+      grades = []
+      ids = array.array('i')
+      last_grade = -1
+      for _ in xrange(0, cursor.rowcount / 1000):
+        for commit in cursor.fetchmany(1000):
+          grade = commit['grade']
+          if last_grade != grade:
+            for _ in xrange(last_grade, grade):
+              grades.append(len(ids))
+            last_grade = grade
+          ids.append(commit['order_id'])
+      commit_index = index_class(tuple(grades), tuple(ids))
+
+      cache_file = open(cache_path, 'w')
+      pickle.dump([tuple(grades), tuple(ids)], cache_file)
+      cache_file.close()
 
   # Try to GC, since iterating over the table uses up a lot of RAM.
   gc.collect()

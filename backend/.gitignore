@@ -1,2 +1,3 @@
 *.pyc
 model.json
+commit_index.pickle
