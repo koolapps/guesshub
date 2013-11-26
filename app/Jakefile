@@ -6,7 +6,7 @@ task('install', { async: true }, function () {
   });
 });
 
-var templatesGlobStr = 'client/*/*.html';
+var templatesGlobStr = 'lib/*/*.html';
 
 task('Convert templates');
 task('convert', { async: true }, function () {
@@ -103,7 +103,7 @@ task('minify', { async: true }, function () {
 // - if (inclPat.test(p) && !exclPat.test(p)) {
 // + if (p && inclPat.test(p) && !exclPat.test(p)) {
 watchTask(['build'], function () {
-  this.watchFiles.include('client/*/template.html');
+  this.watchFiles.include('lib/*/template.html');
 
   this.watchFiles.exclude(/^build\b/);
   this.watchFiles.exclude(/^components\b/);

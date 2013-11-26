@@ -1,6 +1,6 @@
 build
 components
 node_modules
-client/*/*template.js
+lib/*/*template.js
 .DS_STORE
 dist
