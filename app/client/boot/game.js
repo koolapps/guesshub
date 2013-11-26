@@ -171,7 +171,7 @@ Game.prototype._onPower = function (mode, power) {
           this.timer.rewind(0.25);
           break;
         case 'commit':
-          audio.play('power-time');
+          audio.play('power-commit');
           this.commitDisplay.showMetadata();
           break;
         case 'repo':
@@ -179,7 +179,7 @@ Game.prototype._onPower = function (mode, power) {
           this.repoList.showDescription();
           break;
         case 'half':
-          audio.play('power-time');
+          audio.play('power-half');
           this.repoList.hideRepos(this.round.commit().repository());
           break;
         default:
