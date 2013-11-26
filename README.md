@@ -19,16 +19,16 @@ guess which repository it comes from.
 * [twitter/hogan.js](http://twitter.github.io/hogan.js/)
 * [component](http://component.io/)
 * [component/model](http://component.io/component/model)
-* [component/model-defaults](http://component.io/component/model-defaults)
+* [segmentio/model-defaults](http://component.io/segmentio/model-defaults)
 * [component/humanize-number](http://component.io/component/humanize-number)
 * [component/overlay](http://component.io/component/overlay)
 * [component/tip](http://component.io/component/tip)
-* [component/aurora-tip](http://component.io/component/aurora-tip)
+* [ianstormtaylor/animate](http://github.com/ianstormtaylor/animate)
+* [Prism](http://prismjs.com/)
 
 #### CSS
 * [enricomarino/css-reset](https://github.com/enricomarino/css-reset)
 * [animate.css](https://github.com/ianstormtaylor/animate)
-* [Prism](http://prismjs.com/)
 
 #### Fonts
 * [Ubuntu Fonts](http://font.ubuntu.com/)
