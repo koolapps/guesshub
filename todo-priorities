@@ -3,7 +3,6 @@ Can't launch without
   Make repo public (not trivial!)
   Ensure server can handle reasonable traffic.
   Ensure we can build minified JS cleanly.
-  Upload the final DB dump.
 
 Shouldn't launch without
   Add Twitter/FB/G+ share links.
