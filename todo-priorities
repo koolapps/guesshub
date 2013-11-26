@@ -2,7 +2,6 @@ Can't launch without
   Decide on level names.
   Make repo public (not trivial!)
   Ensure server can handle reasonable traffic.
-  Ensure we can build minified JS cleanly.
 
 Shouldn't launch without
   Add Twitter/FB/G+ share links.
