@@ -17,6 +17,12 @@ Install [watch](https://github.com/visionmedia/watch) for a nicer workflow and r
     watch make
 
 
+To build for production
+
+    npm install -g jake
+    npm install
+    jake minify
+
 ## How does this work?
 
 Uses [component](https://github.com/component) to manage third party deps, modules, and building.

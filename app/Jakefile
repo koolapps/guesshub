@@ -43,6 +43,53 @@ task('clean', { async: true }, function () {
   })
 });
 
+task('minify', { async: true }, function () {
+  var Builder = require('component-builder');
+  var minify  = require('component-minify');
+  var fs = require('fs');
+  var path = require('path');
+  var mkdir = require('mkdirp');
+  var rimraf = require('rimraf');
+
+  var DIST = 'dist';
+  rimraf.sync(DIST);
+
+  var builddir = path.join(DIST, 'build');
+
+  var builder = new Builder(__dirname).use(minify);
+  builder.copyAssetsTo(builddir);
+  builder.build(function (err, res) {
+    if (err) throw err;
+
+    mkdir(builddir);
+
+    var js = res.require + res.js;
+    fs.writeFileSync(path.join(builddir, 'build.js'), js);
+    fs.writeFileSync(path.join(builddir, 'build.css'), res.css);
+    fs.writeFileSync(
+      path.join(DIST, 'index.html'),
+      fs.readFileSync('index.html')
+    );
+
+    function copyAssets(dirName) {
+      var dir = path.join(DIST, dirName);
+      mkdir(dir);
+
+      fs.readdirSync(dirName).forEach(function (f) {
+        fs.writeFileSync(
+          path.join(dir, f),
+          fs.readFileSync(path.join(dirName, f))
+        );
+      });
+    }
+    copyAssets('img');
+    copyAssets('audio');
+    copyAssets('fonts');
+
+    complete();
+  });
+});
+
 // For this to work on Windows, patch jake as follows:
 //
 // jake/lib/watch_task.js:23

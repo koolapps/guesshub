@@ -10,9 +10,12 @@ import mimetypes
 import MySQLdb as mysql
 import MySQLdb.cursors
 import pickle
+import platform
 
+APP = flask.Flask(__name__,
+  static_folder='../app' if os.environ.get('ENV') == 'DEV' else '../app/dist',
+  static_url_path='')
 
-APP = flask.Flask(__name__, static_folder='../app', static_url_path='')
 ROOT = os.path.dirname(os.path.realpath(__file__))
 INDEX_CACHE_FILENAME = 'commit_index.pickle'
 
@@ -113,20 +116,21 @@ def level(length, min_grade, max_grade):
 
   return flask.Response(json.dumps({'rounds': levels}), mimetype='text/json')
 
-# FontAwesome files cause a weird bug on Windows. Hack around it.
-@APP.route('/build/FortAwesome-Font-Awesome/fonts/<path:path>')
-@APP.route('/build//FortAwesome-Font-Awesome/fonts/<path:path>')
-def custom_static(path):
-  path = path.replace('../', '')  # Make sure we don't try to reach outside.
-  fs_path = os.path.join(
-      ROOT, '../app/build/FortAwesome-Font-Awesome/fonts/', path)
-  print fs_path
-  if os.path.exists(fs_path):
-    mime = mimetypes.guess_type(fs_path)[0]
-    return flask.Response(open(fs_path, 'rb'), mimetype=mime)
-  else:
-    return 'Not Found', 404
+if platform.system() == 'Windows': #poop
+  # FontAwesome files cause a weird bug on Windows. Hack around it.
+  @APP.route('/build/FortAwesome-Font-Awesome/fonts/<path:path>')
+  @APP.route('/build//FortAwesome-Font-Awesome/fonts/<path:path>')
+  def custom_static(path):
+    path = path.replace('../', '')  # Make sure we don't try to reach outside.
+    fs_path = os.path.join(
+        ROOT, '../app/build/FortAwesome-Font-Awesome/fonts/', path)
+    print fs_path
+    if os.path.exists(fs_path):
+      mime = mimetypes.guess_type(fs_path)[0]
+      return flask.Response(open(fs_path, 'rb'), mimetype=mime)
+    else:
+      return 'Not Found', 404
 
 
 if __name__ == "__main__":
-  APP.run(debug=True)
+  APP.run(debug=True if os.environ.get('ENV') == 'DEV' else False)
