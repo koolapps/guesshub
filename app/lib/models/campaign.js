@@ -76,8 +76,8 @@ Campaign.MAIN = new Campaign({
     new Level({
       id: 1,
       name: '0. git ready',
-      min_grade: 0,
-      max_grade: 10,
+      min_grade: 10,
+      max_grade: 30,
       num_mistakes_allowed: 5,
       timer: 60,
       requires: []
@@ -85,8 +85,8 @@ Campaign.MAIN = new Campaign({
     new Level({
       id: 2,
       name: '1. git set',
-      min_grade: 0,
-      max_grade: 20,
+      min_grade: 15,
+      max_grade: 35,
       num_mistakes_allowed: 4,
       timer: 50,
       requires: [1]
@@ -94,8 +94,8 @@ Campaign.MAIN = new Campaign({
     new Level({
       id: 3,
       name: '2. git going',
-      min_grade: 0,
-      max_grade: 30,
+      min_grade: 30,
+      max_grade: 45,
       num_mistakes_allowed: 3,
       timer: 40,
       requires: [2]
@@ -105,8 +105,8 @@ Campaign.MAIN = new Campaign({
     new Level({
       id: 4,
       name: '3f. the fast lane',
-      min_grade: 5,
-      max_grade: 20,
+      min_grade: 10,
+      max_grade: 45,
       num_mistakes_allowed: 2,
       timer: 20,
       requires: [3]
@@ -114,8 +114,8 @@ Campaign.MAIN = new Campaign({
     new Level({
       id: 5,
       name: '4f. pull a fast one',
-      min_grade: 5,
-      max_grade: 20,
+      min_grade: 10,
+      max_grade: 45,
       num_mistakes_allowed: 2,
       timer: 15,
       requires: [4]
@@ -123,8 +123,8 @@ Campaign.MAIN = new Campaign({
     new Level({
       id: 6,
       name: '5f. checking in',
-      min_grade: 5,
-      max_grade: 20,
+      min_grade: 10,
+      max_grade: 45,
       num_mistakes_allowed: 1,
       timer: 10,
       requires: [5]
@@ -132,8 +132,8 @@ Campaign.MAIN = new Campaign({
     new Level({
       id: 7,
       name: '6f. head to head',
-      min_grade: 5,
-      max_grade: 20,
+      min_grade: 10,
+      max_grade: 45,
       num_mistakes_allowed: 1,
       timer: 5,
       requires: [6]
@@ -143,8 +143,8 @@ Campaign.MAIN = new Campaign({
     new Level({
       id: 8,
       name: '3h. git-to-work',
-      min_grade: 35,
-      max_grade: 50,
+      min_grade: 50,
+      max_grade: 70,
       num_mistakes_allowed: 2,
       timer: 30,
       requires: [3]
@@ -152,8 +152,8 @@ Campaign.MAIN = new Campaign({
     new Level({
       id: 9,
       name: '4h. up a tree',
-      min_grade: 50,
-      max_grade: 65,
+      min_grade: 60,
+      max_grade: 80,
       num_mistakes_allowed: 2,
       timer: 30,
       requires: [8]
@@ -161,8 +161,8 @@ Campaign.MAIN = new Campaign({
     new Level({
       id: 10,
       name: '5h. reset hard',
-      min_grade: 65,
-      max_grade: 80,
+      min_grade: 70,
+      max_grade: 90,
       num_mistakes_allowed: 1,
       timer: 30,
       requires: [9]
@@ -171,7 +171,7 @@ Campaign.MAIN = new Campaign({
       id: 11,
       name: '6h. the tough git going',
       min_grade: 80,
-      max_grade: 95,
+      max_grade: 100,
       num_mistakes_allowed: 1,
       timer: 30,
       requires: [10]
@@ -180,8 +180,8 @@ Campaign.MAIN = new Campaign({
   final_level: new Level({
     id: 12,
     name: 'push through',
-    num_rounds: 20,
-    min_grade: 0,
+    num_rounds: 25,
+    min_grade: 15,
     max_grade: 100,
     num_mistakes_allowed: 1,
     requires: [7, 10]
