@@ -1,10 +1,10 @@
 ## GuessHub
 ##### GGO13 Entry by @max99x & @amasad
 
-![Screenshot](screenshot.png?raw=true)
-
 A simple coding game - given a patch taken from a GitHub commit,
 guess which repository it comes from.
+
+![Screenshot](screenshot.png?raw=true)
 
 ### Open Source Projects Used
 
@@ -33,7 +33,6 @@ guess which repository it comes from.
 #### Fonts
 * [Ubuntu Fonts](http://font.ubuntu.com/)
 * [Font-Awesome](https://github.com/FortAwesome/Font-Awesome)
-
 
 ### License
 
