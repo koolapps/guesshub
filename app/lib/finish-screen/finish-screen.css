@@ -68,10 +68,6 @@
   background: #7ECC1B;
 }
 
-#finish-screen .commit * {
-  vertical-align: middle;
-}
-
 #finish-screen .commit .icon {
   width: 30px;
   border-radius: 16px;
