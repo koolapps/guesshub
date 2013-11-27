@@ -4,9 +4,6 @@ html {
 
 body {
   min-height: 100%;
-}
-
-body {
   background: url(/img/type.png);
   color: #fff;
   padding-top: 25px;
