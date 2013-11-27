@@ -4,7 +4,6 @@ Can't launch without
   Ensure server can handle reasonable traffic.
 
 Shouldn't launch without
-  Add Twitter/FB/G+ share links.
   Add finish screen animation: score numbers counting up.
     Use a radomized sequence of coin sounds (audio already commited).
 

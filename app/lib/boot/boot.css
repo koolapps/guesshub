@@ -102,3 +102,22 @@ body {
 .header-right {
   left: 600px;
 }
+
+#share-buttons {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+
+#share-buttons a {
+  display: inline-block;
+  font-size: 40px;
+  width: 55px;
+  height: 55px;
+  color: #777;
+  cursor: pointer;
+}
+
+#share-buttons a:hover {
+  color: #999;
+}
