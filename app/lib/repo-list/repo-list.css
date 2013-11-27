@@ -8,7 +8,7 @@
 .repo-list .repo-item {
   display: inline-block;
   width: 190px;
-  margin-right: 41px;
+  margin-right: 36px;
 }
 
 .repo-list .repo-item:nth-child(4) {
