@@ -1,6 +1,7 @@
 var $ = require('jquery');
 var audio = require('audio');
 var humanize = require('humanize-number');
+var animate = require('animate');
 var Hogan = require('hogan.js');
 var template = Hogan.compile(require('./template'));
 
@@ -15,7 +16,12 @@ module.exports = function (powers, user, mode, callback) {
 
   // TODO: Make choices respond to QWER keyboards keys.
   $el.on('click', '.power.available', function () {
-    (callback || $.noop)(powers[$(this).attr('data-power-type')]);
+    var type = $(this).attr('data-power-type');
+    (callback || $.noop)(powers[type]);
+    // Hack: animate after next render.
+    setTimeout(function() {
+      animate($('[data-power-type=' + type + ']', $el)[0], 'tada');
+    }, 1);
   })
   .on('mouseenter', '.power.available', function () {
     audio.play('click');

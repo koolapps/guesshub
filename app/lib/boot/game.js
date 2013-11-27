@@ -159,6 +159,7 @@ Game.prototype._onGuess = function (repo) {
 Game.prototype._onPower = function (mode, power) {
   switch (mode) {
     case 'buy':
+      audio.play('buy-power');
       this.user.addPower(power);
       this.user.subtractScore(power.price());
       this._renderScoreCard(this.user.score());

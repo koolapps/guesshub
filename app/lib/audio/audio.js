@@ -24,6 +24,7 @@ var FILES = {
   'power-commit': '/audio/power-commit',
   'power-half': '/audio/power-half',
   'power-repo': '/audio/power-repo',
+  'buy-power': '/audio/guess-2',
   'tutorial-tip': '/audio/click',
 };
 

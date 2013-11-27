@@ -4,7 +4,8 @@
   "dependencies": {
     "component/jquery": "*",
     "twitter/hogan.js": "*",
-    "component/humanize-number": "*"
+    "component/humanize-number": "*",
+    "ianstormtaylor/animate": "*"
   },
   "development": {},
   "main": "power-list.js",

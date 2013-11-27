@@ -6,7 +6,6 @@ Can't launch without
 Nice to have
   Google Analytics
   Add animation on level unlock.
-  Add animation on power purchase.
   Add animation on start of round (e.g. diff lines flying in).
   ./power-list/power-list.js:16:  // TODO: Make choices respond to QWER keyboards keys.
   ./repo-list/repo-list.js:30:  // TODO: Make choices respond to 1-4 keyboards keys.
