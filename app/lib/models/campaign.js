@@ -88,7 +88,7 @@ Campaign.MAIN = new Campaign({
       min_grade: 15,
       max_grade: 35,
       num_mistakes_allowed: 4,
-      timer: 50,
+      timer: 45,
       requires: [1]
     }),
     new Level({
@@ -97,7 +97,7 @@ Campaign.MAIN = new Campaign({
       min_grade: 30,
       max_grade: 45,
       num_mistakes_allowed: 3,
-      timer: 40,
+      timer: 30,
       requires: [2]
     })
   ],
