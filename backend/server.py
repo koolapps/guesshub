@@ -9,7 +9,7 @@ import os
 import mimetypes
 import MySQLdb as mysql
 import MySQLdb.cursors
-import pickle
+import cPickle as pickle
 import platform
 
 APP = flask.Flask(__name__,
