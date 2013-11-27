@@ -24,6 +24,7 @@ guess which repository it comes from.
 * [component/overlay](http://component.io/component/overlay)
 * [component/tip](http://component.io/component/tip)
 * [ianstormtaylor/animate](http://github.com/ianstormtaylor/animate)
+* [howler.js](http://goldfirestudios.com/blog/104/howler.js-Modern-Web-Audio-Javascript-Library)
 * [Prism](http://prismjs.com/)
 
 #### CSS
