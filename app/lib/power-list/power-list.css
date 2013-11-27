@@ -48,9 +48,9 @@
 
 .power-list .power .count {
   height: 16px;
-  position: relative;
-  left: 28px;
-  top: -19px;
+  position: absolute;
+  left: 97px;
+  top: 32px;
 }
 
 .power-list .power .icon {
