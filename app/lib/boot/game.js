@@ -219,7 +219,7 @@ Game.prototype._finishRound = function (won) {
     // Assuming grade is between 0 and 50 we rescale to 50 - 100.
     var grade = 50 + this.round.commit().grade();
     var pointsEarned =
-        Math.round(Math.pow(grade, 1.5) / Math.sqrt(1 + secondsTaken) / 10);
+        Math.round(Math.pow(grade, 1.25) / (Math.sqrt(1 + secondsTaken) * 2));
     progress.recordRoundGuessed(pointsEarned);
     this._renderScoreCard(progress.commmitScore());
     this._triggerAnimation(this.$scoreCard);
