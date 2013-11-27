@@ -27,17 +27,8 @@ var FILES = {
   'tutorial-tip': '/audio/click',
 };
 
-var context;
-var buffers;
-var volumeController;
 var initialized = false;
 var effects = {};
-
-// Chrome is fine with mp3 but FF wants ogg and IE possibly wants .wav.
-// Use http://media.io/ for converting.
-function generateUrls(url) {
-  return [url + '.mp3', url + '.ogg', url + '.wav'];
-}
 
 AudioPlayer.initialize = function ($toggle) {
   if (!initialized) {
@@ -45,7 +36,7 @@ AudioPlayer.initialize = function ($toggle) {
     $(function () {
       for (var effectName in FILES) {
         effects[effectName] = new Howl({
-          urls: generateUrls(FILES[effectName])
+          urls: AudioPlayer.generateUrls(FILES[effectName])
         });
       }
 
@@ -76,6 +67,12 @@ AudioPlayer.initialize = function ($toggle) {
     });
   }
 };
+
+// Chrome and IE are fine with MP3 but FF wants OGG.
+// Use http://media.io/ for converting.
+AudioPlayer.generateUrls = function (url) {
+  return [url + '.mp3', url + '.ogg', url + '.wav'];
+}
 
 AudioPlayer.play = function (effectName, onEnd) {
   if (!initialized) return;
