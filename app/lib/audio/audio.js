@@ -79,7 +79,16 @@ AudioPlayer.play = function (effectName, onEnd) {
 
   var effect = effects[effectName];
   if (effect) {
+    if (onEnd) {
+      var listener = function () {
+        onEnd();
+        effect.off('end', listener);
+      };
+      effect.on('end', listener);
+    }
     effect.play();
+  } else {
+    if (onEnd) onEnd();
   }
 };
 
