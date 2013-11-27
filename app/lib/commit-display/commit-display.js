@@ -88,6 +88,17 @@ CommitDisplay.prototype.render = function() {
   });
 
   this.$el = $(template.render(model));
+
+  var lines = $('.line', this.$el);
+  setTimeout(function() {
+    lines.each(function() {
+      if ($(this).hasClass('del')) {
+        animate.in(this, 'bounce-left');
+      } else if ($(this).hasClass('ins')) {
+        animate.in(this, 'bounce-right');
+      }
+    });
+  }, 1);
 };
 
 CommitDisplay.prototype._getCommitLanguage = function() {
