@@ -116,7 +116,7 @@ def level(length, min_grade, max_grade):
 
   return flask.Response(json.dumps({'rounds': levels}), mimetype='text/json')
 
-if platform.system() == 'Windows': #poop
+if platform.system() == 'Windows':
   # FontAwesome files cause a weird bug on Windows. Hack around it.
   @APP.route('/build/FortAwesome-Font-Awesome/fonts/<path:path>')
   @APP.route('/build//FortAwesome-Font-Awesome/fonts/<path:path>')
