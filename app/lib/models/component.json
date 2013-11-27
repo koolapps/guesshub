@@ -18,6 +18,7 @@
     "user.js",
     "campaign.js",
     "round.js",
-    "power.js"
+    "power.js",
+    "shuffle.js"
   ]
 }

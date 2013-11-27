@@ -4,6 +4,7 @@ var Repo = require('./repo');
 var Commit = require('./commit');
 var Round = require('./round');
 var plugins = require('./plugins');
+var shuffle = require('./shuffle');
 
 // Immutable level descriptions, declared as part of a Campaign.
 var Level = plugins(model('Level'))
@@ -28,12 +29,16 @@ Level.prototype.fetchRounds = function (callback) {
   // TODO: Retry with exponential backoff on errors.
   var level = this;
   $.getJSON(url, function (commits_json) {
-    callback(commits_json.rounds.map(function(c) {
+    var rounds = commits_json.rounds.map(function(c) {
       return new Round({
         commit: new Commit(c.commit),
         repos: c.repos.map(Repo),
         constant_timer: defaultTimer
       });
+    });
+
+    callback(shuffle(rounds, function (r) {
+      return r.commit().repository();
     }));
   });
 };
