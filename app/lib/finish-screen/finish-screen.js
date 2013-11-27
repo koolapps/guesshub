@@ -14,13 +14,21 @@ function FinishScreen (user, $finishHeader, $finishScreen, onHub, onRetry) {
   this.$finishScreen = $finishScreen;
   this.onHub = onHub;
   this.onRetry = onRetry;
+  this.active = false;
 
   // Listen to clicks.
-  this.$finishScreen.on('click', '.button.to-hub', this.onHub);
-  this.$finishScreen.on('click', '.button.retry', this.onRetry);
+  this.$finishScreen.on('click', '.button.to-hub', function() {
+    this.onHub();
+    this.active = false;
+  }.bind(this));
+  this.$finishScreen.on('click', '.button.retry', function() {
+    this.onRetry();
+    this.active = false;
+  }.bind(this));
 }
 
 FinishScreen.prototype.render = function (level, commits, levelProgress) {
+  this.active = true;
   var outcome = this.outcome(level.name() == 'survival', levelProgress);
   this.renderHead(outcome);
   this.renderDetails(
@@ -166,14 +174,14 @@ FinishScreen.prototype.showScores = function (animate) {
 
   var done = false;
   var jingle = function(last) {
-    if (done || !animate) return;
+    if (done || !animate || !this.active) return;
     var rand = Math.random() < 0.5;
     var num = last == 1 ? (rand ? 2 : 3) :
               last == 2 ? (rand ? 1 : 3) :
               last == 3 ? (rand ? 2 : 1) :
               1;
     audio.play('coin-' + num, jingle.bind(null, num));
-  };
+  }.bind(this);
   jingle();
   startCounting($scores.last(), $(), function() { done = true; });  // Total
 };
