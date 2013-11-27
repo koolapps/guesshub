@@ -1,0 +1,11 @@
+{
+  "name": "track",
+  "description": "Event tracking using Google Analytics.",
+  "dependencies": {
+    "component/jquery": "*",
+    "amasad/howler.js": "*"
+  },
+  "development": {},
+  "main": "track.js",
+  "scripts": ["track.js"]
+}
