@@ -1,8 +1,8 @@
 ## GuessHub
 ##### GGO13 Entry by @max99x & @amasad
 
-A simple coding game - given a patch taken from a GitHub commit,
-guess which repository it comes from.
+Given a patch (change) taken from a GitHub commit, guess which repository
+it comes from.
 
 ![Screenshot](screenshot.png?raw=true)
 
