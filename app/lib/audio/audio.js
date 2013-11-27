@@ -1,118 +1,107 @@
 var $ = require('jquery');
+var howlerjs = require('howler.js');
+
+var Howl = howlerjs.Howl;
+var Howler = howlerjs.Howler;
 
 var AudioPlayer = {};
 
 var FILES = {
-  'click': '/audio/click.mp3',
-  'timer-tick': '/audio/timer-tick.mp3',
-  'timer-beep': '/audio/timer-beep-2.mp3',
-  'coin-1': '/audio/coin-1.mp3',
-  'coin-2': '/audio/coin-2.mp3',
-  'coin-3': '/audio/coin-3.mp3',
-  'miss': '/audio/miss.mp3',
-  'guess': '/audio/guess.mp3',
-  'achievement': '/audio/achievement.mp3',
-  'defeat': '/audio/defeat.mp3',
-  'end': '/audio/end.mp3',
-  'victory': '/audio/victory.mp3',
-  'flawless-victory': '/audio/flawless-victory.mp3',
-  'power-time': '/audio/power-time.mp3',
-  'power-commit': '/audio/power-commit.mp3',
-  'power-half': '/audio/power-half.mp3',
-  'power-repo': '/audio/power-repo.mp3',
-  'tutorial-tip': '/audio/click.mp3',
+  'click': '/audio/click',
+  'timer-tick': '/audio/timer-tick',
+  'timer-beep': '/audio/timer-beep-2',
+  'coin-1': '/audio/coin-1',
+  'coin-2': '/audio/coin-2',
+  'coin-3': '/audio/coin-3',
+  'miss': '/audio/miss',
+  'guess': '/audio/guess',
+  'achievement': '/audio/achievement',
+  'defeat': '/audio/defeat',
+  'end': '/audio/end',
+  'victory': '/audio/victory',
+  'flawless-victory': '/audio/flawless-victory',
+  'power-time': '/audio/power-time',
+  'power-commit': '/audio/power-commit',
+  'power-half': '/audio/power-half',
+  'power-repo': '/audio/power-repo',
+  'tutorial-tip': '/audio/click',
 };
 
 var context;
 var buffers;
 var volumeController;
 var initialized = false;
+var effects = {};
+
+// Chrome is fine with mp3 but FF wants ogg and IE possibly wants .wav.
+// Use http://media.io/ for converting.
+function generateUrls(url) {
+  return [url + '.mp3', url + '.ogg', url + '.wav'];
+}
 
 AudioPlayer.initialize = function ($toggle) {
   if (!initialized) {
-    context = new (window.AudioContext || window.webkitAudioContext)();
-    buffers = {};
-    for (var effectName in FILES) {
-      AudioPlayer.loadSound(effectName);
-    }
-    volumeController = context.createGainNode();
-    volumeController.connect(context.destination);
-
-    // Audio toggle.
-    $toggle.on('click', function() {
-      if (AudioPlayer.isEnabled()) {
-        AudioPlayer.disable();
-        $(this).attr({
-          class: 'fa fa-volume-off',
-          title: 'Unmute'
+    // Note: this needs to be ran on DomReady.
+    $(function () {
+      for (var effectName in FILES) {
+        effects[effectName] = new Howl({
+          urls: generateUrls(FILES[effectName])
         });
-        localStorage.setItem('audio', 'off');
-      } else {
-        AudioPlayer.enable();
-        $(this).attr({
-          class: 'fa fa-volume-up',
-          title: 'Mute'
-        });
-        localStorage.setItem('audio', 'on');
       }
+
+      // Audio toggle.
+      $toggle.on('click', function() {
+        if (AudioPlayer.isEnabled()) {
+          AudioPlayer.disable();
+          $(this).attr({
+            class: 'fa fa-volume-off',
+            title: 'Unmute'
+          });
+          localStorage.setItem('audio', 'off');
+        } else {
+          AudioPlayer.enable();
+          $(this).attr({
+            class: 'fa fa-volume-up',
+            title: 'Mute'
+          });
+          localStorage.setItem('audio', 'on');
+        }
+      });
+
+      if (localStorage.getItem('audio') === 'off') {
+        $toggle.click();
+      }
+
+      initialized = true;
     });
-
-    if (localStorage.getItem('audio') === 'off') {
-      $toggle.click();
-    }
-
-    initialized = true;
-  }
-};
-
-AudioPlayer.loadSound = function (effectName) {
-  var filename = FILES[effectName];
-  if (filename) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', filename, true);
-    xhr.responseType = 'arraybuffer';
-    xhr.onload = function(e) {
-      if (xhr.status == 200) {
-        context.decodeAudioData(xhr.response, function(buffer) {
-          buffers[effectName] = buffer;
-        });
-      }
-    };
-    xhr.send();
   }
 };
 
 AudioPlayer.play = function (effectName, onEnd) {
   if (!initialized) return;
 
-  var buffer = buffers[effectName];
-  if (buffer) {
-    var source = context.createBufferSource();
-    source.buffer = buffer;
-    source.connect(volumeController);
-    if (onEnd) source.onended = onEnd;
-    source.start(0);
+  var effect = effects[effectName];
+  if (effect) {
+    effect.play();
   }
 };
 
 AudioPlayer.stopAllSounds = function () {
-  volumeController.disconnect();
-  var oldGain = volumeController.gain.value;
-  volumeController = context.createGainNode();
-  volumeController.gain.value = oldGain;
-  volumeController.connect(context.destination);
+  for (var effectName in effects) {
+    effects[effectName].stop();
+  }
 };
 
 AudioPlayer.disable = function () {
-  volumeController.gain.value = 0;
+  Howler.mute();
 };
 
 AudioPlayer.enable = function () {
-  volumeController.gain.value = 1;
+  Howler.unmute();
 };
 
 AudioPlayer.isEnabled = function () {
-  return volumeController.gain.value == 1;
+  return Howler.volume() !== 0;
 };
 
 module.exports = AudioPlayer;

@@ -2,7 +2,8 @@
   "name": "audio",
   "description": "Sound effect list and playback.",
   "dependencies": {
-    "component/jquery": "*"
+    "component/jquery": "*",
+    "amasad/howler.js": "*"
   },
   "development": {},
   "main": "audio.js",
