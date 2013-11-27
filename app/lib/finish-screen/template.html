@@ -1,5 +1,6 @@
 {{#is_victory}}
-  <div class="score-previous">{{score_previous}} <span class="currency">G</span></div>
+  <div class="score-previous score"
+       data-from="{{score_previous}}" data-to="{{score_previous}}"></div>
 {{/is_victory}}
 
 <div class="commits {{outcome}}">
@@ -16,7 +17,7 @@
       {{/author_avatar_url}}
       <span class="repo">{{repository}}</span>
       <span class="message">{{message}}</span>
-      <span class="score">+{{score_earned}} <span class="currency">G</span></span>
+      <span class="score" data-from="0" data-to="{{score_earned}}" data-prefix="+"></span>
     </a>
   {{/commits}}
 </div>
@@ -26,10 +27,10 @@
     {{#lives}}
       <i class="{{#is_left}}is-left{{/is_left}} fa fa-heart"></i>
     {{/lives}}
-    <span class="score">+{{lives_score}} <span class="currency">G</span></span>
+    <span class="score" data-from="0" data-to="{{lives_score}}" data-prefix="+"></span>
   </div>
 
-  <div class="score-new">{{score_new}} <span class="currency">G</span></div>
+  <div class="score score-new" data-from="{{score_previous}}" data-to="{{score_new}}"></div>
 {{/is_victory}}
 
 {{#is_victory}}

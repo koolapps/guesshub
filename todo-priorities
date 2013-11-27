@@ -3,10 +3,6 @@ Can't launch without
   Make repo public (not trivial!)
   Ensure server can handle reasonable traffic.
 
-Shouldn't launch without
-  Add finish screen animation: score numbers counting up.
-    Use a radomized sequence of coin sounds (audio already commited).
-
 Nice to have
   Google Analytics
   Add animation on level unlock.

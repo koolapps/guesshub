@@ -91,8 +91,8 @@ FinishScreen.prototype.renderDetails =
   var args = {
     outcome: outcome,
     is_victory: isVictory,
-    score_previous: humanize(prevScore),
-    score_new: humanize(newScore),
+    score_previous: prevScore,
+    score_new: newScore,
     achievements: [],
     commits: commits,
     lives: lives,
@@ -101,6 +101,9 @@ FinishScreen.prototype.renderDetails =
 
   // Render the template.
   this.$finishScreen.empty().html(template.render(args));
+
+  // Start the counting animation.
+  this.showScores(outcome != 'Defeat');
 };
 
 FinishScreen.prototype.outcome = function (isSurvival, levelProgress) {
@@ -132,4 +135,45 @@ FinishScreen.prototype.commitsArg = function (commits, levelProgress) {
     commitArgs.push(json);
   }
   return commitArgs;
+};
+
+FinishScreen.prototype.showScores = function (animate) {
+  var suffix = ' <span class="currency">G</span>';
+  var step = 3;
+  var delay = 50;
+
+  var startCounting = function($el, $rest, cb) {
+    var start = parseInt($el.data('from'), 10);
+    var end = parseInt($el.data('to'), 10);
+    var prefix = $el.data('prefix') || '';
+
+    var countTo = function (value, end) {
+      $el.html(prefix + humanize(value) + suffix);
+      if (value < end) {
+        setTimeout(countTo.bind(null, Math.min(value + step, end), end), delay);
+      } else if ($rest.length) {
+        startCounting($rest.first(), $rest.slice(1));
+      } else if (cb) {
+        cb();
+      }
+    };
+
+    countTo(animate ? start : end, end);
+  };
+
+  var $scores = $('.score', this.$finishScreen);
+  startCounting($scores.first(), $scores.slice(1, -1));  // Separate
+
+  var done = false;
+  var jingle = function(last) {
+    if (done || !animate) return;
+    var rand = Math.random() < 0.5;
+    var num = last == 1 ? (rand ? 2 : 3) :
+              last == 2 ? (rand ? 1 : 3) :
+              last == 3 ? (rand ? 2 : 1) :
+              1;
+    audio.play('coin-' + num, jingle.bind(null, num));
+  };
+  jingle();
+  startCounting($scores.last(), $(), function() { done = true; });  // Total
 };
