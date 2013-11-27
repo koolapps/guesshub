@@ -5,6 +5,7 @@ var humanize = require('humanize-number');
 var template = Hogan.compile(require('./template'));
 var headerTemplate = Hogan.compile(require('./header-template'));
 var UserLevelProgress = require('models').UserLevelProgress;
+var Track = require('track');
 
 module.exports = FinishScreen;
 
@@ -40,15 +41,19 @@ FinishScreen.prototype.render = function (level, commits, levelProgress) {
   // TODO: Add a spinning animation to the icon in time with the audio.
   switch (outcome) {
     case 'Flawless':
+      Track.event('level', 'flawless', level.id());
       audio.play('flawless-victory');
       break;
     case 'Victory':
+      Track.event('level', 'win', level.id());
       audio.play('victory');
       break;
     case 'The End':
+      Track.event('level', 'end', level.id());
       audio.play('end');
       break;
     case 'Defeat':
+      Track.event('level', 'lose', level.id());
       audio.play('defeat');
       break;
     default:

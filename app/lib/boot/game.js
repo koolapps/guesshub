@@ -17,6 +17,7 @@ var Timer = require('timer');
 var RepoList = require('repo-list');
 var FinishScreen = require('finish-screen');
 var Tutorial = require('tutorial');
+var Track = require('track');
 
 module.exports = Game;
 
@@ -70,6 +71,7 @@ Game.prototype.start = function () {
   } else {
     new Tutorial(this).start();
   }
+  Track.visit();
 };
 
 Game.prototype.clear = function () {
@@ -159,12 +161,14 @@ Game.prototype._onGuess = function (repo) {
 Game.prototype._onPower = function (mode, power) {
   switch (mode) {
     case 'buy':
+      Track.event('power', 'buy', power);
       audio.play('buy-power');
       this.user.addPower(power);
       this.user.subtractScore(power.price());
       this._renderScoreCard(this.user.score());
       break;
     case 'use':
+      Track.event('power', 'use', power);
       // TODO: Maybe move these into Power.use()?
       switch (power.id()) {
         case 'time':
@@ -208,18 +212,26 @@ Game.prototype._finishRound = function (won) {
 
   var progress = this.levelProgress;
 
-  // Record round win.
+  // Record round win/loss.
+  var outcome;
+  var secondsTaken = Math.floor((Date.now() - this.startTime) /  1000);
   if (won) {
     // Assuming grade is between 0 and 50 we rescale to 50 - 100.
     var grade = 50 + this.round.commit().grade();
-    var secondsTaken = Math.floor((Date.now() - this.startTime) /  1000);
     var pointsEarned = Math.round(grade / Math.sqrt(1 + secondsTaken));
     progress.recordRoundGuessed(pointsEarned);
     this._renderScoreCard(progress.commmitScore());
     this._triggerAnimation(this.$scoreCard);
+    outcome = 'guess';
   } else {
+    if (this.timer.timeLeft == 0) {
+      outcome = 'timeout';
+    } else {
+      outcome = 'miss';
+    }
     progress.recordRoundMissed();
   }
+  Track.event('round', outcome, this.level.id(), secondsTaken);
 
   // Find out the final outcome.
   var wonLevel = progress.completed_round() === progress.rounds();
@@ -235,7 +247,9 @@ Game.prototype._finishRound = function (won) {
   if (lostLevel) {
     this.showFinishScreen();
   } else if (wonLevel) {
-    this.user.addScore(progress.totalScore());
+    var scoreEarned = progress.totalScore();
+    Track.event('score', 'earn', this.level.id(), scoreEarned);
+    this.user.addScore(scoreEarned);
     this.user.completeLevel(this.level);
     this.showFinishScreen();
   } else {

@@ -23,7 +23,8 @@
     "finish-screen",
     "hearts",
     "audio",
-    "tutorial"
+    "tutorial",
+    "track"
   ],
   "dependencies": {
     "component/jquery": "*"

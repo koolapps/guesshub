@@ -3,7 +3,6 @@ Can't launch without
   Ensure server can handle reasonable traffic.
 
 Nice to have
-  Google Analytics
   Add animation on level unlock.
   ./power-list/power-list.js:16:  // TODO: Make choices respond to QWER keyboards keys.
   ./repo-list/repo-list.js:30:  // TODO: Make choices respond to 1-4 keyboards keys.
