@@ -84,7 +84,6 @@ task('minify', { async: true }, function () {
     }
     copyAssets('img');
     copyAssets('audio');
-    copyAssets('fonts');
 
     complete();
   });
