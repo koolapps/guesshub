@@ -216,7 +216,6 @@ Game.prototype._finishRound = function (won) {
   var outcome;
   var secondsTaken = Math.floor((Date.now() - this.startTime) /  1000);
   if (won) {
-    // Assuming grade is between 0 and 50 we rescale to 50 - 100.
     var grade = 50 + this.round.commit().grade();
     var pointsEarned =
         Math.round(Math.pow(grade, 1.25) / (Math.sqrt(1 + secondsTaken) * 2));
