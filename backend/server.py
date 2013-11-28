@@ -92,7 +92,7 @@ def homepage():
 
 @APP.route("/level/<length>/<min_grade>/<max_grade>")
 def level(length, min_grade, max_grade):
-  length = max(int(length), 256)
+  length = min(int(length), 256)
   max_grade = int(max_grade)
   min_grade = int(min_grade)
 
