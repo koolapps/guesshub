@@ -3,7 +3,7 @@ GITHUB_CLIENT_ID = '6e91d029d2eeca74bf24'
 GITHUB_CLIENT_SECRET = ''
 
 # The user agent to use for GitHub requests.
-CLIENT_USER_AGENT = 'max99x/game-off-2013'
+CLIENT_USER_AGENT = 'max99x/guesshub'
 
 # DB auth.
 DB_HOST = 'localhost'
