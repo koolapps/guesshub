@@ -78,7 +78,7 @@ Campaign.MAIN = new Campaign({
       name: '0. git ready',
       min_grade: 10,
       max_grade: 30,
-      num_mistakes_allowed: 5,
+      num_mistakes_allowed: 4,
       timer: 60,
       requires: []
     }),
@@ -87,7 +87,7 @@ Campaign.MAIN = new Campaign({
       name: '1. git set',
       min_grade: 15,
       max_grade: 35,
-      num_mistakes_allowed: 4,
+      num_mistakes_allowed: 3,
       timer: 45,
       requires: [1]
     }),
@@ -96,7 +96,7 @@ Campaign.MAIN = new Campaign({
       name: '2. git going',
       min_grade: 30,
       max_grade: 45,
-      num_mistakes_allowed: 3,
+      num_mistakes_allowed: 2,
       timer: 30,
       requires: [2]
     })
