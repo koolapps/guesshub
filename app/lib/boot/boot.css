@@ -4,7 +4,7 @@ html {
 
 body {
   min-height: 100%;
-  background: url(/img/type.png);
+  background: #1B1B1B url(/img/type.png);
   color: #fff;
   padding-top: 25px;
   -webkit-user-select: none;
