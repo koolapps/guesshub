@@ -26,6 +26,7 @@ var game = new Game({
   $logo: $('#logo')
 });
 
+$('#content').show();
 game.start();
 
 window.onunload = function () {

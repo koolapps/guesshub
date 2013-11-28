@@ -107,23 +107,20 @@ Game.prototype.showHub = function () {
   this._renderHub();
 };
 
-Game.prototype.showLevel = function (level, callback) {
-  this.clear();
-
+Game.prototype.loadLevel = function (level, callback) {
   // TODO: Show loading bar.
-  level.fetchRounds(function (rounds) {
-    this._initLevel(level, rounds);
-    this.startRound();
-    if (callback) callback();
-  }.bind(this));
-
-  window.onbeforeunload = function() {
-    return "Are you sure you want to leave the game?\n" +
-           "Level progress will be lost.";
-  };
+  level.fetchRounds(callback);
 };
 
-Game.prototype._initLevel = function(level, rounds) {
+Game.prototype.showLevel = function (level) {
+  this.loadLevel(level, function (rounds) {
+    this.initLevel(level, rounds);
+  }.bind(this));
+};
+
+Game.prototype.initLevel = function(level, rounds) {
+  this.clear();
+
   this.level = level;
   this.levelRounds = rounds;
   this.levelProgress = UserLevelProgress.create(level, this.user);
@@ -132,6 +129,13 @@ Game.prototype._initLevel = function(level, rounds) {
   this._renderPowers('use');
   this._renderLevelStats();
   this._renderHearts();
+
+  this.startRound();
+
+  window.onbeforeunload = function() {
+    return "Are you sure you want to leave the game?\n" +
+           "Level progress will be lost.";
+  };
 };
 
 Game.prototype.showFinishScreen = function () {

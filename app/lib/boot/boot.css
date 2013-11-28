@@ -22,6 +22,7 @@ body {
   margin: 0 auto;
   width: 900px;
   position: relative;
+  display: none;
 }
 
 #header {

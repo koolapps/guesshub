@@ -15,10 +15,6 @@
   border-color: white;
 }
 
-.tip.no-arrow .tip-arrow {
-  border: none !important;
-}
-
 .unshade {
   z-index: 501;
   position: relative;
@@ -27,4 +23,24 @@
 .click-overlay {
   z-index: 1001 !important;
   opacity: 0 !important;
+}
+
+#intro-top, #intro-bottom {
+  text-align: center;
+  font-family: Ubuntu, sans-serif;
+  font-weight: bold;
+  font-size: 85px;
+  line-height: 100%;
+  z-index: 1002;
+  position: fixed;
+  width: 100%;
+  display: none;
+}
+
+#intro-top {
+  top: 30%;
+}
+
+#intro-bottom {
+  top: 40%;
 }

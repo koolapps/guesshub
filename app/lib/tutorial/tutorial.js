@@ -24,8 +24,7 @@ function Tutorial (game) {
 }
 
 Tutorial.prototype.start = function () {
-  this.game.showLevel(Campaign.MAIN.getLevelById(1),
-                      this._showRepoSelectStep.bind(this));
+  this._showIntroStep();
 };
 
 Tutorial.prototype._unshade = function (var_args) {
@@ -36,11 +35,50 @@ Tutorial.prototype._unshade = function (var_args) {
   }
 };
 
+Tutorial.prototype._showIntroStep = function() {
+  this._overlay.show();
+  this.game.clear();
+
+  // Set up a functio wait for both the intro and the level load.
+  var level = Campaign.MAIN.getLevelById(1);
+  var readyCount = 2;
+  var savedRounds = null;
+  var ready = function  () {
+    readyCount--;
+    if (readyCount == 0) {
+      // Once we're ready, start the game.
+      this.game.initLevel(level, savedRounds);
+      this._showRepoSelectStep();
+    }
+  }.bind(this);
+
+  // Start loading the level.
+  this.game.loadLevel(level, function (rounds) {
+    savedRounds = rounds;
+    ready();
+  });
+
+  // Play the animation.
+  var top = $('<div>').attr('id', 'intro-top').text('Guess')
+      .appendTo('body')[0];
+  var bottom = $('<div>').attr('id', 'intro-bottom').text('Hub')
+      .appendTo('body')[0];
+
+  $(top, bottom).show();
+  animate.in(top, 'bounce-down');
+  setTimeout(animate.in.bind(animate, bottom, 'bounce-up', function () {
+    animate.out(top, 'bounce-up', function() { $(top).remove() });
+    setTimeout(animate.out.bind(animate, bottom, 'bounce-down', function () {
+      $(bottom).remove();
+      ready();
+    }.bind(this)), 100);
+  }.bind(this)), 150);
+};
+
 Tutorial.prototype._showRepoSelectStep = function() {
+  this._click_overlay.show();
   this.game.timer.stop();
 
-  this._overlay.show();
-  this._click_overlay.show();
   this._unshade(this.game.$repos, this.game.$commitDisplay);
 
   var tip = new Tip('Select which repository this commit comes from.');
@@ -69,28 +107,12 @@ Tutorial.prototype._showTimerStep = function () {
   this.$_click_overlay.click(function () {
     animate.out(tip.el, 'fade-right', function () {
       $(tip.el).remove();
-      this._showStartModal();
-    }.bind(this));
-  }.bind(this));
 
-  audio.play('tutorial-tip');
-};
+      this._unshaded.forEach(function ($el) {
+        $el.removeClass('unshade');
+      });
 
-Tutorial.prototype._showStartModal = function () {
-  this._unshaded.forEach(function ($el) {
-    $el.removeClass('unshade');
-  });
-  this._overlay.hide();
-
-  var tip = new Tip('Guess at least 5 commits to win this level. Good Luck!');
-  tip.position('south');
-  tip.show(this.game.$timer[0]);
-  $(tip.el).addClass('no-arrow')
-  animate.in(tip.el, 'fade-up');
-
-  this.$_click_overlay.click(function () {
-    animate.out(tip.el, 'fade', function () {
-      tip.hide();
+      this._overlay.hide();
       this._click_overlay.hide();
       this.game.startTime = Date.now();
       this.game.timer.start();
