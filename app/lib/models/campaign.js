@@ -78,7 +78,7 @@ Campaign.MAIN = new Campaign({
   intro_levels: [
     new Level({
       id: 1,
-      name: '0. git ready',
+      name: 'intro',
       min_grade: 10,
       max_grade: 30,
       num_mistakes_allowed: 4,
@@ -87,116 +87,89 @@ Campaign.MAIN = new Campaign({
     }),
     new Level({
       id: 2,
-      name: '1. git set',
-      min_grade: 15,
-      max_grade: 35,
+      name: 'warmup',
+      min_grade: 20,
+      max_grade: 40,
       num_mistakes_allowed: 3,
       timer: 45,
       requires: [1]
-    }),
-    new Level({
-      id: 3,
-      name: '2. git going',
-      min_grade: 30,
-      max_grade: 45,
-      num_mistakes_allowed: 2,
-      timer: 30,
-      requires: [2]
     })
   ],
   fast_levels: [
     new Level({
-      id: 4,
-      name: '3f. the fast lane',
-      min_grade: 10,
-      max_grade: 40,
-      num_mistakes_allowed: 2,
-      timer: 20,
-      requires: [3]
-    }),
-    new Level({
-      id: 5,
-      name: '4f. pull a fast one',
+      id: 3,
+      name: 'fast',
       min_grade: 10,
       max_grade: 40,
       num_mistakes_allowed: 2,
       timer: 15,
-      requires: [4]
+      requires: [2]
     }),
     new Level({
-      id: 6,
-      name: '5f. checking in',
+      id: 4,
+      name: 'faster',
       min_grade: 10,
       max_grade: 40,
-      num_mistakes_allowed: 1,
+      num_mistakes_allowed: 2,
       timer: 10,
-      requires: [5]
+      requires: [3]
     }),
     new Level({
-      id: 7,
-      name: '6f. head to head',
+      id: 5,
+      name: 'fastest',
       min_grade: 10,
       max_grade: 40,
       num_mistakes_allowed: 1,
       timer: 5,
-      requires: [6]
+      requires: [4]
     })
   ],
   hard_levels: [
     new Level({
+      id: 6,
+      name: 'hard',
+      min_grade: 40,
+      max_grade: 60,
+      num_mistakes_allowed: 2,
+      timer: 30,
+      requires: [2]
+    }),
+    new Level({
+      id: 7,
+      name: 'harder',
+      min_grade: 60,
+      max_grade: 80,
+      num_mistakes_allowed: 2,
+      timer: 30,
+      requires: [6]
+    }),
+    new Level({
       id: 8,
-      name: '3h. git-to-work',
-      min_grade: 45,
-      max_grade: 65,
-      num_mistakes_allowed: 2,
-      timer: 30,
-      requires: [3]
-    }),
-    new Level({
-      id: 9,
-      name: '4h. up a tree',
-      min_grade: 65,
-      max_grade: 75,
-      num_mistakes_allowed: 2,
-      timer: 30,
-      requires: [8]
-    }),
-    new Level({
-      id: 10,
-      name: '5h. reset hard',
-      min_grade: 75,
-      max_grade: 85,
-      num_mistakes_allowed: 1,
-      timer: 30,
-      requires: [9]
-    }),
-    new Level({
-      id: 11,
-      name: '6h. the tough git going',
-      min_grade: 85,
+      name: 'hardest',
+      min_grade: 80,
       max_grade: 100,
       num_mistakes_allowed: 1,
       timer: 30,
-      requires: [10]
+      requires: [7]
     })
   ],
   final_level: new Level({
-    id: 12,
-    name: 'push through',
+    id: 9,
+    name: 'final trial',
     num_rounds: 25,
     min_grade: 15,
     max_grade: 100,
     num_mistakes_allowed: 1,
-    requires: [7, 10]
+    requires: [5, 8]
   }),
   survival_level: new Level({
-    id: 13,
+    id: 10,
     name: 'survival',
     num_rounds: 256,
     min_grade: 0,
     max_grade: 100,
     num_mistakes_allowed: 3,
-    requires: [12]
+    requires: [9]
   })
 });
 
