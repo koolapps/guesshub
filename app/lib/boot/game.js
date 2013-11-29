@@ -105,6 +105,10 @@ Game.prototype.showHub = function () {
   this._renderScoreCard(this.user.score());
   this._renderPowers('buy');
   this._renderHub();
+
+  if (!this.user.seen_power_hint()) {
+    new Tutorial(this).showPowerHint();
+  }
 };
 
 Game.prototype.loadLevel = function (level, callback) {

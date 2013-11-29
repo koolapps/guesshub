@@ -3,6 +3,7 @@ var plugins = require('./plugins');
 
 var User = plugins(model('User'))
   .attr('seen_tutorial', { default: false })
+  .attr('seen_power_hint', { default: false })
   .attr('score', { default: 0 })
   .attr('powers', { default: {time: 0, repo: 0, commit: 0, half: 0} })
   .attr('completed_level_ids', { default: [] })

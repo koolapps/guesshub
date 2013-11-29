@@ -20,6 +20,10 @@
   position: relative;
 }
 
+.unshade .power {
+  opacity: 1 !important;
+}
+
 .click-overlay {
   z-index: 1001 !important;
   opacity: 0 !important;

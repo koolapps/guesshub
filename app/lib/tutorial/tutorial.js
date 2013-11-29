@@ -107,16 +107,42 @@ Tutorial.prototype._showTimerStep = function () {
   this.$_click_overlay.click(function () {
     animate.out(tip.el, 'fade-right', function () {
       $(tip.el).remove();
-
-      this._unshaded.forEach(function ($el) {
-        $el.removeClass('unshade');
-      });
-
+      this._unshadeAll();
       this._overlay.hide();
       this._click_overlay.hide();
       this.game.startTime = Date.now();
       this.game.timer.start();
       this.game.user.seen_tutorial(true);
+    }.bind(this));
+  }.bind(this));
+
+  audio.play('tutorial-tip');
+};
+
+Tutorial.prototype._unshadeAll = function () {
+  this._unshaded.forEach(function ($el) {
+    $el.removeClass('unshade');
+  });
+};
+
+Tutorial.prototype.showPowerHint = function() {
+  this._overlay.show();
+  this._click_overlay.show();
+  this._unshade(this.game.$powerList);
+  this._unshade(this.game.$scoreCard);
+
+  var tip = new Tip('Purchase power-ups with score gained during levels.');
+  tip.position('south');
+  tip.show(this.game.$powerList[0]);
+  animate.in(tip.el, 'fade-down');
+
+  this.$_click_overlay.click(function () {
+    animate.out(tip.el, 'fade-down', function () {
+      $(tip.el).remove();
+      this._unshadeAll();
+      this._overlay.hide();
+      this._click_overlay.hide();
+      this.game.user.seen_power_hint(true);
     }.bind(this));
   }.bind(this));
 
