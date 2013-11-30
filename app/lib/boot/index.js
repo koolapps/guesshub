@@ -33,7 +33,4 @@ window.onunload = function () {
   user.persist();
 };
 
-// TODO: Remove in non-debug builds.
-window.game = game;
-
 // TODO: Add support for switchable background music.
