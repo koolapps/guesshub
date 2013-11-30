@@ -152,8 +152,8 @@ FinishScreen.prototype.commitsArg = function (commits, levelProgress) {
 
 FinishScreen.prototype.showScores = function (animate) {
   var suffix = ' <span class="currency">G</span>';
-  var step = 7;
   var delay = 50;
+  var step = 5;
 
   var startCounting = function($el, $rest, cb) {
     var start = parseInt($el.data('from'), 10);
@@ -169,6 +169,7 @@ FinishScreen.prototype.showScores = function (animate) {
       } else if (cb) {
         cb();
       }
+      step += 1;
     };
 
     countTo(animate ? start : end, end);
