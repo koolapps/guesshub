@@ -129,7 +129,7 @@ Campaign.MAIN = new Campaign({
       id: 6,
       name: 'hard',
       min_grade: 40,
-      max_grade: 60,
+      max_grade: 65,
       num_mistakes_allowed: 2,
       timer: 30,
       requires: [2]
@@ -146,7 +146,7 @@ Campaign.MAIN = new Campaign({
     new Level({
       id: 8,
       name: 'hardest',
-      min_grade: 80,
+      min_grade: 75,
       max_grade: 100,
       num_mistakes_allowed: 1,
       timer: 30,
