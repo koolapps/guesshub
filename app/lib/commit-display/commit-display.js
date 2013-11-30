@@ -13,7 +13,7 @@ function CommitDisplay (model) {
 CommitDisplay.prototype.showMetadata = function () {
   var $metadata = this.$el.find('.metadata');
   $metadata.show();
-  animate.in($metadata[0], 'bounce');
+  animate.in($metadata[0], 'fold');
 }
 
 CommitDisplay.prototype._setElementVisibility = function ($el, show) {
