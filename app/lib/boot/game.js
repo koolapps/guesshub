@@ -157,7 +157,6 @@ Game.prototype.startRound = function () {
   this.timer.start();
   this.startTime = Date.now();
   this.powersUsed = [];
-  console.log('ANSWER:', this.round.commit().repository());
 };
 
 /**** Event Handling ****/
