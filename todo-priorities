@@ -1,14 +1,10 @@
-Can't launch without
-  Decide on level names.
-
 Nice to have
   Add animation on level unlock.
   ./power-list/power-list.js:16:  // TODO: Make choices respond to QWER keyboards keys.
   ./repo-list/repo-list.js:30:  // TODO: Make choices respond to 1-4 keyboards keys.
-  Add level icons.
   Include commits from the game repository itself.
 
-Probably Post-launch
+Post-launch
   Achievements
     Keep track of achievements.
     Show a lists of achievements when the user clicks on the trophy icon.
@@ -23,9 +19,6 @@ Probably Post-launch
 Misc
   ./boot/game.js:85:  // TODO: Show loading bar.
   ./boot/game.js:131:      // TODO: Maybe move these into Power.use()?
-  ./boot/index.js:24:// TODO: Remove in non-debug builds.
   ./models/level.js:28:  // TODO: Retry with exponential backoff on errors.
   ./crawl.py:98:          # TODO(max99x): Log and skip errors.
   ./boot/game.js:67:  // TODO: Properly destroy widgets?
-  Light anti-cheating protection.
-  Limit choices by owner/language at higher difficulties?
