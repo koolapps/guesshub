@@ -1,12 +1,5 @@
 import config
-import collections
-import math
-import json
-import re
-import sys
 import MySQLdb as mysql
-import MySQLdb.cursors as mysql_cursors
-from os import path
 
 MAX_ROWS = 20000
 
