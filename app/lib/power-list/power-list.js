@@ -18,10 +18,12 @@ module.exports = function (powers, user, mode, callback) {
   $el.on('click', '.power.available', function () {
     var type = $(this).attr('data-power-type');
     (callback || $.noop)(powers[type]);
-    // Hack: animate after next render.
-    setTimeout(function() {
-      animate($('[data-power-type=' + type + ']', $el)[0], 'tada');
-    }, 1);
+    if (mode == 'buy') {
+      // Hack: animate after next render.
+      setTimeout(function() {
+        animate($('[data-power-type=' + type + ']', $el)[0], 'tada');
+      }, 1);
+    }
   })
   .on('mouseenter', '.power.available', function () {
     audio.play('click');
