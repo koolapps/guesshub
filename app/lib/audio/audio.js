@@ -33,8 +33,8 @@ var effects = {};
 
 AudioPlayer.initialize = function ($toggle) {
   if (!initialized) {
-    // Note: this needs to be ran on DomReady.
-    $(function () {
+    // Note: this needs to be ran on window#load.
+    $(window).on('load', function () {
       for (var effectName in FILES) {
         effects[effectName] = new Howl({
           urls: AudioPlayer.generateUrls(FILES[effectName])
