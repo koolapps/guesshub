@@ -1,5 +1,5 @@
 ## GuessHub
-##### GGO13 Entry by @max99x & @amasad
+##### GGO13 Entry by @max99x & @amasad with design help from [Haya Odeh](http://www.behance.net/hayaodeh)
 
 Given a patch (change) taken from a GitHub commit, guess which repository
 it comes from.
