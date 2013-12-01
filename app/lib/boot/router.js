@@ -25,7 +25,7 @@ exports.start = function (game) {
 
   $(window).on('popstate', function (e) {
     // Make sure it's not initial chrome popstate bug.
-    if (e.originalEvent.state) {
+    if (e.originalEvent.state && prevPath !== location.pathname) {
       var dispatch = true;
       if (prevPath.match(/^\/level/)) {
         dispatch = confirm(
@@ -46,10 +46,14 @@ exports.start = function (game) {
   window.history.replaceState({}, null, location.pathname);
 };
 
-exports.navigate = function (path) {
+exports.navigate = function (path, replaceState) {
   if (pushStateSupported && path !== location.pathname) {
     prevPath = path;
-    window.history.pushState({}, null, path);
+    if (replaceState) {
+      window.history.replaceState({}, null, path);
+    } else {
+      window.history.pushState({}, null, path);
+    }
   }
 };
 

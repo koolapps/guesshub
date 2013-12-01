@@ -56,7 +56,7 @@ Tutorial.prototype._showIntroStep = function() {
   this.game.loadLevel(level, function (rounds) {
     savedRounds = rounds;
     ready();
-  });
+  }, true);
 
   // Play the animation.
   var top = $('<div>').attr('id', 'intro-top').text('Guess')

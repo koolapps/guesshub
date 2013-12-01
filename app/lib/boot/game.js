@@ -121,7 +121,7 @@ Game.prototype.showHub = function () {
   router.navigate('/');
 };
 
-Game.prototype.loadLevel = function (level, callback) {
+Game.prototype.loadLevel = function (level, callback, isTutorial) {
   var ov = overlay();
   ov.show();
 
@@ -144,7 +144,7 @@ Game.prototype.loadLevel = function (level, callback) {
     // overlay#remove waits 2 seconds but we don't want to wait that long.
     ov.el.remove();
     callback.apply(this, arguments);
-    router.navigate('/level/' + level.id());
+    router.navigate('/level/' + level.id(), isTutorial);
   }.bind(this));
 };
 
