@@ -27,20 +27,22 @@
   white-space: nowrap;
   line-height: 35px;
   border-radius: 10px;
+  position: relative;
 }
 
 .level-hub .level .icon {
   font-size: 15px;
   vertical-align: middle;
   padding: 10px;
+  position: absolute;
 }
 
 .level-hub .level .icon.left {
-  float: left;
+  left: 0;
 }
 
 .level-hub .level .icon.right {
-  float: right;
+  right: 0;
 }
 
 .level-hub .level.unlocked {
@@ -64,4 +66,8 @@
 .level-hub .level.completed:hover,
 .level-hub .level.completed:hover {
   background: #7ECC1B;
+}
+
+.levels-branch {
+  clear: both;
 }
