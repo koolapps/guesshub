@@ -19,7 +19,8 @@ function Timer (options) {
   this.innerRadius = this.outerRadius - this.progressWidth;
   this.d3Container = d3.select(this.$el[0]);
   this.svg = this.d3Container.append('svg')
-      .style('width', (this.outerRadius + STROKE_WIDTH) * 2);
+      .style('width', ((this.outerRadius + STROKE_WIDTH) * 2) + 'px')
+      .style('height', ((this.outerRadius + STROKE_WIDTH) * 2) + 'px');
   this._completeCallback = options.onComplete || function () {};
   this.timeout = null;
 
