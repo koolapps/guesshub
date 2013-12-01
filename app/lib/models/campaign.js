@@ -88,8 +88,8 @@ Campaign.MAIN = new Campaign({
     new Level({
       id: 2,
       name: 'warmup',
-      min_grade: 20,
-      max_grade: 40,
+      min_grade: 30,
+      max_grade: 60,
       num_mistakes_allowed: 3,
       timer: 45,
       requires: [1]
@@ -100,7 +100,7 @@ Campaign.MAIN = new Campaign({
       id: 3,
       name: 'fast',
       min_grade: 10,
-      max_grade: 40,
+      max_grade: 60,
       num_mistakes_allowed: 2,
       timer: 15,
       requires: [2]
@@ -109,7 +109,7 @@ Campaign.MAIN = new Campaign({
       id: 4,
       name: 'faster',
       min_grade: 10,
-      max_grade: 40,
+      max_grade: 60,
       num_mistakes_allowed: 2,
       timer: 10,
       requires: [3]
@@ -118,7 +118,7 @@ Campaign.MAIN = new Campaign({
       id: 5,
       name: 'fastest',
       min_grade: 10,
-      max_grade: 40,
+      max_grade: 60,
       num_mistakes_allowed: 1,
       timer: 5,
       requires: [4]
@@ -128,8 +128,8 @@ Campaign.MAIN = new Campaign({
     new Level({
       id: 6,
       name: 'hard',
-      min_grade: 40,
-      max_grade: 65,
+      min_grade: 45,
+      max_grade: 70,
       num_mistakes_allowed: 2,
       timer: 30,
       requires: [2]
