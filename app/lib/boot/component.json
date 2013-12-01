@@ -27,6 +27,9 @@
     "track"
   ],
   "dependencies": {
-    "component/jquery": "*"
+    "component/jquery": "*",
+    "component/spin": "*",
+    "component/overlay": "*",
+    "ianstormtaylor/animate": "*"
   }
 }

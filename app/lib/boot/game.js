@@ -11,6 +11,9 @@ var powerList = require('power-list');
 var levelStats = require('level-stats');
 var levelHub = require('level-hub');
 var hearts = require('hearts');
+var spin = require('spin');
+var overlay = require('overlay');
+var animate = require('animate');
 
 var CommitDisplay = require('commit-display');
 var Timer = require('timer');
@@ -47,6 +50,7 @@ function Game (options) {
   this.$levelHub = options.$levelHub;
   this.$hearts = options.$hearts;
   this.$logo = options.$logo;
+  this.$container = options.$container;
 
   // Widget references.
   this.commitDisplay = null;
@@ -112,8 +116,29 @@ Game.prototype.showHub = function () {
 };
 
 Game.prototype.loadLevel = function (level, callback) {
-  // TODO: Show loading bar.
-  level.fetchRounds(callback);
+  var ov = overlay();
+  ov.show();
+
+  // Sorounding with try/catch because using undocumented
+  // internal data members.
+  animate.in(ov.el.get(0), 'fade');
+
+  var spinner = spin(ov.el.get(0), {
+    size: 50,
+    delay: 1
+  });
+
+  spinner.light();
+  $(spinner.el).css('z-index', 501);
+  animate.in(spinner.el, 'fade');
+
+  level.fetchRounds(function () {
+    spinner.remove();
+    ov.remove();
+    // overlay#remove waits 2 seconds but we don't want to wait that long.
+    ov.el.remove();
+    callback.apply(this, arguments);
+  }.bind(this));
 };
 
 Game.prototype.showLevel = function (level) {
