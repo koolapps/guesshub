@@ -73,7 +73,7 @@ AudioPlayer.initialize = function ($toggle) {
 // Use http://media.io/ for converting.
 AudioPlayer.generateUrls = function (url) {
   return [url + '.mp3', url + '.ogg', url + '.wav'];
-}
+};
 
 AudioPlayer.play = function (effectName, onEnd) {
   if (!initialized) return;
