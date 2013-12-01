@@ -17,7 +17,6 @@ Post-launch
   Background music.
 
 Misc
-  ./boot/game.js:85:  // TODO: Show loading bar.
   ./boot/game.js:131:      // TODO: Maybe move these into Power.use()?
   ./models/level.js:28:  // TODO: Retry with exponential backoff on errors.
   ./crawl.py:98:          # TODO(max99x): Log and skip errors.
