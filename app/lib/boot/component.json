@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": [
     "index.js",
-    "game.js"
+    "game.js",
+    "router.js"
   ],
   "styles": [
     "boot.css"
@@ -30,6 +31,7 @@
     "component/jquery": "*",
     "component/spin": "*",
     "component/overlay": "*",
-    "ianstormtaylor/animate": "*"
+    "ianstormtaylor/animate": "*",
+    "component/router": "*"
   }
 }

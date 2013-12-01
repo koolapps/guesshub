@@ -14,6 +14,7 @@ var hearts = require('hearts');
 var spin = require('spin');
 var overlay = require('overlay');
 var animate = require('animate');
+var router = require('./router');
 
 var CommitDisplay = require('commit-display');
 var Timer = require('timer');
@@ -94,6 +95,9 @@ Game.prototype.clear = function () {
 
   // TODO: Properly destroy widgets?
   this.commitDisplay = null;
+  if (this.timer) {
+    this.timer.stop();
+  }
   this.timer = null;
 
   audio.stopAllSounds();
@@ -113,6 +117,8 @@ Game.prototype.showHub = function () {
   if (!this.user.seen_power_hint()) {
     new Tutorial(this).showPowerHint();
   }
+
+  router.navigate('/');
 };
 
 Game.prototype.loadLevel = function (level, callback) {
@@ -138,13 +144,18 @@ Game.prototype.loadLevel = function (level, callback) {
     // overlay#remove waits 2 seconds but we don't want to wait that long.
     ov.el.remove();
     callback.apply(this, arguments);
+    router.navigate('/level/' + level.id());
   }.bind(this));
 };
 
 Game.prototype.showLevel = function (level) {
-  this.loadLevel(level, function (rounds) {
-    this.initLevel(level, rounds);
-  }.bind(this));
+  if (this.campaign.isUnlocked(level.id(), this.user.completed_level_ids())) {
+    this.loadLevel(level, function (rounds) {
+      this.initLevel(level, rounds);
+    }.bind(this));
+  } else {
+    this.showHub();
+  }
 };
 
 Game.prototype.initLevel = function(level, rounds) {

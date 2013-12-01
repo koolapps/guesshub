@@ -5,6 +5,8 @@ var Campaign = require('models').Campaign;
 var audio = require('audio');
 var Track = require('track');
 
+var router = require('./router');
+
 audio.initialize($('#audio-toggle'));
 Track.initialize();
 
@@ -28,7 +30,13 @@ var game = new Game({
 });
 
 $('#content').show();
-game.start();
+
+router.start(game);
+if (user.seen_tutorial()) {
+  router.dispatch();
+} else {
+  game.start();
+}
 
 window.onunload = function () {
   user.persist();

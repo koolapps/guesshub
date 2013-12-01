@@ -86,7 +86,8 @@ REPO_NAMES = REPOS.keys()
 
 
 @APP.route("/")
-def homepage():
+@APP.route("/level/<level_id>")
+def homepage(level_id=None):
   return open(os.path.join(ROOT, '../app/index.html'), 'r').read()
 
 
