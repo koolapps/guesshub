@@ -12,7 +12,6 @@
   height: 55px;
   color: #777;
   cursor: pointer;
-  margin-right: 15px;
 }
 
 #share-buttons a:hover {
@@ -23,7 +22,7 @@
   position: absolute;
   bottom: 46px;
   text-align: center;
-  right: 8px;
+  right: 14px;
   z-index: -1;
   display: none;
 }
@@ -37,34 +36,38 @@
 
 }
 
-#share-buttons .social-media.hide a {
-  -webkit-animation: hide 250ms ease-out;
-  -webkit-animation-iteration-count: 1;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-  -webkit-animation-fill-mode: backwards;
-}
-
 #share-buttons .social-media.show a {
   -webkit-animation: show 250ms ease-out;
+  -moz-animation: show 250ms ease-out;
+  
   -webkit-animation-iteration-count: 1;
+  -moz-animation-iteration-count: 1;
   animation-iteration-count: 1;
-  animation-fill-mode: backwards;
+  
   -webkit-animation-fill-mode: backwards;
+  -moz-animation-fill-mode: backwards;
+  animation-fill-mode: backwards;
 }
 .share-menu-button {
   z-index: 1;
+  margin-right: 5px;
 }
 
 #share-buttons .social-media a:nth-child(1) {
   -webkit-animation-delay: 20ms;
+  -moz-animation-delay: 20ms;
+  animation-delay: 20ms;
 }
 
 #share-buttons .social-media a:nth-child(2) {
   -webkit-animation-delay: 40ms;
+  -moz-animation-delay: 40ms;
+  animation-delay: 40ms;
 }
 #share-buttons .social-media a:nth-child(3) {
   -webkit-animation-delay: 60ms;
+  -moz-animation-delay: 60ms;
+  animation-delay: 60ms;
 }
 
 @-webkit-keyframes show {
@@ -74,9 +77,37 @@
     }
     20% {
       visibility: hidden;
-     -webkit-transform: translate3d(0, 100px, 0px); 
+      -webkit-transform: translate3d(0, 100px, 0px); 
     }            
     100% {
-        -webkit-transform: translate3d(0, 0, 0px);
+      -webkit-transform: translate3d(0, 0, 0px);
+    }
+}
+
+@-moz-keyframes show {
+    0% {
+      visibility: hidden;
+      -moz-transform: translate3d(0, 150px, 0px);
+    }
+    20% {
+      visibility: hidden;
+      -moz-transform: translate3d(0, 100px, 0px); 
+    }  
+    100% {
+      -moz-transform: translate3d(0, 0, 0px);
+    }
+}
+
+@keyframes show {
+    0% {
+      visibility: hidden;
+      transform: translate3d(0, 150px, 0px);
+    }
+    20% {
+      visibility: hidden;
+      transform: translate3d(0, 100px, 0px); 
+    }
+    100% {
+      transform: translate3d(0, 0, 0px);
     }
 }
