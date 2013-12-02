@@ -1,0 +1,15 @@
+{
+  "name": "share-buttons",
+  "description": "",
+  "dependencies": {
+    "component/jquery": "*"
+  },
+  "development": {},
+  "main": "share-buttons.js",
+  "scripts": [
+    "share-buttons.js"
+  ],
+  "styles": [
+    "share-buttons.css"
+  ]
+}

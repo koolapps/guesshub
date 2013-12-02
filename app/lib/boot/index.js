@@ -2,10 +2,11 @@ var $ = require('jquery');
 var Game = require('./game');
 var User = require('models').User;
 var Campaign = require('models').Campaign;
-var audio = require('audio');
 var Track = require('track');
 
+var shareButtons = require('share-buttons');
 var router = require('./router');
+var audio = require('audio');
 
 audio.initialize($('#audio-toggle'));
 Track.initialize();
@@ -41,5 +42,7 @@ if (user.seen_tutorial()) {
 window.onunload = function () {
   user.persist();
 };
+
+shareButtons();
 
 // TODO: Add support for switchable background music.

@@ -1,0 +1,82 @@
+
+#share-buttons {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+
+#share-buttons a {
+  display: inline-block;
+  font-size: 40px;
+  width: 55px;
+  height: 55px;
+  color: #777;
+  cursor: pointer;
+  margin-right: 15px;
+}
+
+#share-buttons a:hover {
+  color: #bbb;
+}
+
+#share-buttons .social-media {
+  position: absolute;
+  bottom: 46px;
+  text-align: center;
+  right: 8px;
+  z-index: -1;
+  display: none;
+}
+
+#share-buttons .social-media a {
+  display: block;
+}
+
+#share-buttons .social-media.show {
+  display: block;
+
+}
+
+#share-buttons .social-media.hide a {
+  -webkit-animation: hide 250ms ease-out;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: backwards;
+}
+
+#share-buttons .social-media.show a {
+  -webkit-animation: show 250ms ease-out;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+  animation-fill-mode: backwards;
+  -webkit-animation-fill-mode: backwards;
+}
+.share-menu-button {
+  z-index: 1;
+}
+
+#share-buttons .social-media a:nth-child(1) {
+  -webkit-animation-delay: 20ms;
+}
+
+#share-buttons .social-media a:nth-child(2) {
+  -webkit-animation-delay: 40ms;
+}
+#share-buttons .social-media a:nth-child(3) {
+  -webkit-animation-delay: 60ms;
+}
+
+@-webkit-keyframes show {
+    0% {
+      visibility: hidden;
+      -webkit-transform: translate3d(0, 150px, 0px);
+    }
+    20% {
+      visibility: hidden;
+     -webkit-transform: translate3d(0, 100px, 0px); 
+    }            
+    100% {
+        -webkit-transform: translate3d(0, 0, 0px);
+    }
+}

@@ -25,7 +25,8 @@
     "hearts",
     "audio",
     "tutorial",
-    "track"
+    "track",
+    "share-buttons"
   ],
   "dependencies": {
     "component/jquery": "*",
