@@ -23,7 +23,7 @@
   bottom: 46px;
   text-align: center;
   right: 14px;
-  z-index: -1;
+  z-index: 1;
   display: none;
 }
 
@@ -39,6 +39,7 @@
 #share-buttons .social-media.show a {
   -webkit-animation: show 250ms ease-out;
   -moz-animation: show 250ms ease-out;
+  animation: show 250ms ease-out;
   
   -webkit-animation-iteration-count: 1;
   -moz-animation-iteration-count: 1;
@@ -49,8 +50,9 @@
   animation-fill-mode: backwards;
 }
 .share-menu-button {
-  z-index: 1;
+  z-index: 10;
   margin-right: 5px;
+  position: relative;
 }
 
 #share-buttons .social-media a:nth-child(1) {
